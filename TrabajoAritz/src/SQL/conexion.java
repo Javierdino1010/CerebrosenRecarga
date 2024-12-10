@@ -10,7 +10,7 @@ public class conexion {
 		  String url = "jdbc:mysql://localhost:3306/Biblioteca"; // Cambia "Biblioteca" por el nombre de tu base de datos
 	        String usuario = "root"; // Cambia "root" por tu usuario
 	        String contraseña = "root"; // Cambia por tu contraseña
-//kk
+
 	        try {
 	            // Cargar el driver de MySQL
 	            Class.forName("com.mysql.cj.jdbc.Driver");
