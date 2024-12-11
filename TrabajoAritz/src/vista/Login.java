@@ -15,6 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+import java.awt.Font;
 
 public class Login extends JFrame {
 
@@ -46,6 +48,8 @@ public class Login extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
+		contentPane.setToolTipText("");
+		contentPane.setBackground(new Color(240, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -56,25 +60,8 @@ public class Login extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Usuario", "Administrador"}));
-		comboBox.setToolTipText("");
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 0;
-		contentPane.add(comboBox, gbc_comboBox);
-		
 		JLabel usuario_lblNewLabel = new JLabel("USUARIO:");
+		usuario_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 14));
 		GridBagConstraints gbc_usuario_lblNewLabel = new GridBagConstraints();
 		gbc_usuario_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_usuario_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -83,6 +70,7 @@ public class Login extends JFrame {
 		contentPane.add(usuario_lblNewLabel, gbc_usuario_lblNewLabel);
 		
 		usuario_textField = new JTextField();
+		usuario_textField.setToolTipText("Inserte el usuario");
 		GridBagConstraints gbc_usuario_textField = new GridBagConstraints();
 		gbc_usuario_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_usuario_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -92,6 +80,7 @@ public class Login extends JFrame {
 		usuario_textField.setColumns(10);
 		
 		JLabel contraseña_lblNewLabel = new JLabel("CONTRASEÑA:");
+		contraseña_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 14));
 		GridBagConstraints gbc_contraseña_lblNewLabel = new GridBagConstraints();
 		gbc_contraseña_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_contraseña_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -100,6 +89,7 @@ public class Login extends JFrame {
 		contentPane.add(contraseña_lblNewLabel, gbc_contraseña_lblNewLabel);
 		
 		passwordField = new JPasswordField();
+		passwordField.setToolTipText("Inserte la contraseña\r\n");
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -108,6 +98,7 @@ public class Login extends JFrame {
 		contentPane.add(passwordField, gbc_passwordField);
 		
 		JButton resgistrarse_btnNewButton = new JButton("RESGISTRARSE");
+		resgistrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_resgistrarse_btnNewButton = new GridBagConstraints();
 		gbc_resgistrarse_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_resgistrarse_btnNewButton.gridx = 1;
@@ -115,6 +106,7 @@ public class Login extends JFrame {
 		contentPane.add(resgistrarse_btnNewButton, gbc_resgistrarse_btnNewButton);
 		
 		JButton login_btnNewButton = new JButton("LOGIN");
+		login_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_login_btnNewButton = new GridBagConstraints();
 		gbc_login_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_login_btnNewButton.gridx = 2;
