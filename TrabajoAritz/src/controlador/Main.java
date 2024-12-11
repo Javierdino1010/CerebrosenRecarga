@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Usuario;
+import vista.Inicio;
 import vista.Login;
 
 public class Main {
@@ -8,12 +9,12 @@ public class Main {
 	public static void main(String[] args) {
         System.out.println("Inicio del programa"); // Debug
 
-        Login login = new Login();
+        Inicio inicio = new Inicio();
         Usuario usuario = new Usuario();
 
-        new Controlador(login, usuario);
+        new Controlador(inicio, usuario);
 
-        login.setVisible(true);
+        inicio.setVisible(true);
 
 	}
 
