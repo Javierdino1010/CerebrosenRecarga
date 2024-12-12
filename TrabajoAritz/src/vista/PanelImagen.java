@@ -8,21 +8,21 @@ import javax.swing.JPanel;
 
 public class PanelImagen extends JPanel {
 
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-/**
-* Create the panel.
-*/
-public PanelImagen() {
-this.setSize(400, 280);
-}
+	/**
+	 * Create the panel.
+	 */
+	public PanelImagen() {
+		this.setSize(400, 280);
+	}
 
-public void paintComponent(Graphics g) {
-Dimension tamaño = getSize();
-ImageIcon imageFondo= new ImageIcon(getClass().getResource("/resources/libro_abierto.jpg"));
-g.drawImage(imageFondo.getImage(), 0, 0, tamaño.width, tamaño.height, null);
-setOpaque(false);
-super.paintComponent(g);
-}
+	public void paintComponent(Graphics g) {
+		Dimension tamaño = getSize();
+		ImageIcon imageFondo = new ImageIcon(getClass().getResource("/Imagenes/libro.jpg"));
+		g.drawImage(imageFondo.getImage(), 0, 0, tamaño.width, tamaño.height, null);
+		setOpaque(false);
+		super.paintComponent(g);
+	}
 
 }

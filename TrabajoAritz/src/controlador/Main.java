@@ -15,7 +15,7 @@ public class Main {
 
         new Controlador(inicio, usuario, login);
 
-        login.setVisible(true);
+        inicio.setVisible(true);
 
 	}
 

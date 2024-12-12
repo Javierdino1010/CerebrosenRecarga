@@ -1,12 +1,8 @@
 package vista;
 
-
-
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
-
-
 
 import javax.swing.JFrame;
 
@@ -30,19 +26,11 @@ import java.awt.Insets;
 
 import javax.swing.JLabel;
 
-
-
 public class Inicio extends JFrame {
-
-
 
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
-
-
-
-	
 
 	public Inicio() {
 
@@ -58,29 +46,17 @@ public class Inicio extends JFrame {
 
 		GridBagLayout gbl_p = new GridBagLayout();
 
-		gbl_p.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_p.columnWidths = new int[] { 0, 0, 0, 0 };
 
-		gbl_p.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_p.rowHeights = new int[] { 0, 0, 0, 0 };
 
-		gbl_p.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_p.columnWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 
-		gbl_p.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_p.rowWeights = new double[] { 1.0, 1.0, 1.0, Double.MIN_VALUE };
 
 		p.setLayout(gbl_p);
 
-		
-
 		JButton btn_Administrador = new JButton("ADMINISTRADOR");
-
-		btn_Administrador.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-			}
-
-		});
-
-		
 
 		JLabel lblNewLabel = new JLabel("SELECCIONA EL TIPO DE USUARIO");
 
@@ -106,8 +82,6 @@ public class Inicio extends JFrame {
 
 		p.add(btn_Administrador, gbc_btn_Administrador);
 
-		
-
 		JButton btn_Usuario = new JButton("USUARIO");
 
 		GridBagConstraints gbc_btn_Usuario = new GridBagConstraints();
@@ -123,7 +97,5 @@ public class Inicio extends JFrame {
 		p.add(btn_Usuario, gbc_btn_Usuario);
 
 	}
-
-
 
 }
