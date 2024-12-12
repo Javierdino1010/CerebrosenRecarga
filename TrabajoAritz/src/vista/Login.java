@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -17,6 +18,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
 
@@ -24,15 +28,21 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField usuario_textField;
 	private JPasswordField passwordField;
+	private JButton login_btnNewButton;
 
-	/**
-	 * Launch the application.
-	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	
-
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 564);
@@ -94,13 +104,26 @@ public class Login extends JFrame {
 		gbc_resgistrarse_btnNewButton.gridy = 3;
 		contentPane.add(resgistrarse_btnNewButton, gbc_resgistrarse_btnNewButton);
 		
-		JButton login_btnNewButton = new JButton("LOGIN");
+		login_btnNewButton = new JButton("LOGIN");
+
 		login_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_login_btnNewButton = new GridBagConstraints();
 		gbc_login_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_login_btnNewButton.gridx = 2;
 		gbc_login_btnNewButton.gridy = 3;
 		contentPane.add(login_btnNewButton, gbc_login_btnNewButton);
+	}
+	
+	public void agregarListenerLogin(ActionListener listenForLoginButton) {
+		login_btnNewButton.addActionListener(listenForLoginButton);
+	}
+	
+	public String getUsuarioIngresada() {
+		return usuario_textField.getText();
+	}
+	
+	public String getPassIngresada() {
+		return new String(passwordField.getPassword());
 	}
 
 }

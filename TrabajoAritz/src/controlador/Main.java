@@ -11,10 +11,11 @@ public class Main {
 
         Inicio inicio = new Inicio();
         Usuario usuario = new Usuario();
+        Login login = new Login();
 
-        new Controlador(inicio, usuario);
+        new Controlador(inicio, usuario, login);
 
-        inicio.setVisible(true);
+        login.setVisible(true);
 
 	}
 

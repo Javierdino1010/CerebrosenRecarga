@@ -12,6 +12,8 @@ public class Usuario {
 	private String rol;
 	
 	
+
+	
 	public Usuario(int id, String dni, String nombre, String apellido1, String apellido2, String telefono, String email,String rol) {
 		this.id = id;
 		this.dni = dni;
@@ -22,7 +24,8 @@ public class Usuario {
 		this.email = email;
 		this.rol = rol;
 	}
-	
+
+
 	public Usuario() {
 		
 	}
