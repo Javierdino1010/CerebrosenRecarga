@@ -19,7 +19,7 @@ public class PanelImagen extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		Dimension tamaño = getSize();
-		ImageIcon imageFondo = new ImageIcon(getClass().getResource("/Imagenes/libro.jpg"));
+		ImageIcon imageFondo = new ImageIcon(getClass().getResource("/Imagenes/recepcion.jpg"));
 		g.drawImage(imageFondo.getImage(), 0, 0, tamaño.width, tamaño.height, null);
 		setOpaque(false);
 		super.paintComponent(g);

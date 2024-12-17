@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Insets;
 
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Inicio extends JFrame {
 
@@ -56,9 +57,8 @@ public class Inicio extends JFrame {
 
 		p.setLayout(gbl_p);
 
-		JButton btn_Administrador = new JButton("ADMINISTRADOR");
-
-		JLabel lblNewLabel = new JLabel("SELECCIONA EL TIPO DE USUARIO");
+		JLabel lblNewLabel = new JLabel("BIENVENIDO");
+		lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 30));
 
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 
@@ -69,32 +69,19 @@ public class Inicio extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 
 		p.add(lblNewLabel, gbc_lblNewLabel);
-
-		GridBagConstraints gbc_btn_Administrador = new GridBagConstraints();
-
-		gbc_btn_Administrador.anchor = GridBagConstraints.EAST;
-
-		gbc_btn_Administrador.insets = new Insets(0, 0, 5, 5);
-
-		gbc_btn_Administrador.gridx = 0;
-
-		gbc_btn_Administrador.gridy = 1;
-
-		p.add(btn_Administrador, gbc_btn_Administrador);
-
-		JButton btn_Usuario = new JButton("USUARIO");
-
-		GridBagConstraints gbc_btn_Usuario = new GridBagConstraints();
-
-		gbc_btn_Usuario.anchor = GridBagConstraints.WEST;
-
-		gbc_btn_Usuario.insets = new Insets(0, 0, 5, 0);
-
-		gbc_btn_Usuario.gridx = 2;
-
-		gbc_btn_Usuario.gridy = 1;
-
-		p.add(btn_Usuario, gbc_btn_Usuario);
+		
+				JButton btnInicio = new JButton("COMENZAR");
+				btnInicio.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
+				
+						GridBagConstraints gbc_btnInicio = new GridBagConstraints();
+								
+										gbc_btnInicio.insets = new Insets(0, 0, 5, 5);
+										
+												gbc_btnInicio.gridx = 1;
+												
+														gbc_btnInicio.gridy = 1;
+														
+																p.add(btnInicio, gbc_btnInicio);
 
 	}
 
