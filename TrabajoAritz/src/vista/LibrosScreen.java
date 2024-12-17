@@ -78,7 +78,7 @@ public class LibrosScreen extends JFrame {
 		contentPane.add(btnReservar, gbc_btnReservar);
 		
 		
-		//El label será sustituido por Libro reservado || Fecha reserva  || fecha devolucion cuando haya selecionado algo del jList
+		//El label será sustituido por Libro reservado || Fecha reserva  || fecha devolucion cuando haya selecionado algo del jList xd
 		JLabel lblNewLabel = new JLabel("Libro reservado || Fecha reserva  || fecha devolucion");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
