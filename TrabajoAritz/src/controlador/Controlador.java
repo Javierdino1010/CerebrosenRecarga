@@ -21,6 +21,7 @@ public class Controlador {
 		
 		login.agregarListenerLogin(new aniadirListener());
 		
+		
 	}
 	class aniadirListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -31,6 +32,8 @@ public class Controlador {
 			LoginMetodos.validar(usuario, pass);
 			}
 		}
+	
+	
 	
 	
 }

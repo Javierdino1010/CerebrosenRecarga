@@ -14,9 +14,11 @@ public class Main {
         Login login = new Login();
 
         new Controlador(inicio, usuario, login);
-
+        
+        new ControladorInicio(inicio);
+        
         inicio.setVisible(true);
-
+        
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 import javax.swing.border.EmptyBorder;
 
+
+
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -32,6 +34,7 @@ public class Inicio extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
+	private JButton btnInicio;
 
 	public Inicio() {
 
@@ -70,7 +73,9 @@ public class Inicio extends JFrame {
 
 		p.add(lblNewLabel, gbc_lblNewLabel);
 		
-				JButton btnInicio = new JButton("COMENZAR");
+				 btnInicio = new JButton("COMENZAR");
+				
+				
 				btnInicio.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 				
 						GridBagConstraints gbc_btnInicio = new GridBagConstraints();
@@ -82,7 +87,16 @@ public class Inicio extends JFrame {
 														gbc_btnInicio.gridy = 1;
 														
 																p.add(btnInicio, gbc_btnInicio);
+																
+																
 
+	}
+
+	
+
+	public void agregarListenerInicio(ActionListener listenForInicioButton) {
+		btnInicio.addActionListener(listenForInicioButton);
+		
 	}
 
 }

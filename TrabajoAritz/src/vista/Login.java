@@ -30,18 +30,7 @@ public class Login extends JFrame {
 	private JPasswordField passwordField;
 	private JButton login_btnNewButton;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	
 	public Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
