@@ -11,11 +11,16 @@ import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class LibrosScreen extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -51,6 +56,11 @@ public class LibrosScreen extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		GridBagConstraints gbc_btnVolver = new GridBagConstraints();
 		gbc_btnVolver.fill = GridBagConstraints.BOTH;
 		gbc_btnVolver.insets = new Insets(0, 0, 5, 5);
@@ -61,6 +71,11 @@ public class LibrosScreen extends JFrame {
 		
 		//Solo visible si el usuario es Admin
 		JButton btnAnadir = new JButton("Nuevo Libro");
+		btnAnadir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		GridBagConstraints gbc_btnAnadir = new GridBagConstraints();
 		gbc_btnAnadir.fill = GridBagConstraints.BOTH;
 		gbc_btnAnadir.insets = new Insets(0, 0, 5, 5);
@@ -68,14 +83,47 @@ public class LibrosScreen extends JFrame {
 		gbc_btnAnadir.gridy = 0;
 		contentPane.add(btnAnadir, gbc_btnAnadir);
 		
+		//Solo puede ser pulsado si hay algo seleccionado en el jList y el usuario es admin
+		JButton btnBorrar = new JButton("Borrar libro");
+		btnBorrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnBorrar = new GridBagConstraints();
+		gbc_btnBorrar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnBorrar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnBorrar.gridx = 6;
+		gbc_btnBorrar.gridy = 1;
+		contentPane.add(btnBorrar, gbc_btnBorrar);
+		
 		//Solo puede ser pulsado si hay algo seleccionado en el jList
 		JButton btnReservar = new JButton("Reservar");
+		btnReservar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
 		GridBagConstraints gbc_btnReservar = new GridBagConstraints();
 		gbc_btnReservar.fill = GridBagConstraints.BOTH;
 		gbc_btnReservar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnReservar.gridx = 1;
 		gbc_btnReservar.gridy = 2;
 		contentPane.add(btnReservar, gbc_btnReservar);
+		
+		//Solo puede ser pulsado si hay algo seleccionado en el jList y el usuario es admin
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnModificar = new GridBagConstraints();
+		gbc_btnModificar.fill = GridBagConstraints.BOTH;
+		gbc_btnModificar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnModificar.gridx = 6;
+		gbc_btnModificar.gridy = 2;
+		contentPane.add(btnModificar, gbc_btnModificar);
 		
 		
 		//El label será sustituido por Libro reservado || Fecha reserva  || fecha devolucion cuando haya selecionado algo del jList
@@ -88,14 +136,21 @@ public class LibrosScreen extends JFrame {
 		gbc_lblNewLabel.gridy = 3;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JList listaLibros = new JList();
-		GridBagConstraints gbc_listaLibros = new GridBagConstraints();
-		gbc_listaLibros.insets = new Insets(0, 0, 0, 5);
-		gbc_listaLibros.gridwidth = 6;
-		gbc_listaLibros.fill = GridBagConstraints.BOTH;
-		gbc_listaLibros.gridx = 1;
-		gbc_listaLibros.gridy = 4;
-		contentPane.add(listaLibros, gbc_listaLibros);
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Titulo", "Autor", "G\u00E9nero", "Disponibilidad", "Fecha de publicaci\u00F3n"
+			}
+		));
+		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.gridwidth = 6;
+		gbc_table.insets = new Insets(0, 0, 0, 5);
+		gbc_table.fill = GridBagConstraints.BOTH;
+		gbc_table.gridx = 1;
+		gbc_table.gridy = 4;
+		contentPane.add(table, gbc_table);
 	}
 
 }
