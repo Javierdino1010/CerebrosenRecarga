@@ -9,15 +9,22 @@ public class ControladorLogin {
 
 	private VistaLogin login;
 	private VistaRegister register;
+	private LoginMetodos loginMetodos;
+	private RegisterMetodos registerMetodos;
 
-	public ControladorLogin(VistaLogin login, VistaRegister register) {
+	public ControladorLogin(VistaLogin login, VistaRegister register, LoginMetodos loginMetodos, RegisterMetodos registerMetodos) {
 		this.login = login;
 		this.register = register;
+		this.loginMetodos = loginMetodos;
+		this.registerMetodos = registerMetodos;
 		
 		login.agregarListenerLogin(new aniadirLoginListener());
+		login.agregarListenerIrRegistro(new aniadirIrRegistroListener());
 		register.agregarListenerRegister(new aniadirRegistarListener());
+		register.agregarListenerIrInicio(new aniadirIrInicioListener());
 		
 	}
+	
 	class aniadirLoginListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
@@ -26,6 +33,20 @@ public class ControladorLogin {
 			
 			LoginMetodos.validar(usuario, pass, login);
 
+			}
+		}
+	
+	class aniadirIrRegistroListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+				register.setVisible(true);
+				login.dispose();
+			}
+		}
+	
+	class aniadirIrInicioListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+				login.setVisible(true);
+				register.dispose();
 			}
 		}
 	
@@ -41,7 +62,7 @@ public class ControladorLogin {
 			String pass = register.getPass();
 			
 			RegisterMetodos.validar(nombre, apellidos, dni, email, telefono, pass);
-			
+						
 			}
 		}
 	

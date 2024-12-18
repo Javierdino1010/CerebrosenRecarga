@@ -8,10 +8,12 @@ import LoginRegister.VistaLogin;
 public class ControladorInicio {
 
 	private Inicio inicio;
+	private ModeloInicio modeloInicio;
 
-	public ControladorInicio(Inicio inicio) {
+	public ControladorInicio(Inicio inicio, ModeloInicio modeloInicio) {
 
 		this.inicio = inicio;
+		this.modeloInicio = modeloInicio;
 
 		inicio.agregarListenerInicio(new aniadirListener());
 	}

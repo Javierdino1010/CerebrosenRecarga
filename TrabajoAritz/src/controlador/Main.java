@@ -2,6 +2,7 @@ package controlador;
 
 import Inicio.ControladorInicio;
 import Inicio.Inicio;
+import Inicio.ModeloInicio;
 import LoginRegister.ControladorLogin;
 import LoginRegister.VistaLogin;
 import LoginRegister.VistaRegister;
@@ -13,13 +14,14 @@ public class Main {
         System.out.println("Inicio del programa"); // Debug
 
         Inicio inicio = new Inicio();
+        ModeloInicio modeloInicio = new ModeloInicio();
 //		VistaLogin vistaLogin = new VistaLogin();
 //		VistaRegister register = new VistaRegister();
 //
-//        new ControladorLogin(vistaLogin, register);
+//      new ControladorLogin(vistaLogin, register);
 
         
-        new ControladorInicio(inicio);
+        new ControladorInicio(inicio, modeloInicio);
         
         inicio.setVisible(true);
         

@@ -29,6 +29,7 @@ public class VistaLogin extends JFrame {
 	private JTextField usuario_textField;
 	private JPasswordField passwordField;
 	private JButton login_btnNewButton;
+	private JButton registrarse_btnNewButton;
 
 	
 	
@@ -85,13 +86,13 @@ public class VistaLogin extends JFrame {
 		gbc_passwordField.gridy = 2;
 		contentPane.add(passwordField, gbc_passwordField);
 		
-		JButton resgistrarse_btnNewButton = new JButton("RESGISTRARSE");
-		resgistrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
+		registrarse_btnNewButton = new JButton("RESGISTRARSE");
+		registrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_resgistrarse_btnNewButton = new GridBagConstraints();
 		gbc_resgistrarse_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_resgistrarse_btnNewButton.gridx = 1;
 		gbc_resgistrarse_btnNewButton.gridy = 3;
-		contentPane.add(resgistrarse_btnNewButton, gbc_resgistrarse_btnNewButton);
+		contentPane.add(registrarse_btnNewButton, gbc_resgistrarse_btnNewButton);
 		
 		login_btnNewButton = new JButton("LOGIN");
 
@@ -105,6 +106,10 @@ public class VistaLogin extends JFrame {
 	
 	public void agregarListenerLogin(ActionListener listenForLoginButton) {
 		login_btnNewButton.addActionListener(listenForLoginButton);
+	}
+	
+	public void agregarListenerIrRegistro(ActionListener listenForIrRegistroButton) {
+		registrarse_btnNewButton.addActionListener(listenForIrRegistroButton);
 	}
 	
 	public String getUsuarioIngresada() {

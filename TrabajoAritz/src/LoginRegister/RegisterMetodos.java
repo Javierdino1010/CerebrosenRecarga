@@ -3,17 +3,29 @@ package LoginRegister;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import SQL.conexion;
 
 public class RegisterMetodos {
+	
+	
 
 	
 	public static void validar(String nombre, String apellidos, String dni, String email, String telefono, String pass) {
 		
+		nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1).toLowerCase();
+		
 		if(nombre.equals("") || apellidos.equals("") || dni.equals("") || email.equals("") || telefono.equals("") || pass.equals("")) {
-			System.out.println("Los campos no estan correctos");
+			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 			
+		}else if(!validarNombre(nombre)){
+			JOptionPane.showMessageDialog(null, "Nombre invalido");
+		}else if(!validarDni(dni)){
+			JOptionPane.showMessageDialog(null, "DNI invalido");
 		}else {
 			try {
 				insertarUsuario(nombre, apellidos, dni, email, telefono, pass);
@@ -42,4 +54,50 @@ public class RegisterMetodos {
         
         preparedStatement.executeUpdate();
 	}
+	
+	private static boolean validarNombre(String nombre) {
+		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+		
+        
+        // Comprobar si el nombre cumple con la expresión regular
+        return nombre != null && nombre.matches(regex);
+		
+	}
+	
+	final static Map<Integer, Character> letrasDNI = new HashMap<>();
+
+	static {
+    
+    char[] letras = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+    for (int i = 0; i < 23; i++) {
+        letrasDNI.put(i, letras[i]);
+    }
+}
+	
+	private static boolean validarDni(String dni) {
+		// Comprobar que el DNI tiene 9 caracteres
+        if (dni.length() != 9) {
+            return false;
+        }
+
+        // Comprobar que los primeros 8 caracteres son números
+        String numero = dni.substring(0, 8);
+        if (!numero.matches("\\d{8}")) {
+            return false;
+        }
+
+        // Comprobar que el noveno carácter es una letra
+        char letra = dni.charAt(8);
+        if (!Character.isLetter(letra)) {
+            return false;
+        }
+
+        // Calcular el índice de la letra a partir de los primeros 8 dígitos
+        int numeroDNI = Integer.parseInt(numero);
+        int indice = numeroDNI % 23;
+
+        // Comparar la letra calculada con la letra del DNI
+        char letraCorrecta = letrasDNI.get(indice);
+        return Character.toUpperCase(letra) == letraCorrecta;
+    }
 }

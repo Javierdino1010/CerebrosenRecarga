@@ -35,6 +35,7 @@ public class VistaRegister extends JFrame {
 	private JButton btnRegistrarse;
 	private JLabel lblNewLabel_6;
 	private JPasswordField textPass;
+	private JButton btnLogin;
 
 	public VistaRegister() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -154,6 +155,13 @@ public class VistaRegister extends JFrame {
 		gbc_textPass.gridy = 11;
 		contentPane.add(textPass, gbc_textPass);
 		
+		btnLogin = new JButton("Iniciar sesión");
+		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+		gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLogin.gridx = 2;
+		gbc_btnLogin.gridy = 12;
+		contentPane.add(btnLogin, gbc_btnLogin);
+		
 		btnRegistrarse = new JButton("Registrarse");
 		GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
 		gbc_btnRegistrarse.insets = new Insets(0, 0, 0, 5);
@@ -164,6 +172,10 @@ public class VistaRegister extends JFrame {
 	
 	public void agregarListenerRegister(ActionListener listenForRegisterButton) {
 		btnRegistrarse.addActionListener(listenForRegisterButton);
+	}
+	
+	public void agregarListenerIrInicio(ActionListener listenForIrInicioButton) {
+		btnLogin.addActionListener(listenForIrInicioButton);
 	}
 	
 	public String getNombre() {
