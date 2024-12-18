@@ -2,7 +2,7 @@ package Inicio;
 
 import java.awt.Button;
 
-import Login.VistaLogin;
+import LoginRegister.VistaLogin;
 
 public class ModeloInicio {
 

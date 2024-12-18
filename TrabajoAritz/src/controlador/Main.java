@@ -2,7 +2,9 @@ package controlador;
 
 import Inicio.ControladorInicio;
 import Inicio.Inicio;
-import Login.VistaLogin;
+import LoginRegister.ControladorLogin;
+import LoginRegister.VistaLogin;
+import LoginRegister.VistaRegister;
 import modelo.Usuario;
 
 public class Main {
@@ -11,6 +13,10 @@ public class Main {
         System.out.println("Inicio del programa"); // Debug
 
         Inicio inicio = new Inicio();
+//		VistaLogin vistaLogin = new VistaLogin();
+//		VistaRegister register = new VistaRegister();
+//
+//        new ControladorLogin(vistaLogin, register);
 
         
         new ControladorInicio(inicio);

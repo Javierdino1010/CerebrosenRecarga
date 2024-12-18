@@ -1,29 +1,34 @@
-package Login;
+package LoginRegister;
 
+import java.awt.Window;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import Libro.LibrosScreen;
 import SQL.conexion;
 
 public class LoginMetodos {
 
-	public static void validar(String nombre, String pass) {
+	public static void validar(String nombre, String pass, Window login) {
 		
 
 		
 		if(nombre.equals("") || pass.equals("")) {
 			System.out.println("Los campos no estan correctos");
+			
 		}else {
 			boolean esValido = comprobarUsuario(nombre, pass);
-			
-			if (esValido) {
-	            System.out.println("Usuario válido.");
-	        } else {
-	            System.out.println("Usuario o contraseña incorrectos.");
-	        }
+			if(esValido) {
+				Libro.LibrosScreen librosScreen = new LibrosScreen();
+				librosScreen.setVisible(true);
+				login.dispose();
+				
+				
+			}
 		}
+		
 	}
 	
 	public static boolean comprobarUsuario(String nombre, String pass) {

@@ -3,7 +3,7 @@ package Inicio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Login.VistaLogin;
+import LoginRegister.VistaLogin;
 
 public class ControladorInicio {
 
