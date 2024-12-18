@@ -1,24 +1,23 @@
-package modelo;
+package Inicio;
 
 import java.awt.Button;
 
-import vista.Inicio;
-import vista.Login;
+import Login.VistaLogin;
 
 public class ModeloInicio {
-	
+
 	private Button boton;
-	
+
 	public ModeloInicio() {
-		
+
 	}
-	
+
 	public Button getboton() {
 		return boton;
 	}
-	
+
 	public void recibirClase(Inicio inicio) {
-		Login login = new Login();
+		VistaLogin login = new VistaLogin();
 		login.setVisible(true);
 		inicio.dispose();
 	}

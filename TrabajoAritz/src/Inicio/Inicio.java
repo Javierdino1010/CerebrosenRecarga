@@ -1,4 +1,4 @@
-package vista;
+package Inicio;
 
 import java.awt.BorderLayout;
 
@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import javax.swing.border.EmptyBorder;
 
-
+import vista.PanelImagen;
 
 import java.awt.GridLayout;
 
@@ -95,6 +95,7 @@ public class Inicio extends JFrame {
 	
 
 	public void agregarListenerInicio(ActionListener listenForInicioButton) {
+		
 		btnInicio.addActionListener(listenForInicioButton);
 		
 	}

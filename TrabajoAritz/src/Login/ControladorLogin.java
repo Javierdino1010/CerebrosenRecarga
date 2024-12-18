@@ -1,20 +1,18 @@
-package controlador;
+package Login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import modelo.LoginMetodos;
+import Inicio.Inicio;
 import modelo.Usuario;
-import vista.Inicio;
-import vista.Login;
 
-public class Controlador {
+public class ControladorLogin {
 	
 	private Inicio inicio;
 	private Usuario usuario;
-	private Login login;
+	private VistaLogin login;
 
-	public Controlador(Inicio inicio, Usuario usuario, Login login) {
+	public ControladorLogin(Inicio inicio, Usuario usuario, VistaLogin login) {
 		this.inicio = inicio;
 		this.usuario = usuario;
 		this.login = login;

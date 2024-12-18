@@ -1,4 +1,4 @@
-package vista;
+package Login;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Login extends JFrame {
+public class VistaLogin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -32,7 +32,7 @@ public class Login extends JFrame {
 
 	
 	
-	public Login() {
+	public VistaLogin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
