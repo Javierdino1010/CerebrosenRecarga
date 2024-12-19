@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
@@ -24,8 +26,14 @@ public class RegisterMetodos {
 			
 		}else if(!validarNombre(nombre)){
 			JOptionPane.showMessageDialog(null, "Nombre invalido");
+		}else if(!validarApellido(apellidos)){
+			JOptionPane.showMessageDialog(null, "Apellido invalido");
 		}else if(!validarDni(dni)){
 			JOptionPane.showMessageDialog(null, "DNI invalido");
+		}else if(!validarEmail(email)){
+			JOptionPane.showMessageDialog(null, "Correo invalido");
+		}else if(!validarTelefono(telefono)){
+			JOptionPane.showMessageDialog(null, "Telefono invalido");
 		}else {
 			try {
 				insertarUsuario(nombre, apellidos, dni, email, telefono, pass);
@@ -61,6 +69,15 @@ public class RegisterMetodos {
         
         // Comprobar si el nombre cumple con la expresión regular
         return nombre != null && nombre.matches(regex);
+		
+	}
+	
+	private static boolean validarApellido(String apellido) {
+		String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+		
+        
+        // Comprobar si el nombre cumple con la expresión regular
+        return apellido != null && apellido.matches(regex);
 		
 	}
 	
@@ -100,4 +117,22 @@ public class RegisterMetodos {
         char letraCorrecta = letrasDNI.get(indice);
         return Character.toUpperCase(letra) == letraCorrecta;
     }
+	
+	private static boolean validarEmail(String email) {
+        // Expresión regular para validar el formato del correo
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+		
+	}
+	
+	private static boolean validarTelefono(String telefono) {
+        // Expresión regular para el formato de teléfono internacional
+        String regex = "^\\+?[1-9]\\d{1,14}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(telefono);
+        return matcher.matches();
+        		
+	}
 }

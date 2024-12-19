@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import Libro.LibrosScreen;
 import SQL.conexion;
 
@@ -16,7 +18,7 @@ public class LoginMetodos {
 
 		
 		if(nombre.equals("") || pass.equals("")) {
-			System.out.println("Los campos no estan correctos");
+			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 			
 		}else {
 			boolean esValido = comprobarUsuario(nombre, pass);
