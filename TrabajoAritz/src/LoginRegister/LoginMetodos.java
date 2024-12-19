@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Libro.LibrosScreen;
 import SQL.conexion;
+import catalogo.CatalogoVista;
 
 public class LoginMetodos {
 
@@ -23,8 +24,8 @@ public class LoginMetodos {
 		}else {
 			boolean esValido = comprobarUsuario(nombre, pass);
 			if(esValido) {
-				Libro.LibrosScreen librosScreen = new LibrosScreen();
-				librosScreen.setVisible(true);
+				catalogo.CatalogoVista catalogoVista = new CatalogoVista();
+				catalogoVista.setVisible(true);
 				login.dispose();
 				
 				
