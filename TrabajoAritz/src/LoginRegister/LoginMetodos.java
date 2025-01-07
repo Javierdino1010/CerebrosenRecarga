@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import Libro.LibrosScreen;
+import Libro.LibrosScreenUsuario;
 import SQL.conexion;
-import catalogo.CatalogoVista;
 
 public class LoginMetodos {
+	
 
 	public static void validar(String nombre, String pass, Window login) {
 		
@@ -22,19 +23,19 @@ public class LoginMetodos {
 			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 			
 		}else {
-			boolean esValido = comprobarUsuario(nombre, pass);
-			if(esValido) {
-				catalogo.CatalogoVista catalogoVista = new CatalogoVista();
-				catalogoVista.setVisible(true);
-				login.dispose();
+			comprobarUsuario(nombre, pass, login);
+//			if(esValido) {
+//				Libro.LibrosScreen catalogoVista = new LibrosScreen();
+//				catalogoVista.setVisible(true);
+//				login.dispose();
 				
 				
-			}
+			
 		}
 		
 	}
 	
-	public static boolean comprobarUsuario(String nombre, String pass) {
+	public static void comprobarUsuario(String nombre, String pass, Window login) {
 		
         conexion db = new conexion();
         Connection conn = db.connectToDB();
@@ -51,15 +52,30 @@ public class LoginMetodos {
             try (ResultSet rs = stmt.executeQuery()) {
                 // Si el resultado tiene al menos una fila, significa que el usuario está registrado
                 if (rs.next()) {
-                    return true;  // El usuario y la contraseña son correctos
+                	String rol = rs.getString("rol");
+                	if(rol.equals("Administrador")) {
+                		Libro.LibrosScreen catalogoVista = new LibrosScreen();
+                		catalogoVista.setVisible(true);
+                		login.dispose();
+                	}else if(rol.equals("Usuario estándar")) {
+                		System.out.println("hola");
+                		Libro.LibrosScreenUsuario catalogoVistaUsuario = new LibrosScreenUsuario();
+                		catalogoVistaUsuario.setVisible(true);
+                		login.dispose();
+                	}else {
+                		JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                	}
+                	
+
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;  // Usuario o contraseña incorrectos
+        
+        
+          // Usuario o contraseña incorrectos
     }
 	
 }
