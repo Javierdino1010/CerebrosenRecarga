@@ -39,7 +39,6 @@ public class RegisterMetodos {
 				insertarUsuario(nombre, apellidos, dni, email, telefono, pass);
 				JOptionPane.showMessageDialog(null, "Usuario nuevo registrado");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
