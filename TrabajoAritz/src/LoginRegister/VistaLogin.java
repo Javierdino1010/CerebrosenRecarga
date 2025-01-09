@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -17,7 +18,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,15 +35,18 @@ public class VistaLogin extends JFrame {
 	private JButton login_btnNewButton;
 	private JButton registrarse_btnNewButton;
 
-	
+	BordeRedondo border = new BordeRedondo(10);
 	
 	public VistaLogin() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
 		contentPane.setBackground(new Color(240, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLocationRelativeTo(null);
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -87,6 +94,9 @@ public class VistaLogin extends JFrame {
 		contentPane.add(passwordField, gbc_passwordField);
 		
 		registrarse_btnNewButton = new JButton("RESGISTRARSE");
+		registrarse_btnNewButton.setPreferredSize(new Dimension(150, 30));
+		registrarse_btnNewButton.setBackground(Color.lightGray);
+		registrarse_btnNewButton.setBorder(border);
 		registrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_resgistrarse_btnNewButton = new GridBagConstraints();
 		gbc_resgistrarse_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -95,7 +105,9 @@ public class VistaLogin extends JFrame {
 		contentPane.add(registrarse_btnNewButton, gbc_resgistrarse_btnNewButton);
 		
 		login_btnNewButton = new JButton("LOGIN");
-
+		login_btnNewButton.setPreferredSize(new Dimension(150, 30));
+		login_btnNewButton.setBackground(Color.lightGray);
+		login_btnNewButton.setBorder(border);
 		login_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
 		GridBagConstraints gbc_login_btnNewButton = new GridBagConstraints();
 		gbc_login_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -103,6 +115,8 @@ public class VistaLogin extends JFrame {
 		gbc_login_btnNewButton.gridy = 3;
 		contentPane.add(login_btnNewButton, gbc_login_btnNewButton);
 	}
+	
+	//Agregar actionListener a los botones
 	
 	public void agregarListenerLogin(ActionListener listenForLoginButton) {
 		login_btnNewButton.addActionListener(listenForLoginButton);
@@ -112,6 +126,8 @@ public class VistaLogin extends JFrame {
 		registrarse_btnNewButton.addActionListener(listenForIrRegistroButton);
 	}
 	
+	//Getters de los campos de texto
+	
 	public String getUsuarioIngresada() {
 		return usuario_textField.getText();
 	}
@@ -119,5 +135,27 @@ public class VistaLogin extends JFrame {
 	public String getPassIngresada() {
 		return new String(passwordField.getPassword());
 	}
+	
+	class BordeRedondo implements Border {
+
+	    private int radio;  
+
+	    BordeRedondo(int radius) {
+	        this.radio = radius;
+	    }  
+
+	    public Insets getBorderInsets(Component c) {
+	        return new Insets(this.radio+1, this.radio+1, this.radio+2, this.radio);
+	    }  
+
+	    public boolean isBorderOpaque() {
+	        return true;
+	    }  
+
+	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	        g.drawRoundRect(x, y, width-1, height-1, radio, radio);
+	    }
+
+	  }
 
 }

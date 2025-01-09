@@ -1,11 +1,17 @@
 package LoginRegister;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
+import LoginRegister.VistaLogin.BordeRedondo;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -14,6 +20,8 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
@@ -36,6 +44,8 @@ public class VistaRegister extends JFrame {
 	private JLabel lblNewLabel_6;
 	private JPasswordField textPass;
 	private JButton btnLogin;
+	
+	BordeRedondo border = new BordeRedondo(10);
 
 	public VistaRegister() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +54,7 @@ public class VistaRegister extends JFrame {
 		contentPane.setToolTipText("");
 		contentPane.setBackground(new Color(240, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLocationRelativeTo(null);
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -156,6 +167,9 @@ public class VistaRegister extends JFrame {
 		contentPane.add(textPass, gbc_textPass);
 		
 		btnLogin = new JButton("Iniciar sesión");
+		btnLogin.setPreferredSize(new Dimension(150, 30));
+		btnLogin.setBackground(Color.lightGray);
+		btnLogin.setBorder(border);
 		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 		gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLogin.gridx = 2;
@@ -163,12 +177,17 @@ public class VistaRegister extends JFrame {
 		contentPane.add(btnLogin, gbc_btnLogin);
 		
 		btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setPreferredSize(new Dimension(150, 30));
+		btnRegistrarse.setBackground(Color.lightGray);
+		btnRegistrarse.setBorder(border);
 		GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
 		gbc_btnRegistrarse.insets = new Insets(0, 0, 0, 5);
 		gbc_btnRegistrarse.gridx = 3;
 		gbc_btnRegistrarse.gridy = 12;
 		contentPane.add(btnRegistrarse, gbc_btnRegistrarse);
 	}
+	
+	//Agregar actionListener a los botones
 	
 	public void agregarListenerRegister(ActionListener listenForRegisterButton) {
 		btnRegistrarse.addActionListener(listenForRegisterButton);
@@ -177,6 +196,8 @@ public class VistaRegister extends JFrame {
 	public void agregarListenerIrInicio(ActionListener listenForIrInicioButton) {
 		btnLogin.addActionListener(listenForIrInicioButton);
 	}
+	
+	//Getters de los campos de texto
 	
 	public String getNombre() {
 		return textNombre.getText();
@@ -201,4 +222,26 @@ public class VistaRegister extends JFrame {
 	public String getPass() {
 		return new String(textPass.getPassword());
 	}
+	
+	class BordeRedondo implements Border {
+
+	    private int radio;  
+
+	    BordeRedondo(int radius) {
+	        this.radio = radius;
+	    }  
+
+	    public Insets getBorderInsets(Component c) {
+	        return new Insets(this.radio+1, this.radio+1, this.radio+2, this.radio);
+	    }  
+
+	    public boolean isBorderOpaque() {
+	        return true;
+	    }  
+
+	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	        g.drawRoundRect(x, y, width-1, height-1, radio, radio);
+	    }
+
+	  }
 }

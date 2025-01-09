@@ -18,18 +18,12 @@ public class LoginMetodos {
 	public static void validar(String nombre, String pass, Window login) {
 		
 
-		
+		//Comprobar si los campos estan vacios
 		if(nombre.equals("") || pass.equals("")) {
 			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 			
 		}else {
-			comprobarUsuario(nombre, pass, login);
-//			if(esValido) {
-//				Libro.LibrosScreen catalogoVista = new LibrosScreen();
-//				catalogoVista.setVisible(true);
-//				login.dispose();
-				
-				
+			comprobarUsuario(nombre, pass, login);				
 			
 		}
 		
@@ -53,6 +47,7 @@ public class LoginMetodos {
                 // Si el resultado tiene al menos una fila, significa que el usuario está registrado
                 if (rs.next()) {
                 	String rol = rs.getString("rol");
+                	//Mostrar un ventana dependiendo de que rol tiene el usuario
                 	if(rol.equals("Administrador")) {
                 		Libro.LibrosScreen catalogoVista = new LibrosScreen();
                 		catalogoVista.setVisible(true);
@@ -74,8 +69,6 @@ public class LoginMetodos {
             e.printStackTrace();
         }
         
-        
-          // Usuario o contraseña incorrectos
     }
 	
 }

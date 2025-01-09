@@ -15,7 +15,7 @@ public class ControladorInicio {
 		this.inicio = inicio;
 		this.modeloInicio = modeloInicio;
 
-		inicio.agregarListenerInicio(new aniadirListener());
+		//inicio.agregarListenerInicio(new aniadirListener());
 	}
 
 	class aniadirListener implements ActionListener {

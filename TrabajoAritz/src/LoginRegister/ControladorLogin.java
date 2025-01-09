@@ -28,21 +28,24 @@ public class ControladorLogin {
 	class aniadirLoginListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
+			// Recupera el nombre de usuario y la contraseña ingresados en la interfaz de usuario
 			String usuario = login.getUsuarioIngresada();
 			String pass = login.getPassIngresada();
 			
+			// Llamada al método
 			LoginMetodos.validar(usuario, pass, login);
 
 			}
 		}
 	
+	//Hace visible la vetana register y cierra el login
 	class aniadirIrRegistroListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 				register.setVisible(true);
 				login.dispose();
 			}
 		}
-	
+	//Hace visible el login y cierra el register
 	class aniadirIrInicioListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 				login.setVisible(true);
@@ -53,7 +56,7 @@ public class ControladorLogin {
 	class aniadirRegistarListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			
+			// Recupera los valores de los campos del formulario de registro
 			String nombre = register.getNombre();
 			String apellidos = register.getApellidos();
 			String dni = register.getDni();
@@ -61,6 +64,7 @@ public class ControladorLogin {
 			String telefono = register.getTelefono();
 			String pass = register.getPass();
 			
+			// Llamada al método
 			RegisterMetodos.validar(nombre, apellidos, dni, email, telefono, pass);
 						
 			}

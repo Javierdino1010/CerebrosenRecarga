@@ -19,11 +19,12 @@ public class RegisterMetodos {
 	
 	public static void validar(String nombre, String apellidos, String dni, String email, String telefono, String pass) {
 		
+		//Establer la primera letra en mayuscula y el resto en minuscula
 		nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1).toLowerCase();
-		
+		//Comprobar si los campos estan vacios
 		if(nombre.equals("") || apellidos.equals("") || dni.equals("") || email.equals("") || telefono.equals("") || pass.equals("")) {
 			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
-			
+		//Comprobar si es valida la información del formulario	
 		}else if(!validarNombre(nombre)){
 			JOptionPane.showMessageDialog(null, "Nombre invalido");
 		}else if(!validarApellido(apellidos)){
@@ -36,6 +37,7 @@ public class RegisterMetodos {
 			JOptionPane.showMessageDialog(null, "Telefono invalido");
 		}else {
 			try {
+				//Llamada al metodo para agregar nuevo registro
 				insertarUsuario(nombre, apellidos, dni, email, telefono, pass);
 				JOptionPane.showMessageDialog(null, "Usuario nuevo registrado");
 			} catch (SQLException e) {
