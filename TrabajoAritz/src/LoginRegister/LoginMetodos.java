@@ -41,7 +41,7 @@ public class LoginMetodos {
             // Establecer los valores para los parámetros de la consulta (usamos ?)
             stmt.setString(1, nombre);
             stmt.setString(2, pass);
-
+ 
             // Ejecutar la consulta
             try (ResultSet rs = stmt.executeQuery()) {
                 // Si el resultado tiene al menos una fila, significa que el usuario está registrado

@@ -223,7 +223,7 @@ public class VistaRegister extends JFrame {
 		return new String(textPass.getPassword());
 	}
 	
-	class BordeRedondo implements Border {
+	public class BordeRedondo implements Border {
 
 	    private int radio;  
 
