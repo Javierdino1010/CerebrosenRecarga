@@ -79,8 +79,9 @@ public class VistaModificarUsuario extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		lblNewLabel_6 = new JLabel("Registro");
+		lblNewLabel_6 = new JLabel("Gestion de usuarios");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.gridwidth = 3;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_6.gridx = 1;
 		gbc_lblNewLabel_6.gridy = 0;
