@@ -1,32 +1,28 @@
-package LoginRegister;
+package usuarios;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import LoginRegister.VistaLogin.BordeRedondo;
+import LoginRegister.VistaRegister.BordeRedondo;
 
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JTextField;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-
-public class VistaRegister extends JFrame {
-
+public class VistaModificarUsuario extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -40,14 +36,33 @@ public class VistaRegister extends JFrame {
 	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	private JTextField textTelefono;
-	private JButton btnRegistrarse;
+	private JButton btnConfirmar;
 	private JLabel lblNewLabel_6;
 	private JPasswordField textPass;
-	private JButton btnLogin;
-	
+	private JButton btnVolver;
+
 	BordeRedondo border = new BordeRedondo(10);
 
-	public VistaRegister() {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VistaModificarUsuario frame = new VistaModificarUsuario();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VistaModificarUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
@@ -64,8 +79,9 @@ public class VistaRegister extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		lblNewLabel_6 = new JLabel("Registro");
+		lblNewLabel_6 = new JLabel("Gestion de usuarios");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.gridwidth = 3;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_6.gridx = 1;
 		gbc_lblNewLabel_6.gridy = 0;
@@ -166,35 +182,35 @@ public class VistaRegister extends JFrame {
 		gbc_textPass.gridy = 11;
 		contentPane.add(textPass, gbc_textPass);
 		
-		btnLogin = new JButton("Iniciar sesión");
-		btnLogin.setPreferredSize(new Dimension(150, 30));
-		btnLogin.setBackground(Color.lightGray);
-		btnLogin.setBorder(border);
-		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
-		gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
-		gbc_btnLogin.gridx = 2;
-		gbc_btnLogin.gridy = 12;
-		contentPane.add(btnLogin, gbc_btnLogin);
+		btnVolver = new JButton("Volver");
+		btnVolver.setPreferredSize(new Dimension(150, 30));
+		btnVolver.setBackground(Color.lightGray);
+		btnVolver.setBorder(border);
+		GridBagConstraints gbc_btnVolver = new GridBagConstraints();
+		gbc_btnVolver.insets = new Insets(0, 0, 0, 5);
+		gbc_btnVolver.gridx = 2;
+		gbc_btnVolver.gridy = 12;
+		contentPane.add(btnVolver, gbc_btnVolver);
 		
-		btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setPreferredSize(new Dimension(150, 30));
-		btnRegistrarse.setBackground(Color.lightGray);
-		btnRegistrarse.setBorder(border);
-		GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
-		gbc_btnRegistrarse.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRegistrarse.gridx = 3;
-		gbc_btnRegistrarse.gridy = 12;
-		contentPane.add(btnRegistrarse, gbc_btnRegistrarse);
+		btnConfirmar = new JButton("Confirmar cambios");
+		btnConfirmar.setPreferredSize(new Dimension(150, 30));
+		btnConfirmar.setBackground(Color.lightGray);
+		btnConfirmar.setBorder(border);
+		GridBagConstraints gbc_btnConfirmar = new GridBagConstraints();
+		gbc_btnConfirmar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnConfirmar.gridx = 3;
+		gbc_btnConfirmar.gridy = 12;
+		contentPane.add(btnConfirmar, gbc_btnConfirmar);
 	}
 	
 	//Agregar actionListener a los botones
 	
 	public void agregarListenerRegister(ActionListener listenForRegisterButton) {
-		btnRegistrarse.addActionListener(listenForRegisterButton);
+		btnConfirmar.addActionListener(listenForRegisterButton);
 	}
 	
 	public void agregarListenerIrInicio(ActionListener listenForIrInicioButton) {
-		btnLogin.addActionListener(listenForIrInicioButton);
+		btnVolver.addActionListener(listenForIrInicioButton);
 	}
 	
 	//Getters de los campos de texto
@@ -223,7 +239,7 @@ public class VistaRegister extends JFrame {
 		return new String(textPass.getPassword());
 	}
 	
-	public class BordeRedondo implements Border {
+	class BordeRedondo implements Border {
 
 	    private int radio;  
 
@@ -245,3 +261,4 @@ public class VistaRegister extends JFrame {
 
 	  }
 }
+
