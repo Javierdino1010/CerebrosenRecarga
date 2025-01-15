@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class conexion {
 
     public Connection connectToDB() {
-        String url = "jdbc:mysql://localhost:3306/Biblioteca"; // Cambia "Biblioteca" por el nombre de tu base de datos
+        String url = "jdbc:mysql://localhost:3306/biblioteca"; // Cambia "Biblioteca" por el nombre de tu base de datos
         String usuario = "root"; // Cambia "root" por tu usuario
         String contraseña = "root"; // Cambia por tu contraseña
 

@@ -1,27 +1,37 @@
 package modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
 	
-	private int id;
-	private String dni;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int ID;
+	
+	private String DNI;
 	private String nombre;
-	private String apellido1;
-	private String apellido2;
-	private String telefono;
+	private String apellidos;
 	private String email;
+	private String pass;
+	private String telefono;
 	private String rol;
 	
 	
 
 	
-	public Usuario(int id, String dni, String nombre, String apellido1, String apellido2, String telefono, String email,String rol) {
-		this.id = id;
-		this.dni = dni;
+	public Usuario(String DNI, String nombre, String apellidos, String email, String pass, String telefono, String rol) {
+		this.DNI = DNI;
 		this.nombre = nombre;
-		this.apellido1 = apellido1;
-		this.apellido2 = apellido2;
-		this.telefono = telefono;
+		this.apellidos = apellidos;
 		this.email = email;
+		this.pass = pass;
+		this.telefono = telefono;
 		this.rol = rol;
 	}
 
@@ -31,23 +41,23 @@ public class Usuario {
 	}
 
 
-	public int getId() {
-		return id;
+	public int getID() {
+		return ID;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setID(int iD) {
+		ID = iD;
 	}
 
 
-	public String getDni() {
-		return dni;
+	public String getDNI() {
+		return DNI;
 	}
 
 
-	public void setDni(String dni) {
-		this.dni = dni;
+	public void setDNI(String dNI) {
+		DNI = dNI;
 	}
 
 
@@ -61,33 +71,13 @@ public class Usuario {
 	}
 
 
-	public String getApellido1() {
-		return apellido1;
+	public String getApellidos() {
+		return apellidos;
 	}
 
 
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
-	}
-
-
-	public String getApellido2() {
-		return apellido2;
-	}
-
-
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
-	}
-
-
-	public String getTelefono() {
-		return telefono;
-	}
-
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 
@@ -101,6 +91,26 @@ public class Usuario {
 	}
 
 
+	public String getPass() {
+		return pass;
+	}
+
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+
 	public String getRol() {
 		return rol;
 	}
@@ -109,7 +119,5 @@ public class Usuario {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-	
-	
 
 }
