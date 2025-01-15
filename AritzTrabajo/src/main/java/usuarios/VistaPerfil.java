@@ -12,6 +12,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JList;
 
 public class VistaPerfil extends JFrame {
 
@@ -45,9 +46,9 @@ public class VistaPerfil extends JFrame {
 
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
@@ -77,7 +78,7 @@ public class VistaPerfil extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Libros prestados");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 3;
+		gbc_lblNewLabel.gridwidth = 4;
 		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 3;
@@ -87,18 +88,19 @@ public class VistaPerfil extends JFrame {
 		JButton btnDevolver = new JButton("Devolver Libro");
 		GridBagConstraints gbc_btnDevolver = new GridBagConstraints();
 		gbc_btnDevolver.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDevolver.gridx = 7;
+		gbc_btnDevolver.gridx = 8;
 		gbc_btnDevolver.gridy = 3;
 		contentPane.add(btnDevolver, gbc_btnDevolver);
 		
-		JTextArea textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridheight = 4;
-		gbc_textArea.gridwidth = 9;
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 0;
-		gbc_textArea.gridy = 4;
-		contentPane.add(textArea, gbc_textArea);
+		JList list = new JList();
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.gridheight = 4;
+		gbc_list.gridwidth = 10;
+		gbc_list.insets = new Insets(0, 0, 5, 5);
+		gbc_list.fill = GridBagConstraints.BOTH;
+		gbc_list.gridx = 0;
+		gbc_list.gridy = 4;
+		contentPane.add(list, gbc_list);
 	}
 
 }
