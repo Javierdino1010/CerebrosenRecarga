@@ -67,6 +67,29 @@ public class LibrosScreen extends JFrame {
         gbc_btnVolver.gridy = 0;
         contentPane.add(btnVolver, gbc_btnVolver);
 
+        JButton btnEliminar = new JButton("Eliminar");
+        btnEliminar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedIndex = list.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    String selectedValue = list.getSelectedValue();
+                    String id = selectedValue.split("\\|")[0].trim(); // Se asume que el ID es el primer campo
+
+                    eliminarLibro(id);
+                    cargarLibros((String) comboBoxCategorias.getSelectedItem());
+                } else {
+                    System.out.println("No hay ningún libro seleccionado.");
+                }
+            }
+        });
+        GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
+        gbc_btnEliminar.fill = GridBagConstraints.BOTH;
+        gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnEliminar.gridx = 2;
+        gbc_btnEliminar.gridy = 0;
+        contentPane.add(btnEliminar, gbc_btnEliminar);
+
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
         comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
@@ -77,7 +100,7 @@ public class LibrosScreen extends JFrame {
         gbc_comboBoxCategorias.gridy = 0;
         contentPane.add(comboBoxCategorias, gbc_comboBoxCategorias);
 
-        JLabel lblNewLabel = new JLabel("Título | Categoría | Disponibilidad | Fecha publicación");
+        JLabel lblNewLabel = new JLabel("ID | Título | Categoría | Disponibilidad | Fecha publicación");
         GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
         gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
         gbc_lblNewLabel.gridwidth = 6;
@@ -97,7 +120,6 @@ public class LibrosScreen extends JFrame {
 
         cargarCategorias();
         cargarLibros(null);
-        
     }
 
     private void cargarCategorias() {
@@ -131,20 +153,43 @@ public class LibrosScreen extends JFrame {
         try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
              Statement stmt = conn.createStatement()) {
 
-            String query = "SELECT titulo, genero, disponibilidad, fecha_publicacion FROM libros";
+            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
             if (categoria != null && !categoria.equals("Todas las categorías")) {
-                query += " WHERE genero 	 = '" + categoria + "'";
+                query += " WHERE genero = '" + categoria + "'";
             }
 
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                String libro = String.format("%s | %s | %s | %s",
+                String libro = String.format("%d | %s | %s | %s | %s",
+                        rs.getInt("id"),
                         rs.getString("titulo"),
                         rs.getString("genero"),
                         rs.getString("disponibilidad"),
                         rs.getDate("fecha_publicacion"));
                 model.addElement(libro);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void eliminarLibro(String id) {
+        String url = "jdbc:mysql://localhost:3306/biblioteca"; // Cambiar por tu URL de conexión
+        String usuario = "root"; // Cambiar por tu usuario de la base de datos
+        String contrasena = "root"; // Cambiar por tu contraseña
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "DELETE FROM libros WHERE id = " + id;
+            int rowsAffected = stmt.executeUpdate(query);
+
+            if (rowsAffected > 0) {
+                System.out.println("El libro con ID " + id + " ha sido eliminado correctamente.");
+            } else {
+                System.out.println("No se encontró un libro con el ID " + id + ".");
             }
 
         } catch (Exception e) {
