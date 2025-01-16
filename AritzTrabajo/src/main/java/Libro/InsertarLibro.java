@@ -1,17 +1,9 @@
 package Libro;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
-import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JLabel;
-import javax.swing.JButton;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class InsertarLibro extends JFrame {
 
@@ -24,167 +16,172 @@ public class InsertarLibro extends JFrame {
     private JTextField mes;
     private JTextField dia;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    InsertarLibro frame = new InsertarLibro();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                InsertarLibro frame = new InsertarLibro();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public InsertarLibro() {
+        // Configuración general del frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 633, 415);
+        setBounds(100, 100, 700, 500);
+        setTitle("Insertar Libro");
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
         setContentPane(contentPane);
-        GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[]{32, 0, 0, 0, 0, 0, 134, 8, 0, 0};
-        gbl_contentPane.rowHeights = new int[]{28, 0, 50, 22, 50, 21, 46, 19, 47, 28, 0};
-        gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-        gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-        contentPane.setLayout(gbl_contentPane);
+        contentPane.setLayout(new GridBagLayout());
 
-        JButton volver = new JButton("<--");
-        GridBagConstraints gbc_volver = new GridBagConstraints();
-        gbc_volver.insets = new Insets(0, 0, 5, 5);
-        gbc_volver.gridx = 0;
-        gbc_volver.gridy = 1;
-        contentPane.add(volver, gbc_volver);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel lblLibro = new JLabel("Libro  :");
-        GridBagConstraints gbc_lblLibro = new GridBagConstraints();
-        gbc_lblLibro.gridwidth = 3;
-        gbc_lblLibro.insets = new Insets(0, 0, 5, 5);
-        gbc_lblLibro.gridx = 1;
-        gbc_lblLibro.gridy = 2;
-        contentPane.add(lblLibro, gbc_lblLibro);
+        JButton volver = new JButton("<-- Volver");
+        volver.setBackground(new Color(173, 216, 230)); // Azul pastel
+        volver.setForeground(Color.BLACK);
+        volver.setFocusPainted(false);
+        volver.setFont(new Font("Arial", Font.PLAIN, 14));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        contentPane.add(volver, gbc);
+
+        volver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí se abrirá la pantalla principal de libros
+                dispose();
+                LibrosScreen.main(null);  // Llama al método main de LibrosScreen
+            }
+        });
+
+        // Etiqueta y campo de texto para el título del libro
+        JLabel lblLibro = new JLabel("Título del libro:");
+        lblLibro.setFont(new Font("Arial", Font.BOLD, 16));
+        lblLibro.setForeground(new Color(70, 130, 180)); // Azul oscuro
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        contentPane.add(lblLibro, gbc);
 
         libro = new JTextField();
-        libro.setColumns(10);
-        GridBagConstraints gbc_libro = new GridBagConstraints();
-        gbc_libro.gridwidth = 5;
-        gbc_libro.insets = new Insets(0, 0, 5, 0);
-        gbc_libro.fill = GridBagConstraints.HORIZONTAL;
-        gbc_libro.gridx = 4;
-        gbc_libro.gridy = 2;
-        contentPane.add(libro, gbc_libro);
+        libro.setFont(new Font("Arial", Font.PLAIN, 16));
+        libro.setColumns(20); // Aumentamos el tamaño visible del campo
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        contentPane.add(libro, gbc);
 
-        JLabel lblAutor = new JLabel("Autor  :");
-        GridBagConstraints gbc_lblAutor = new GridBagConstraints();
-        gbc_lblAutor.gridwidth = 3;
-        gbc_lblAutor.insets = new Insets(0, 0, 5, 5);
-        gbc_lblAutor.gridx = 1;
-        gbc_lblAutor.gridy = 4;
-        contentPane.add(lblAutor, gbc_lblAutor);
+        // Etiqueta y campo de texto para el autor
+        JLabel lblAutor = new JLabel("Autor:");
+        lblAutor.setFont(new Font("Arial", Font.BOLD, 16));
+        lblAutor.setForeground(new Color(70, 130, 180));
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        contentPane.add(lblAutor, gbc);
 
         autor = new JTextField();
-        autor.setColumns(10);
-        GridBagConstraints gbc_autor = new GridBagConstraints();
-        gbc_autor.gridwidth = 5;
-        gbc_autor.insets = new Insets(0, 0, 5, 0);
-        gbc_autor.fill = GridBagConstraints.HORIZONTAL;
-        gbc_autor.gridx = 4;
-        gbc_autor.gridy = 4;
-        contentPane.add(autor, gbc_autor);
+        autor.setFont(new Font("Arial", Font.PLAIN, 16));
+        autor.setColumns(20);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 3;
+        contentPane.add(autor, gbc);
 
-        JLabel lblNewLabel = new JLabel("Genero  :");
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.gridwidth = 3;
-        gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel.gridx = 1;
-        gbc_lblNewLabel.gridy = 6;
-        contentPane.add(lblNewLabel, gbc_lblNewLabel);
+        // Etiqueta y campo de texto para el género
+        JLabel lblGenero = new JLabel("Género:");
+        lblGenero.setFont(new Font("Arial", Font.BOLD, 16));
+        lblGenero.setForeground(new Color(70, 130, 180));
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        contentPane.add(lblGenero, gbc);
 
         genero = new JTextField();
-        genero.setColumns(10);
-        GridBagConstraints gbc_genero = new GridBagConstraints();
-        gbc_genero.gridwidth = 5;
-        gbc_genero.insets = new Insets(0, 0, 5, 0);
-        gbc_genero.fill = GridBagConstraints.HORIZONTAL;
-        gbc_genero.gridx = 4;
-        gbc_genero.gridy = 6;
-        contentPane.add(genero, gbc_genero);
+        genero.setFont(new Font("Arial", Font.PLAIN, 16));
+        genero.setColumns(20);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 3;
+        contentPane.add(genero, gbc);
 
-        JLabel lblFechaPublicacon = new JLabel("Fecha publicacon: ");
-        GridBagConstraints gbc_lblFechaPublicacon = new GridBagConstraints();
-        gbc_lblFechaPublicacon.gridwidth = 3;
-        gbc_lblFechaPublicacon.insets = new Insets(0, 0, 5, 5);
-        gbc_lblFechaPublicacon.gridx = 1;
-        gbc_lblFechaPublicacon.gridy = 8;
-        contentPane.add(lblFechaPublicacon, gbc_lblFechaPublicacon);
+        // Etiqueta y campos de texto para la fecha de publicación
+        JLabel lblFechaPublicacion = new JLabel("Fecha de publicación:");
+        lblFechaPublicacion.setFont(new Font("Arial", Font.BOLD, 16));
+        lblFechaPublicacion.setForeground(new Color(70, 130, 180));
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 4;
+        contentPane.add(lblFechaPublicacion, gbc);
 
+        JPanel fechaPanel = new JPanel(new GridLayout(2, 3, 10, 5)); // 2 filas: etiquetas y campos
+        fechaPanel.setBackground(contentPane.getBackground());
+
+        // Etiquetas: Año, Mes, Día
+        JLabel lblAnio = new JLabel("Año:");
+        lblAnio.setFont(new Font("Arial", Font.BOLD, 14));
+        lblAnio.setHorizontalAlignment(SwingConstants.CENTER);
+        fechaPanel.add(lblAnio);
+
+        JLabel lblMes = new JLabel("Mes:");
+        lblMes.setFont(new Font("Arial", Font.BOLD, 14));
+        lblMes.setHorizontalAlignment(SwingConstants.CENTER);
+        fechaPanel.add(lblMes);
+
+        JLabel lblDia = new JLabel("Día:");
+        lblDia.setFont(new Font("Arial", Font.BOLD, 14));
+        lblDia.setHorizontalAlignment(SwingConstants.CENTER);
+        fechaPanel.add(lblDia);
+
+        // Campos de entrada: Año, Mes, Día
         anio = new JTextField();
-        GridBagConstraints gbc_anio = new GridBagConstraints();
-        gbc_anio.insets = new Insets(0, 0, 5, 5);
-        gbc_anio.fill = GridBagConstraints.HORIZONTAL;
-        gbc_anio.gridx = 4;
-        gbc_anio.gridy = 8;
-        contentPane.add(anio, gbc_anio);
-        anio.setColumns(10);
-
-        JLabel lblNewLabel_1 = new JLabel("/");
-        GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel_1.gridx = 5;
-        gbc_lblNewLabel_1.gridy = 8;
-        contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
+        anio.setFont(new Font("Arial", Font.PLAIN, 16));
+        anio.setColumns(4);
+        fechaPanel.add(anio);
 
         mes = new JTextField();
-        GridBagConstraints gbc_mes = new GridBagConstraints();
-        gbc_mes.insets = new Insets(0, 0, 5, 5);
-        gbc_mes.fill = GridBagConstraints.HORIZONTAL;
-        gbc_mes.gridx = 6;
-        gbc_mes.gridy = 8;
-        contentPane.add(mes, gbc_mes);
-        mes.setColumns(10);
-
-        JLabel lblNewLabel_1_1 = new JLabel("/");
-        GridBagConstraints gbc_lblNewLabel_1_1 = new GridBagConstraints();
-        gbc_lblNewLabel_1_1.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel_1_1.anchor = GridBagConstraints.EAST;
-        gbc_lblNewLabel_1_1.gridx = 7;
-        gbc_lblNewLabel_1_1.gridy = 8;
-        contentPane.add(lblNewLabel_1_1, gbc_lblNewLabel_1_1);
+        mes.setFont(new Font("Arial", Font.PLAIN, 16));
+        mes.setColumns(2);
+        fechaPanel.add(mes);
 
         dia = new JTextField();
-        GridBagConstraints gbc_dia = new GridBagConstraints();
-        gbc_dia.insets = new Insets(0, 0, 5, 0);
-        gbc_dia.fill = GridBagConstraints.HORIZONTAL;
-        gbc_dia.gridx = 8;
-        gbc_dia.gridy = 8;
-        contentPane.add(dia, gbc_dia);
-        dia.setColumns(10);
+        dia.setFont(new Font("Arial", Font.PLAIN, 16));
+        dia.setColumns(2);
+        fechaPanel.add(dia);
 
-        JButton EnviarLibro = new JButton("Subir Libro");
-        EnviarLibro.addActionListener(new ActionListener() {
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 4;
+        contentPane.add(fechaPanel, gbc);
+
+        // Botón de enviar
+        JButton enviarLibro = new JButton("Subir Libro");
+        enviarLibro.setBackground(new Color(60, 179, 113)); // Verde medio
+        enviarLibro.setForeground(Color.WHITE);
+        enviarLibro.setFocusPainted(false);
+        enviarLibro.setFont(new Font("Arial", Font.BOLD, 16));
+        enviarLibro.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String titulo = libro.getText();
                 String autorText = autor.getText();
                 String generoText = genero.getText();
                 String fecha = anio.getText() + "-" + mes.getText() + "-" + dia.getText();
 
+                // Aquí llamarías a tu método para subir el libro
                 SubirLibros.subirLibro(titulo, autorText, generoText, true, fecha);
+                JOptionPane.showMessageDialog(contentPane, "Libro subido correctamente.");
             }
         });
-
-        GridBagConstraints gbc_EnviarLibro = new GridBagConstraints();
-        gbc_EnviarLibro.gridwidth = 9;
-        gbc_EnviarLibro.gridx = 0;
-        gbc_EnviarLibro.gridy = 9;
-        contentPane.add(EnviarLibro, gbc_EnviarLibro);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 4;
+        contentPane.add(enviarLibro, gbc);
     }
 }

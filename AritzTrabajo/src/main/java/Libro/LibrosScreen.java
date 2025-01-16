@@ -45,6 +45,18 @@ public class LibrosScreen extends JFrame {
         gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
+        // Botón "Añadir Libro"
+        JButton btnAñadirLibro = new JButton("Añadir Libro");
+        btnAñadirLibro.addActionListener(e -> {
+            dispose();  // Cierra la ventana actual (opcional)
+            InsertarLibro.main(null);  // Llama al método main de InsertarLibro
+        });
+        GridBagConstraints gbc_btnAñadirLibro = new GridBagConstraints();
+        gbc_btnAñadirLibro.insets = new Insets(0, 0, 5, 5);
+        gbc_btnAñadirLibro.gridx = 1;
+        gbc_btnAñadirLibro.gridy = 0;
+        contentPane.add(btnAñadirLibro, gbc_btnAñadirLibro);
+
         // Botón "Eliminar"
         JButton btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(e -> eliminarLibro());
