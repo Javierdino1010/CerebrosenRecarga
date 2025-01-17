@@ -1,25 +1,18 @@
 package Libro;
 
-import java.awt.EventQueue;
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 public class LibrosScreen extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JList<String> list;
     private JComboBox<String> comboBoxCategorias;
+    private JTable table;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -33,77 +26,73 @@ public class LibrosScreen extends JFrame {
     }
 
     public LibrosScreen() {
+        setTitle("Gestión de Libros");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 800, 500);
+        setBounds(100, 100, 900, 600);
+
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
         setContentPane(contentPane);
-        GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-        gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-        gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-        contentPane.setLayout(gbl_contentPane);
+        contentPane.setLayout(new BorderLayout(10, 10));
 
-        // Botón "Añadir Libro"
-        JButton btnAñadirLibro = new JButton("Añadir Libro");
-        btnAñadirLibro.addActionListener(e -> {
-            dispose();  // Cierra la ventana actual (opcional)
-            InsertarLibro.main(null);  // Llama al método main de InsertarLibro
+        // Panel superior para los botones y filtro
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setBackground(new Color(240, 248, 255));
+        panelSuperior.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        contentPane.add(panelSuperior, BorderLayout.NORTH);
+
+        JButton btnAñadirLibro = crearBoton("Añadir Libro", new Color(60, 179, 113), e -> {
+            dispose();
+            InsertarLibro.main(null);
         });
-        GridBagConstraints gbc_btnAñadirLibro = new GridBagConstraints();
-        gbc_btnAñadirLibro.insets = new Insets(0, 0, 5, 5);
-        gbc_btnAñadirLibro.gridx = 1;
-        gbc_btnAñadirLibro.gridy = 0;
-        contentPane.add(btnAñadirLibro, gbc_btnAñadirLibro);
+        panelSuperior.add(btnAñadirLibro);
 
-        // Botón "Eliminar"
-        JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.addActionListener(e -> eliminarLibro());
-        GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
-        gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
-        gbc_btnEliminar.gridx = 2;
-        gbc_btnEliminar.gridy = 0;
-        contentPane.add(btnEliminar, gbc_btnEliminar);
+        JButton btnEliminar = crearBoton("Eliminar", new Color(220, 20, 60), e -> eliminarLibro());
+        panelSuperior.add(btnEliminar);
 
-        // Botón "Modificar"
-        JButton btnModificar = new JButton("Modificar");
-        btnModificar.addActionListener(e -> modificarLibro());
-        GridBagConstraints gbc_btnModificar = new GridBagConstraints();
-        gbc_btnModificar.insets = new Insets(0, 0, 5, 5);
-        gbc_btnModificar.gridx = 3;
-        gbc_btnModificar.gridy = 0;
-        contentPane.add(btnModificar, gbc_btnModificar);
+        JButton btnModificar = crearBoton("Modificar", new Color(255, 140, 0), e -> modificarLibro());
+        panelSuperior.add(btnModificar);
 
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
         comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
-        GridBagConstraints gbc_comboBoxCategorias = new GridBagConstraints();
-        gbc_comboBoxCategorias.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBoxCategorias.insets = new Insets(0, 0, 5, 5);
-        gbc_comboBoxCategorias.gridx = 6;
-        gbc_comboBoxCategorias.gridy = 0;
-        contentPane.add(comboBoxCategorias, gbc_comboBoxCategorias);
+        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
+        panelSuperior.add(comboBoxCategorias);
 
-        JLabel lblNewLabel = new JLabel("ID | Título | Categoría | Disponibilidad | Fecha publicación");
-        GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-        gbc_lblNewLabel.gridwidth = 6;
-        gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-        gbc_lblNewLabel.gridx = 1;
-        gbc_lblNewLabel.gridy = 1;
-        contentPane.add(lblNewLabel, gbc_lblNewLabel);
+        // Etiqueta para el título
+        JLabel lblTitulo = new JLabel("Gestión de Libros");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setForeground(new Color(70, 130, 180));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(lblTitulo, BorderLayout.CENTER);
 
-        list = new JList<>(new DefaultListModel<>());
-        GridBagConstraints gbc_list = new GridBagConstraints();
-        gbc_list.gridwidth = 6;
-        gbc_list.insets = new Insets(0, 0, 0, 5);
-        gbc_list.fill = GridBagConstraints.BOTH;
-        gbc_list.gridx = 1;
-        gbc_list.gridy = 2;
-        contentPane.add(list, gbc_list);
+        // Tabla para mostrar los libros
+        table = new JTable();
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setModel(new DefaultTableModel(
+            new Object[][] {},
+            new String[] {"ID", "Título", "Categoría", "Disponibilidad", "Fecha publicación"}
+        ));
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setRowHeight(25);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.getViewport().setBackground(new Color(245, 245, 245));
+        contentPane.add(scrollPane, BorderLayout.SOUTH);
 
         cargarCategorias();
         cargarLibros(null);
+    }
+
+    private JButton crearBoton(String texto, Color color, ActionListener actionListener) {
+        JButton boton = new JButton(texto);
+        boton.setBackground(color);
+        boton.setForeground(Color.WHITE);
+        boton.setFocusPainted(false);
+        boton.setFont(new Font("Arial", Font.BOLD, 14));
+        boton.addActionListener(actionListener);
+        return boton;
     }
 
     private void cargarCategorias() {
@@ -131,8 +120,8 @@ public class LibrosScreen extends JFrame {
         String usuario = "root";
         String contrasena = "root";
 
-        DefaultListModel<String> model = (DefaultListModel<String>) list.getModel();
-        model.clear();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
 
         try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
              Statement stmt = conn.createStatement()) {
@@ -145,13 +134,14 @@ public class LibrosScreen extends JFrame {
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                String libro = String.format("%d | %s | %s | %s | %s",
-                        rs.getInt("id"),
-                        rs.getString("titulo"),
-                        rs.getString("genero"),
-                        rs.getString("disponibilidad"),
-                        rs.getDate("fecha_publicacion"));
-                model.addElement(libro);
+                Object[] row = {
+                    rs.getInt("id"),
+                    rs.getString("titulo"),
+                    rs.getString("genero"),
+                    rs.getString("disponibilidad"),
+                    rs.getDate("fecha_publicacion")
+                };
+                model.addRow(row);
             }
 
         } catch (Exception e) {
@@ -160,11 +150,9 @@ public class LibrosScreen extends JFrame {
     }
 
     private void eliminarLibro() {
-        int selectedIndex = list.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedValue = list.getSelectedValue();
-            String[] parts = selectedValue.split("\\|");
-            int id = Integer.parseInt(parts[0].trim());
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int id = (int) table.getValueAt(selectedRow, 0);
 
             String url = "jdbc:mysql://localhost:3306/biblioteca";
             String usuario = "root";
@@ -176,7 +164,7 @@ public class LibrosScreen extends JFrame {
                 pstmt.setInt(1, id);
                 pstmt.executeUpdate();
 
-                ((DefaultListModel<String>) list.getModel()).remove(selectedIndex);
+                ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Libro eliminado correctamente.");
 
             } catch (Exception e) {
@@ -189,14 +177,12 @@ public class LibrosScreen extends JFrame {
     }
 
     private void modificarLibro() {
-        int selectedIndex = list.getSelectedIndex();
-        if (selectedIndex != -1) {
-            String selectedValue = list.getSelectedValue();
-            String[] parts = selectedValue.split("\\|");
-            int id = Integer.parseInt(parts[0].trim());
-            String titulo = parts[1].trim();
-            String genero = parts[2].trim();
-            String disponibilidad = parts[3].trim();
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int id = (int) table.getValueAt(selectedRow, 0);
+            String titulo = (String) table.getValueAt(selectedRow, 1);
+            String genero = (String) table.getValueAt(selectedRow, 2);
+            String disponibilidad = (String) table.getValueAt(selectedRow, 3);
 
             // Crear ventana emergente para modificar libro
             JDialog dialog = new JDialog(this, "Modificar Libro", true);
@@ -207,8 +193,7 @@ public class LibrosScreen extends JFrame {
             JTextField txtGenero = new JTextField(genero, 20);
             JTextField txtDisponibilidad = new JTextField(disponibilidad, 20);
 
-            JButton btnGuardar = new JButton("Guardar");
-            btnGuardar.addActionListener(e -> {
+            JButton btnGuardar = crearBoton("Guardar", new Color(60, 179, 113), e -> {
                 String nuevoTitulo = txtTitulo.getText().trim();
                 String nuevoGenero = txtGenero.getText().trim();
                 String nuevaDisponibilidad = txtDisponibilidad.getText().trim();
