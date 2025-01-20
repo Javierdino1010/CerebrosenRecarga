@@ -73,7 +73,7 @@ public class Inicio extends JFrame {
 
 		p.setLayout(gbl_p);
 
-		JLabel lblNewLabel = new JLabel("BIENVENIDO");
+		JLabel lblNewLabel = new JLabel("BIENVENIDO, INICIANDO EL PROGRAMA...");
 		lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 30));
 
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();

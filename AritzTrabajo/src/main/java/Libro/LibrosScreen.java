@@ -31,6 +31,7 @@ public class LibrosScreen extends JFrame {
         setBounds(100, 100, 900, 600);
 
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(240, 248, 255));
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
         setContentPane(contentPane);

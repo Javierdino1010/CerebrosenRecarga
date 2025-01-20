@@ -67,7 +67,7 @@ public class VistaModificarUsuario extends JFrame {
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
-		contentPane.setBackground(new Color(240, 255, 255));
+		contentPane.setBackground(new Color(240, 248, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 

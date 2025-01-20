@@ -44,7 +44,7 @@ public class VistaLogin extends JFrame {
 		setBounds(100, 100, 869, 564);
 		contentPane = new JPanel();
 		contentPane.setToolTipText("");
-		contentPane.setBackground(new Color(240, 255, 255));
+		contentPane.setBackground(new Color(240, 248, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 
@@ -57,15 +57,15 @@ public class VistaLogin extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel usuario_lblNewLabel = new JLabel("USUARIO:");
-		usuario_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 14));
+		usuario_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_usuario_lblNewLabel = new GridBagConstraints();
-		gbc_usuario_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_usuario_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_usuario_lblNewLabel.gridx = 1;
 		gbc_usuario_lblNewLabel.gridy = 1;
 		contentPane.add(usuario_lblNewLabel, gbc_usuario_lblNewLabel);
 		
 		usuario_textField = new JTextField();
+		usuario_textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		usuario_textField.setToolTipText("Inserte el usuario");
 		GridBagConstraints gbc_usuario_textField = new GridBagConstraints();
 		gbc_usuario_textField.insets = new Insets(0, 0, 5, 5);
@@ -76,15 +76,15 @@ public class VistaLogin extends JFrame {
 		usuario_textField.setColumns(10);
 		
 		JLabel contraseña_lblNewLabel = new JLabel("CONTRASEÑA:");
-		contraseña_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 14));
+		contraseña_lblNewLabel.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_contraseña_lblNewLabel = new GridBagConstraints();
-		gbc_contraseña_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_contraseña_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_contraseña_lblNewLabel.gridx = 1;
 		gbc_contraseña_lblNewLabel.gridy = 2;
 		contentPane.add(contraseña_lblNewLabel, gbc_contraseña_lblNewLabel);
 		
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passwordField.setToolTipText("Inserte la contraseña\r\n");
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.insets = new Insets(0, 0, 5, 5);
@@ -97,7 +97,7 @@ public class VistaLogin extends JFrame {
 		registrarse_btnNewButton.setPreferredSize(new Dimension(150, 30));
 		registrarse_btnNewButton.setBackground(Color.lightGray);
 		registrarse_btnNewButton.setBorder(border);
-		registrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
+		registrarse_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_resgistrarse_btnNewButton = new GridBagConstraints();
 		gbc_resgistrarse_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_resgistrarse_btnNewButton.gridx = 1;
@@ -108,7 +108,7 @@ public class VistaLogin extends JFrame {
 		login_btnNewButton.setPreferredSize(new Dimension(150, 30));
 		login_btnNewButton.setBackground(Color.lightGray);
 		login_btnNewButton.setBorder(border);
-		login_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 10));
+		login_btnNewButton.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_login_btnNewButton = new GridBagConstraints();
 		gbc_login_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_login_btnNewButton.gridx = 2;
