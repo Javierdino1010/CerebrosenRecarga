@@ -3,6 +3,9 @@ package LoginRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Libro.Controlador;
+import Libro.LibrosScreenUsuario;
+
 
 public class ControladorLogin {
 	
@@ -34,7 +37,6 @@ public class ControladorLogin {
 			
 			// Llamada al método
 			LoginMetodos.validar(usuario, pass, login);
-
 			}
 		}
 	

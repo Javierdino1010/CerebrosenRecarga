@@ -1,14 +1,26 @@
 package Libro;
 
+import java.util.ArrayList;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "libros")
 public class Libros {
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String titulo;
     private String autor;
     private String genero;
     private boolean disponibilidad;
     private String fechaPublicacion;
-
-
+    
     // Constructor con parámetros
     public Libros(int id, String titulo, String autor, String genero, boolean disponibilidad, String fechaPublicacion) {
         this.id = id;
@@ -17,6 +29,10 @@ public class Libros {
         this.genero = genero;
         this.disponibilidad = disponibilidad;
         this.fechaPublicacion = fechaPublicacion;
+    }
+    
+    public Libros() {
+    	
     }
 
     // Getters y Setters
@@ -67,4 +83,6 @@ public class Libros {
     public void setFechaPublicacion(String fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
+    
+    
 }

@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import Libro.Controlador;
 import Libro.LibrosScreen;
 import Libro.LibrosScreenUsuario;
 import SQL.conexion;
@@ -29,6 +30,7 @@ public class LoginMetodos {
 			JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 			
 		}else {
+			nombre = nombre.substring(0, 1).toUpperCase() + nombre.substring(1).toLowerCase();
 			comprobarUsuario(nombre, pass, login);				
 			
 		}
@@ -52,9 +54,11 @@ public class LoginMetodos {
             		catalogoVista.setVisible(true);
             		login.dispose();
             	}else if(rol.equals("Usuario estándar")) {
-            		System.out.println("hola");
-            		Libro.LibrosScreenUsuario catalogoVistaUsuario = new LibrosScreenUsuario();
-            		catalogoVistaUsuario.setVisible(true);
+            		
+          		LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
+           	    new Controlador(librosScreenUsuario);
+            	
+           		librosScreenUsuario.setVisible(true);
             		login.dispose();
             	}else {
             		JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");

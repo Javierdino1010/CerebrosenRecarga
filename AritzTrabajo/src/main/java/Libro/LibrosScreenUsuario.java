@@ -6,21 +6,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
-import javax.swing.JList;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class LibrosScreenUsuario extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private JButton btnListarLibros;
+	private DefaultTableModel model;
 
 
 	public LibrosScreenUsuario() {
@@ -48,14 +50,32 @@ public class LibrosScreenUsuario extends JFrame {
 		gbc_lblNewLabel.gridy = 0;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
+		btnListarLibros = new JButton("Prueba");
+		GridBagConstraints gbc_btnListarLibros = new GridBagConstraints();
+		gbc_btnListarLibros.insets = new Insets(0, 0, 0, 5);
+		gbc_btnListarLibros.gridx = 0;
+		gbc_btnListarLibros.gridy = 1;
+		contentPane.add(btnListarLibros, gbc_btnListarLibros);
+		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Código", "Titulo", "Autor", "Categoría", "Disponibilidad", "Fecha de publicación"
-			}
-		));
+			    new Object[][] {},
+			    new String[] {
+			        "Código", "Titulo", "Autor", "Categoría", "Disponibilidad", "Fecha de publicación"
+			    }) {
+			    Class[] columnTypes = new Class[] {
+			        String.class, String.class, String.class, String.class, Boolean.class, String.class
+			    };
+			    public Class getColumnClass(int columnIndex) {
+			        return columnTypes[columnIndex];
+			    }
+			    boolean[] columnEditables = new boolean[] {
+			        false, false, false, false, false, false
+			    };
+			    public boolean isCellEditable(int row, int column) {
+			        return columnEditables[column];
+			    }
+			});
 		GridBagConstraints gbc_table = new GridBagConstraints();
 		gbc_table.gridwidth = 6;
 		gbc_table.insets = new Insets(0, 0, 0, 5);
@@ -63,6 +83,21 @@ public class LibrosScreenUsuario extends JFrame {
 		gbc_table.gridx = 1;
 		gbc_table.gridy = 1;
 		contentPane.add(table, gbc_table);
+	}
+	
+	public void agregarListenerPrueba(ActionListener listenForPrubaButton) {
+		btnListarLibros.addActionListener(listenForPrubaButton);
+
+	}
+	
+	public void agregarEnLista(ArrayList<Libros> librosLista) {
+
+		
+		int ultimaPosicion = librosLista.size() -1;
+		model = (DefaultTableModel)table.getModel();
+		model.addRow(new Object[] {librosLista.get(ultimaPosicion).getId(), librosLista.get(ultimaPosicion).getTitulo(), librosLista.get(ultimaPosicion).getAutor(), librosLista.get(ultimaPosicion).getGenero(), librosLista.get(ultimaPosicion).isDisponibilidad(), librosLista.get(ultimaPosicion).getFechaPublicacion()});
+		
+		
 	}
 
 }
