@@ -11,14 +11,12 @@ public class Controlador {
 
 	public Controlador(LibrosScreenUsuario librosScreenUsuario) {
 		this.librosScreenUsuario = librosScreenUsuario;
-		this.librosScreenUsuario.agregarListenerPrueba(new aniadirListenerPrueba());
 	}
 	
 	class aniadirListenerPrueba implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
 			librosArray = MetodosLibros.recuperarLibrosBD();
-			librosScreenUsuario.agregarEnLista(librosArray);
 		}
 	}
 	

@@ -1,103 +1,150 @@
 package Libro;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class LibrosScreenUsuario extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTable table;
-	private JButton btnListarLibros;
-	private DefaultTableModel model;
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JComboBox<String> comboBoxCategorias;
+    private JTable table;
 
 
 	public LibrosScreenUsuario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("Gestión de Libros");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 900, 600);
 
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
-		
-		
-		//El label será sustituido por Libro reservado || Fecha reserva  || fecha devolucion cuando haya selecionado algo del jList xd
-		JLabel lblNewLabel = new JLabel("Libro reservado || Fecha reserva  || fecha devolucion");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.VERTICAL;
-		gbc_lblNewLabel.gridwidth = 6;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		
-		btnListarLibros = new JButton("Prueba");
-		GridBagConstraints gbc_btnListarLibros = new GridBagConstraints();
-		gbc_btnListarLibros.insets = new Insets(0, 0, 0, 5);
-		gbc_btnListarLibros.gridx = 0;
-		gbc_btnListarLibros.gridy = 1;
-		contentPane.add(btnListarLibros, gbc_btnListarLibros);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			    new Object[][] {},
-			    new String[] {
-			        "Código", "Titulo", "Autor", "Categoría", "Disponibilidad", "Fecha de publicación"
-			    }) {
-			    Class[] columnTypes = new Class[] {
-			        String.class, String.class, String.class, String.class, Boolean.class, String.class
-			    };
-			    public Class getColumnClass(int columnIndex) {
-			        return columnTypes[columnIndex];
-			    }
-			    boolean[] columnEditables = new boolean[] {
-			        false, false, false, false, false, false
-			    };
-			    public boolean isCellEditable(int row, int column) {
-			        return columnEditables[column];
-			    }
-			});
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridwidth = 6;
-		gbc_table.insets = new Insets(0, 0, 0, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 1;
-		gbc_table.gridy = 1;
-		contentPane.add(table, gbc_table);
-	}
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+        contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
+        setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(10, 10));
+
+        // Panel superior para los botones y filtro
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setBackground(new Color(240, 248, 255));
+        panelSuperior.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        contentPane.add(panelSuperior, BorderLayout.NORTH);
+
+        comboBoxCategorias = new JComboBox<>();
+        comboBoxCategorias.addItem("Todas las categorías");
+        comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
+        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
+        panelSuperior.add(comboBoxCategorias);
+
+        // Etiqueta para el título
+        JLabel lblTitulo = new JLabel("Gestión de Libros");
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setForeground(new Color(70, 130, 180));
+        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(lblTitulo, BorderLayout.CENTER);
+
+        // Tabla para mostrar los libros
+        table = new JTable();
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setModel(new DefaultTableModel(
+            new Object[][] {},
+            new String[] {"ID", "Título", "Categoría", "Disponibilidad", "Fecha publicación"}
+        ));
+        table.setFont(new Font("Arial", Font.PLAIN, 14));
+        table.setRowHeight(25);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.getViewport().setBackground(new Color(245, 245, 245));
+        contentPane.add(scrollPane, BorderLayout.SOUTH);
+
+        cargarCategorias();
+        cargarLibros(null);
+
+		}
 	
-	public void agregarListenerPrueba(ActionListener listenForPrubaButton) {
-		btnListarLibros.addActionListener(listenForPrubaButton);
+    
+    private void cargarCategorias() {
+        String url = "jdbc:mysql://localhost:3306/biblioteca";
+        String usuario = "root";
+        String contrasena = "root";
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "SELECT DISTINCT genero FROM libros";
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                comboBoxCategorias.addItem(rs.getString("genero"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void filtrarPorCategoria() {
+        String categoriaSeleccionada = (String) comboBoxCategorias.getSelectedItem();
+        cargarLibros(categoriaSeleccionada);
+    }
+    
+    private void cargarLibros(String categoria) {
+        String url = "jdbc:mysql://localhost:3306/biblioteca";
+        String usuario = "root";
+        String contrasena = "root";
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
+            if (categoria != null && !categoria.equals("Todas las categorías")) {
+                query += " WHERE genero = '" + categoria + "'";
+            }
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("id"),
+                    rs.getString("titulo"),
+                    rs.getString("genero"),
+                    rs.getString("disponibilidad"),
+                    rs.getDate("fecha_publicacion")
+                };
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
 	}
-	
-	public void agregarEnLista(ArrayList<Libros> librosLista) {
-
-		
-		int ultimaPosicion = librosLista.size() -1;
-		model = (DefaultTableModel)table.getModel();
-		model.addRow(new Object[] {librosLista.get(ultimaPosicion).getId(), librosLista.get(ultimaPosicion).getTitulo(), librosLista.get(ultimaPosicion).getAutor(), librosLista.get(ultimaPosicion).getGenero(), librosLista.get(ultimaPosicion).isDisponibilidad(), librosLista.get(ultimaPosicion).getFechaPublicacion()});
-		
-		
-	}
-
-}
