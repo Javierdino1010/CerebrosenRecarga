@@ -38,6 +38,7 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
 		<mapping class="modelo.Usuario" />
+		<mapping class="Libro.Libros" />
 
 	</session-factory>
 
