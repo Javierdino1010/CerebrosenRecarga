@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import java.util.List;
 
 public class LibrosScreen extends JFrame {
 
@@ -14,38 +14,25 @@ public class LibrosScreen extends JFrame {
     private JComboBox<String> comboBoxCategorias;
     private JTable table;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                LibrosScreen frame = new LibrosScreen();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
     public LibrosScreen() {
         setTitle("Gestión de Libros");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 600);
 
         contentPane = new JPanel();
-        contentPane.setBackground(new Color(240, 248, 255));
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
-        contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
+        contentPane.setBackground(new Color(240, 248, 255));
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(10, 10));
 
-        // Panel superior para los botones y filtro
         JPanel panelSuperior = new JPanel();
-        panelSuperior.setBackground(new Color(240, 248, 255));
         panelSuperior.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        panelSuperior.setBackground(new Color(240, 248, 255));
         contentPane.add(panelSuperior, BorderLayout.NORTH);
 
         JButton btnAñadirLibro = crearBoton("Añadir Libro", new Color(60, 179, 113), e -> {
+            new InsertarLibro().setVisible(true);
             dispose();
-            InsertarLibro.main(null);
         });
         panelSuperior.add(btnAñadirLibro);
 
@@ -57,30 +44,20 @@ public class LibrosScreen extends JFrame {
 
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
-        comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
-        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
+        comboBoxCategorias.addActionListener(e -> cargarLibros((String) comboBoxCategorias.getSelectedItem()));
         panelSuperior.add(comboBoxCategorias);
 
-        // Etiqueta para el título
-        JLabel lblTitulo = new JLabel("Gestión de Libros");
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
-        lblTitulo.setForeground(new Color(70, 130, 180));
-        lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPane.add(lblTitulo, BorderLayout.CENTER);
-
-        // Tabla para mostrar los libros
-        table = new JTable();
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setModel(new DefaultTableModel(
-            new Object[][] {},
-            new String[] {"ID", "Título", "Categoría", "Disponibilidad", "Fecha publicación"}
+        // Modelo de la tabla sin la columna de autor
+        table = new JTable(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{"ID", "Título", "Género", "Disponibilidad", "Fecha publicación"}
         ));
         table.setFont(new Font("Arial", Font.PLAIN, 14));
         table.setRowHeight(25);
 
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.getViewport().setBackground(new Color(245, 245, 245));
-        contentPane.add(scrollPane, BorderLayout.SOUTH);
+        scrollPane.getViewport().setBackground(new Color(240, 248, 255));
+        contentPane.add(scrollPane, BorderLayout.CENTER);
 
         cargarCategorias();
         cargarLibros(null);
@@ -90,63 +67,33 @@ public class LibrosScreen extends JFrame {
         JButton boton = new JButton(texto);
         boton.setBackground(color);
         boton.setForeground(Color.WHITE);
-        boton.setFocusPainted(false);
         boton.setFont(new Font("Arial", Font.BOLD, 14));
+        boton.setFocusPainted(false);
         boton.addActionListener(actionListener);
         return boton;
     }
 
     private void cargarCategorias() {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String usuario = "root";
-        String contrasena = "root";
-
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT DISTINCT genero FROM libros";
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                comboBoxCategorias.addItem(rs.getString("genero"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<String> categorias = MostrarLibros.obtenerCategorias();
+        for (String categoria : categorias) {
+            comboBoxCategorias.addItem(categoria);
         }
     }
 
     private void cargarLibros(String categoria) {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String usuario = "root";
-        String contrasena = "root";
-
+        List<Object[]> libros = MostrarLibros.obtenerLibros(categoria);
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
 
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
-            if (categoria != null && !categoria.equals("Todas las categorías")) {
-                query += " WHERE genero = '" + categoria + "'";
-            }
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Object[] row = {
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("genero"),
-                    rs.getString("disponibilidad"),
-                    rs.getDate("fecha_publicacion")
-                };
-                model.addRow(row);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (Object[] libro : libros) {
+            Object[] fila = {
+                libro[0],                    // ID
+                libro[1],                    // Título
+                libro[2],                    // Género
+                libro[3],                    // Disponibilidad
+                libro[4].toString()          // Fecha publicación (aseguramos que sea String)
+            };
+            model.addRow(fila);
         }
     }
 
@@ -154,22 +101,10 @@ public class LibrosScreen extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) table.getValueAt(selectedRow, 0);
-
-            String url = "jdbc:mysql://localhost:3306/biblioteca";
-            String usuario = "root";
-            String contrasena = "root";
-
-            try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-                 PreparedStatement pstmt = conn.prepareStatement("DELETE FROM libros WHERE id = ?")) {
-
-                pstmt.setInt(1, id);
-                pstmt.executeUpdate();
-
+            if (MostrarLibros.eliminarLibro(id)) {
                 ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Libro eliminado correctamente.");
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
                 JOptionPane.showMessageDialog(this, "Error al eliminar el libro.");
             }
         } else {
@@ -181,65 +116,94 @@ public class LibrosScreen extends JFrame {
         int selectedRow = table.getSelectedRow();
         if (selectedRow != -1) {
             int id = (int) table.getValueAt(selectedRow, 0);
-            String titulo = (String) table.getValueAt(selectedRow, 1);
-            String genero = (String) table.getValueAt(selectedRow, 2);
-            String disponibilidad = (String) table.getValueAt(selectedRow, 3);
+            String tituloActual = (String) table.getValueAt(selectedRow, 1);
+            String generoActual = (String) table.getValueAt(selectedRow, 2);
+            String disponibilidadActual = table.getValueAt(selectedRow, 3).toString();
 
-            // Crear ventana emergente para modificar libro
-            JDialog dialog = new JDialog(this, "Modificar Libro", true);
-            dialog.setSize(400, 300);
-            dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
+            // Crear panel con campos de entrada
+            JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+            panel.add(new JLabel("Título:"));
+            JTextField txtTitulo = new JTextField(tituloActual);
+            panel.add(txtTitulo);
 
-            JTextField txtTitulo = new JTextField(titulo, 20);
-            JTextField txtGenero = new JTextField(genero, 20);
-            JTextField txtDisponibilidad = new JTextField(disponibilidad, 20);
+            panel.add(new JLabel("Género:"));
+            JTextField txtGenero = new JTextField(generoActual);
+            panel.add(txtGenero);
 
-            JButton btnGuardar = crearBoton("Guardar", new Color(60, 179, 113), e -> {
-                String nuevoTitulo = txtTitulo.getText().trim();
-                String nuevoGenero = txtGenero.getText().trim();
-                String nuevaDisponibilidad = txtDisponibilidad.getText().trim();
+            panel.add(new JLabel("Disponibilidad (1 o 0):"));
+            JTextField txtDisponibilidad = new JTextField(disponibilidadActual);
+            panel.add(txtDisponibilidad);
 
-                actualizarLibro(id, nuevoTitulo, nuevoGenero, nuevaDisponibilidad);
-                dialog.dispose();
-                cargarLibros(null);
-            });
+            panel.add(new JLabel("Fecha de publicación (YYYY-MM-DD):"));
+            JTextField txtFecha = new JTextField();
+            panel.add(txtFecha);
 
-            dialog.add(new JLabel("Título:"));
-            dialog.add(txtTitulo);
-            dialog.add(new JLabel("Género:"));
-            dialog.add(txtGenero);
-            dialog.add(new JLabel("Disponibilidad:"));
-            dialog.add(txtDisponibilidad);
-            dialog.add(btnGuardar);
+            // Mostrar panel en un JOptionPane
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    panel,
+                    "Modificar libro",
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE
+            );
 
-            dialog.setVisible(true);
+            if (result == JOptionPane.OK_OPTION) {
+                // Obtener valores ingresados
+                String titulo = txtTitulo.getText().trim();
+                String genero = txtGenero.getText().trim();
+                String disponibilidad = txtDisponibilidad.getText().trim();
+                String fechaPublicacion = txtFecha.getText().trim();
+
+                // Validar disponibilidad
+                if (!"1".equals(disponibilidad) && !"0".equals(disponibilidad)) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "El valor de disponibilidad debe ser '1' (disponible) o '0' (no disponible).",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                // Validar fecha de publicación (formato simple)
+                if (!fechaPublicacion.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "La fecha debe tener el formato YYYY-MM-DD.",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                // Llamar al método actualizarLibro de MostrarLibros
+                boolean actualizado = MostrarLibros.actualizarLibro(id, titulo, genero, disponibilidad, fechaPublicacion);
+
+                if (actualizado) {
+                    // Actualizar la tabla visualmente
+                    table.setValueAt(titulo, selectedRow, 1);
+                    table.setValueAt(genero, selectedRow, 2);
+                    table.setValueAt(disponibilidad, selectedRow, 3);
+                    JOptionPane.showMessageDialog(this, "Libro actualizado correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un libro para modificar.");
         }
     }
 
-    private void actualizarLibro(int id, String titulo, String genero, String disponibilidad) {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String usuario = "root";
-        String contrasena = "root";
 
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-             PreparedStatement pstmt = conn.prepareStatement(
-                     "UPDATE libros SET titulo = ?, genero = ?, disponibilidad = ? WHERE id = ?")) {
 
-            pstmt.setString(1, titulo);
-            pstmt.setString(2, genero);
-            pstmt.setString(3, disponibilidad);
-            pstmt.setInt(4, id);
-            pstmt.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void filtrarPorCategoria() {
-        String categoriaSeleccionada = (String) comboBoxCategorias.getSelectedItem();
-        cargarLibros(categoriaSeleccionada);
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                LibrosScreen frame = new LibrosScreen();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

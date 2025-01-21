@@ -3,6 +3,8 @@ package Libro;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import javax.swing.*;
 
 public class InsertarLibro extends JFrame {
@@ -28,13 +30,12 @@ public class InsertarLibro extends JFrame {
     }
 
     public InsertarLibro() {
-        // Configuración general del frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 700, 500);
         setTitle("Insertar Libro");
         contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        contentPane.setBackground(new Color(240, 248, 255)); // Fondo azul claro
+        contentPane.setBackground(new Color(240, 248, 255));
         setContentPane(contentPane);
         contentPane.setLayout(new GridBagLayout());
 
@@ -43,7 +44,7 @@ public class InsertarLibro extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JButton volver = new JButton("<-- Volver");
-        volver.setBackground(new Color(173, 216, 230)); // Azul pastel
+        volver.setBackground(new Color(173, 216, 230));
         volver.setForeground(Color.BLACK);
         volver.setFocusPainted(false);
         volver.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -55,16 +56,14 @@ public class InsertarLibro extends JFrame {
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí se abrirá la pantalla principal de libros
                 dispose();
-                LibrosScreen.main(null);  // Llama al método main de LibrosScreen
+                LibrosScreen.main(null);
             }
         });
 
-        // Etiqueta y campo de texto para el título del libro
         JLabel lblLibro = new JLabel("Título del libro:");
         lblLibro.setFont(new Font("Arial", Font.BOLD, 16));
-        lblLibro.setForeground(new Color(70, 130, 180)); // Azul oscuro
+        lblLibro.setForeground(new Color(70, 130, 180));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -72,13 +71,12 @@ public class InsertarLibro extends JFrame {
 
         libro = new JTextField();
         libro.setFont(new Font("Arial", Font.PLAIN, 16));
-        libro.setColumns(20); // Aumentamos el tamaño visible del campo
+        libro.setColumns(20);
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.gridwidth = 3;
         contentPane.add(libro, gbc);
 
-        // Etiqueta y campo de texto para el autor
         JLabel lblAutor = new JLabel("Autor:");
         lblAutor.setFont(new Font("Arial", Font.BOLD, 16));
         lblAutor.setForeground(new Color(70, 130, 180));
@@ -95,7 +93,6 @@ public class InsertarLibro extends JFrame {
         gbc.gridwidth = 3;
         contentPane.add(autor, gbc);
 
-        // Etiqueta y campo de texto para el género
         JLabel lblGenero = new JLabel("Género:");
         lblGenero.setFont(new Font("Arial", Font.BOLD, 16));
         lblGenero.setForeground(new Color(70, 130, 180));
@@ -111,7 +108,6 @@ public class InsertarLibro extends JFrame {
         gbc.gridwidth = 3;
         contentPane.add(genero, gbc);
 
-        // Etiqueta y campos de texto para la fecha de publicación
         JLabel lblFechaPublicacion = new JLabel("Fecha de publicación:");
         lblFechaPublicacion.setFont(new Font("Arial", Font.BOLD, 16));
         lblFechaPublicacion.setForeground(new Color(70, 130, 180));
@@ -120,10 +116,9 @@ public class InsertarLibro extends JFrame {
         gbc.gridwidth = 4;
         contentPane.add(lblFechaPublicacion, gbc);
 
-        JPanel fechaPanel = new JPanel(new GridLayout(2, 3, 10, 5)); // 2 filas: etiquetas y campos
+        JPanel fechaPanel = new JPanel(new GridLayout(2, 3, 10, 5));
         fechaPanel.setBackground(contentPane.getBackground());
 
-        // Etiquetas: Año, Mes, Día
         JLabel lblAnio = new JLabel("Año:");
         lblAnio.setFont(new Font("Arial", Font.BOLD, 14));
         lblAnio.setHorizontalAlignment(SwingConstants.CENTER);
@@ -139,7 +134,6 @@ public class InsertarLibro extends JFrame {
         lblDia.setHorizontalAlignment(SwingConstants.CENTER);
         fechaPanel.add(lblDia);
 
-        // Campos de entrada: Año, Mes, Día
         anio = new JTextField();
         anio.setFont(new Font("Arial", Font.PLAIN, 16));
         anio.setColumns(4);
@@ -160,9 +154,8 @@ public class InsertarLibro extends JFrame {
         gbc.gridwidth = 4;
         contentPane.add(fechaPanel, gbc);
 
-        // Botón de enviar
         JButton enviarLibro = new JButton("Subir Libro");
-        enviarLibro.setBackground(new Color(60, 179, 113)); // Verde medio
+        enviarLibro.setBackground(new Color(60, 179, 113));
         enviarLibro.setForeground(Color.WHITE);
         enviarLibro.setFocusPainted(false);
         enviarLibro.setFont(new Font("Arial", Font.BOLD, 16));
@@ -172,16 +165,28 @@ public class InsertarLibro extends JFrame {
                 String titulo = libro.getText();
                 String autorText = autor.getText();
                 String generoText = genero.getText();
-                String fecha = anio.getText() + "-" + mes.getText() + "-" + dia.getText();
+                String fechaStr = anio.getText() + "-" + mes.getText() + "-" + dia.getText();
 
-                // Aquí llamarías a tu método para subir el libro
-                SubirLibros.subirLibro(titulo, autorText, generoText, true, fecha);
-                JOptionPane.showMessageDialog(contentPane, "Libro subido correctamente.");
+                if (validarFecha(fechaStr)) {
+                    SubirLibros.subirLibro(titulo, autorText, generoText, true, fechaStr);
+                    JOptionPane.showMessageDialog(contentPane, "Libro subido correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(contentPane, "La fecha ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 4;
         contentPane.add(enviarLibro, gbc);
+    }
+
+    private boolean validarFecha(String fecha) {
+        try {
+            LocalDate.parse(fecha);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }
