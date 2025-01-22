@@ -3,6 +3,8 @@ package Libro;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -98,9 +100,15 @@ public class Libros {
 			
 		Libros libro = session.get(Libros.class, idLibro);
 		
-		libro.setDisponibilidad(false);
-		session.update(libro);
-		session.getTransaction().commit();
+		if(libro.isDisponibilidad() == false) {
+			JOptionPane.showMessageDialog(null, "No quedan libros disponibles");
+		}else {
+			libro.setDisponibilidad(false);
+			session.update(libro);
+			session.getTransaction().commit();
+		}
+		
+		
 	}
 
 }

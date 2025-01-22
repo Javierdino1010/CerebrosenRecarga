@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -23,8 +25,14 @@ public class Controlador {
 			
 			int idLibro = librosScreenUsuario.obtenerIdFilaSeleccionada();
 			
-			Libros libro = new Libros();
-			libro.Reservar(idLibro);
+			if(idLibro == -1) {
+				JOptionPane.showMessageDialog(null, "Elige un libro para reservar");
+			}else {
+				Libros libro = new Libros();
+				libro.Reservar(idLibro);
+			}
+			
+			
 		}
 	}
 	

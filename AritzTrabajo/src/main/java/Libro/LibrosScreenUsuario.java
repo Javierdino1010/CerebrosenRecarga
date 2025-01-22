@@ -23,12 +23,19 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import modelo.Usuario;
+
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LibrosScreenUsuario extends JFrame {
 
@@ -112,23 +119,34 @@ public class LibrosScreenUsuario extends JFrame {
 	
     
     private void cargarCategorias() {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String usuario = "root";
-        String contrasena = "root";
-
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT DISTINCT genero FROM libros";
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                comboBoxCategorias.addItem(rs.getString("genero"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String url = "jdbc:mysql://localhost:3306/biblioteca";
+//        String usuario = "root";
+//        String contrasena = "root";
+//
+//        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+//             Statement stmt = conn.createStatement()) {
+//
+//            String query = "SELECT DISTINCT genero FROM libros";
+//            ResultSet rs = stmt.executeQuery(query);
+//
+//            while (rs.next()) {
+//                comboBoxCategorias.addItem(rs.getString("genero"));
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    	
+		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+		Session session = factory.openSession();
+		
+		session.beginTransaction();
+		
+		List<Libros> libro = session.createQuery("FROM Libros", Libros.class).list();
+		
+		for (Libros libros : libro) {
+			comboBoxCategorias.addItem(libros.getGenero());
+		}
     }
     
     private void filtrarPorCategoria() {
