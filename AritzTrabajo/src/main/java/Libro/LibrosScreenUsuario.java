@@ -1,6 +1,7 @@
 package Libro;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -35,6 +36,7 @@ public class LibrosScreenUsuario extends JFrame {
     private JPanel contentPane;
     private JComboBox<String> comboBoxCategorias;
     private JTable table;
+    private JButton btnReservar;
 
 
 	public LibrosScreenUsuario() {
@@ -57,6 +59,9 @@ public class LibrosScreenUsuario extends JFrame {
         panelSuperior.setBackground(new Color(240, 248, 255));
         panelSuperior.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         contentPane.add(panelSuperior, BorderLayout.NORTH);
+        
+        btnReservar = crearBoton("Reservar", new Color(220, 20, 60));
+        panelSuperior.add(btnReservar);
 
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
@@ -89,6 +94,21 @@ public class LibrosScreenUsuario extends JFrame {
         cargarLibros(null);
 
 		}
+	
+
+    
+	public void agregarListenerReservar(ActionListener listenForReservarButton) {
+		btnReservar.addActionListener(listenForReservarButton);
+	}
+
+	private JButton crearBoton(String texto, Color color) {
+        JButton boton = new JButton(texto);
+        boton.setBackground(color);
+        boton.setForeground(Color.WHITE);
+        boton.setFont(new Font("Arial", Font.BOLD, 14));
+        boton.setFocusPainted(false);
+        return boton;
+    }
 	
     
     private void cargarCategorias() {
@@ -147,6 +167,17 @@ public class LibrosScreenUsuario extends JFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public int obtenerIdFilaSeleccionada() {
+        int filaSeleccionada = table.getSelectedRow();
+        
+        if (filaSeleccionada != -1) {
+            int id = (int) table.getValueAt(filaSeleccionada, 0);
+            return id;
+        } else {
+            return -1;
         }
     }
     

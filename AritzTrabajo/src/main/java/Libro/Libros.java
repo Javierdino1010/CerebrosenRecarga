@@ -1,6 +1,11 @@
 package Libro;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -84,5 +89,18 @@ public class Libros {
         this.fechaPublicacion = fechaPublicacion;
     }
     
-    
+	public void Reservar(int idLibro) {
+		
+		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+		Session session = factory.openSession();
+		
+		session.beginTransaction();
+			
+		Libros libro = session.get(Libros.class, idLibro);
+		
+		libro.setDisponibilidad(false);
+		session.update(libro);
+		session.getTransaction().commit();
+	}
+
 }

@@ -4,19 +4,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 public class Controlador {
 	
 	private LibrosScreenUsuario librosScreenUsuario;
-	ArrayList <Libros> librosArray = new ArrayList<>();
 
 	public Controlador(LibrosScreenUsuario librosScreenUsuario) {
 		this.librosScreenUsuario = librosScreenUsuario;
+		
+		librosScreenUsuario.agregarListenerReservar(new aniadirListenerReserva());
 	}
 	
-	class aniadirListenerPrueba implements ActionListener {
+	class aniadirListenerReserva implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
-			librosArray = MetodosLibros.recuperarLibrosBD();
+			int idLibro = librosScreenUsuario.obtenerIdFilaSeleccionada();
+			
+			Libros libro = new Libros();
+			libro.Reservar(idLibro);
 		}
 	}
 	
