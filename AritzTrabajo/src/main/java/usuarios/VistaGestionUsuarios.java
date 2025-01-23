@@ -98,19 +98,15 @@ public class VistaGestionUsuarios extends JFrame {
 	}
 
 	
-	//Agregar actionListener a los botones
-			public void ModificarUsuarios(ActionListener listenForModUsuario) {
-				btnModUser.addActionListener(listenForModUsuario);
-				
-			}
-			
-			public void EliminarUsuarios(ActionListener listenForDelUsuario) {
-				btnModUser.addActionListener(listenForDelUsuario);
-				
-			}
-			
-			public void Volver(ActionListener listenForVolver) {
-				btnModUser.addActionListener(listenForVolver);
-				
-			}
+	public void ModificarUsuarios(ActionListener listener) {
+		btnModUser.addActionListener(listener);
+    }
+
+    public void EliminarUsuarios(ActionListener listener) {
+    	btnDeleteUser.addActionListener(listener);
+    }
+
+    public void Volver(ActionListener listener) {
+        btnVolver.addActionListener(listener);
+    }
 }

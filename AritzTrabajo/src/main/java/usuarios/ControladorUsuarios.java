@@ -3,6 +3,9 @@ package usuarios;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import MenuAdmin.ControladorVista;
+import MenuAdmin.Vista;
+
 
 
 public class ControladorUsuarios {
@@ -23,7 +26,8 @@ public class ControladorUsuarios {
 	
 	class ModificarUsuariosListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
+        	 gestionUsuarios.dispose(); // Cierra la vista de gestión de usuarios
+             modificarUsuario.setVisible(true); // Abre la vista de modificar usuario
         }
     }
 	
@@ -35,7 +39,10 @@ public class ControladorUsuarios {
 	
 	class VolverListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
+        	gestionUsuarios.dispose(); // Cierra la ventana actual
+            Vista menuPrincipal = new Vista();
+            new ControladorVista(menuPrincipal);
+            menuPrincipal.setVisible(true);
         }
     }
 }
