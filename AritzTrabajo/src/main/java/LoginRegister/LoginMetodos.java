@@ -16,6 +16,8 @@ import org.hibernate.cfg.Configuration;
 import Libro.Controlador;
 import Libro.LibrosScreen;
 import Libro.LibrosScreenUsuario;
+import MenuAdmin.ControladorVista;
+import MenuAdmin.Vista;
 import SQL.conexion;
 import modelo.Usuario;
 
@@ -50,9 +52,14 @@ public class LoginMetodos {
 			if(usu.getNombre().equals(nombre) && usu.getPass().equals(pass)) {
 				String rol = usu.getRol();
 				if(rol.equals("Administrador")) {
-            		Libro.LibrosScreen catalogoVista = new LibrosScreen();
-            		catalogoVista.setVisible(true);
+            		/*Libro.LibrosScreen catalogoVista = new LibrosScreen();
+            		catalogoVista.setVisible(true);*/
+					
+					Vista vista = new Vista();
+					new ControladorVista(vista);
+					vista.setVisible(true);
             		login.dispose();
+            		
             	}else if(rol.equals("Usuario estándar")) {
             		
           		LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
