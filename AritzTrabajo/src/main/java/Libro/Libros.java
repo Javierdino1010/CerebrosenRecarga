@@ -1,7 +1,11 @@
 package Libro;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -9,27 +13,21 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "libros")
 public class Libros {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String titulo;
     private String autor;
     private String genero;
     private boolean disponibilidad;
-    private String fechaPublicacion;
-    
+    private Date fechaPublicacion;
+
     // Constructor con parámetros
-    public Libros(int id, String titulo, String autor, String genero, boolean disponibilidad, String fechaPublicacion) {
+    public Libros(int id, String titulo, String autor, String genero, boolean disponibilidad, Date fechaPublicacion) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -37,9 +35,8 @@ public class Libros {
         this.disponibilidad = disponibilidad;
         this.fechaPublicacion = fechaPublicacion;
     }
-    
+
     public Libros() {
-    	
     }
 
     // Getters y Setters
@@ -83,13 +80,14 @@ public class Libros {
         this.disponibilidad = disponibilidad;
     }
 
-    public String getFechaPublicacion() {
+    public Date getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(String fechaPublicacion) {
+    public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
+
     
 	public void Reservar(int idLibro) {
 		

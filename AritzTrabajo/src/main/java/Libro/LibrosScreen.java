@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class LibrosScreen extends JFrame {
 
@@ -13,6 +15,7 @@ public class LibrosScreen extends JFrame {
     private JPanel contentPane;
     private JComboBox<String> comboBoxCategorias;
     private JTable table;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public LibrosScreen() {
         setTitle("Gestión de Libros");
@@ -91,7 +94,7 @@ public class LibrosScreen extends JFrame {
                 libro[1],                    // Título
                 libro[2],                    // Género
                 libro[3],                    // Disponibilidad
-                libro[4].toString()          // Fecha publicación (aseguramos que sea String)
+                libro[4] != null ? libro[4].toString() : "" // Fecha publicación (aseguramos que sea String)
             };
             model.addRow(fila);
         }
@@ -119,6 +122,7 @@ public class LibrosScreen extends JFrame {
             String tituloActual = (String) table.getValueAt(selectedRow, 1);
             String generoActual = (String) table.getValueAt(selectedRow, 2);
             String disponibilidadActual = table.getValueAt(selectedRow, 3).toString();
+            String fechaActual = (String) table.getValueAt(selectedRow, 4);
 
             // Crear panel con campos de entrada
             JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
@@ -130,12 +134,12 @@ public class LibrosScreen extends JFrame {
             JTextField txtGenero = new JTextField(generoActual);
             panel.add(txtGenero);
 
-            panel.add(new JLabel("Disponibilidad (1 o 0):"));
+            panel.add(new JLabel("Disponibilidad (true o false):"));
             JTextField txtDisponibilidad = new JTextField(disponibilidadActual);
             panel.add(txtDisponibilidad);
 
             panel.add(new JLabel("Fecha de publicación (YYYY-MM-DD):"));
-            JTextField txtFecha = new JTextField();
+            JTextField txtFecha = new JTextField(fechaActual);
             panel.add(txtFecha);
 
             // Mostrar panel en un JOptionPane
@@ -152,13 +156,13 @@ public class LibrosScreen extends JFrame {
                 String titulo = txtTitulo.getText().trim();
                 String genero = txtGenero.getText().trim();
                 String disponibilidad = txtDisponibilidad.getText().trim();
-                String fechaPublicacion = txtFecha.getText().trim();
+                String fechaStr = txtFecha.getText().trim();
 
                 // Validar disponibilidad
-                if (!"1".equals(disponibilidad) && !"0".equals(disponibilidad)) {
+                if (!"true".equals(disponibilidad) && !"false".equals(disponibilidad)) {
                     JOptionPane.showMessageDialog(
                             this,
-                            "El valor de disponibilidad debe ser '1' (disponible) o '0' (no disponible).",
+                            "El valor de disponibilidad debe ser 'true' (disponible) o 'false' (no disponible).",
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
@@ -166,13 +170,22 @@ public class LibrosScreen extends JFrame {
                 }
 
                 // Validar fecha de publicación (formato simple)
-                if (!fechaPublicacion.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                if (!fechaStr.matches("\\d{4}-\\d{2}-\\d{2}")) {
                     JOptionPane.showMessageDialog(
                             this,
                             "La fecha debe tener el formato YYYY-MM-DD.",
                             "Error",
                             JOptionPane.ERROR_MESSAGE
                     );
+                    return;
+                }
+
+                // Convertir la fecha a Date
+                Date fechaPublicacion = null;
+                try {
+                    fechaPublicacion = dateFormat.parse(fechaStr);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -184,6 +197,7 @@ public class LibrosScreen extends JFrame {
                     table.setValueAt(titulo, selectedRow, 1);
                     table.setValueAt(genero, selectedRow, 2);
                     table.setValueAt(disponibilidad, selectedRow, 3);
+                    table.setValueAt(fechaStr, selectedRow, 4); // Asegurarse de que se muestra como String
                     JOptionPane.showMessageDialog(this, "Libro actualizado correctamente.");
                 } else {
                     JOptionPane.showMessageDialog(this, "Error al actualizar el libro.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -193,8 +207,6 @@ public class LibrosScreen extends JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un libro para modificar.");
         }
     }
-
-
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {

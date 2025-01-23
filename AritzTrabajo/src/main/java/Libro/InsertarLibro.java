@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import javax.swing.*;
 
 public class InsertarLibro extends JFrame {
@@ -17,6 +20,7 @@ public class InsertarLibro extends JFrame {
     private JTextField anio;
     private JTextField mes;
     private JTextField dia;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -168,7 +172,16 @@ public class InsertarLibro extends JFrame {
                 String fechaStr = anio.getText() + "-" + mes.getText() + "-" + dia.getText();
 
                 if (validarFecha(fechaStr)) {
-                    SubirLibros.subirLibro(titulo, autorText, generoText, true, fechaStr);
+                    // Convertir la fecha a Date
+                    Date fechaPublicacion = null;
+                    try {
+                        fechaPublicacion = dateFormat.parse(fechaStr);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(contentPane, "La fecha ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    SubirLibros.subirLibro(titulo, autorText, generoText, true, fechaPublicacion);
                     JOptionPane.showMessageDialog(contentPane, "Libro subido correctamente.");
                 } else {
                     JOptionPane.showMessageDialog(contentPane, "La fecha ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);

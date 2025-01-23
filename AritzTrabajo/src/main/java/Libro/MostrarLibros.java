@@ -1,28 +1,34 @@
 package Libro;
 
-import java.sql.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MostrarLibros {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/biblioteca";
-    private static final String USUARIO = "root";
-    private static final String CONTRASENA = "root";
+    private static SessionFactory sessionFactory;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    static {
+        // Inicializar la SessionFactory
+        Configuration configuration = new Configuration().configure().addAnnotatedClass(Libros.class);
+        sessionFactory = configuration.buildSessionFactory();
+    }
 
     public static List<String> obtenerCategorias() {
         List<String> categorias = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT DISTINCT genero FROM libros";
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                categorias.add(rs.getString("genero"));
-            }
-
-        } catch (SQLException e) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT DISTINCT l.genero FROM Libros l";
+            Query<String> query = session.createQuery(hql, String.class);
+            categorias = query.getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return categorias;
@@ -30,77 +36,96 @@ public class MostrarLibros {
 
     public static List<Object[]> obtenerLibros(String categoria) {
         List<Object[]> libros = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT l.id, l.titulo, l.genero, l.disponibilidad, l.fechaPublicacion FROM Libros l";
             if (categoria != null && !categoria.equals("Todas las categorías")) {
-                query += " WHERE genero = '" + categoria + "'";
+                hql += " WHERE l.genero = :categoria";
             }
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                libros.add(new Object[]{
-                        rs.getInt("id"),
-                        rs.getString("titulo"),
-                        rs.getString("genero"),
-                        rs.getString("disponibilidad"),
-                        rs.getDate("fecha_publicacion")
-                });
+            Query<Object[]> query = session.createQuery(hql, Object[].class);
+            if (categoria != null && !categoria.equals("Todas las categorías")) {
+                query.setParameter("categoria", categoria);
             }
-
-        } catch (SQLException e) {
+            List<Object[]> results = query.getResultList();
+            for (Object[] result : results) {
+                // Convertir fechaPublicacion a String
+                if (result[4] != null) {
+                    result[4] = dateFormat.format((Date) result[4]);
+                }
+                libros.add(result);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return libros;
     }
 
     public static boolean eliminarLibro(int id) {
-        try (Connection conn = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-             PreparedStatement pstmt = conn.prepareStatement("DELETE FROM libros WHERE id = ?")) {
-
-            pstmt.setInt(1, id);
-            return pstmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Libros libro = session.get(Libros.class, id);
+            if (libro != null) {
+                session.delete(libro);
+                transaction.commit();
+                return true;
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
-    public static boolean actualizarLibro(int id, String titulo, String genero, String disponibilidad, String fechaPublicacion) {
-        // Validar que disponibilidad sea 1 o 0
-        if (!disponibilidad.equals("1") && !disponibilidad.equals("0")) {
-            System.out.println("El valor de disponibilidad debe ser '1' (disponible) o '0' (no disponible).");
+    public static boolean actualizarLibro(int id, String titulo, String genero, String disponibilidad, Date fechaPublicacion) {
+        // Validar que disponibilidad sea "true" o "false"
+        if (!disponibilidad.equals("true") && !disponibilidad.equals("false")) {
+            System.out.println("El valor de disponibilidad debe ser 'true' (disponible) o 'false' (no disponible).");
             return false;
         }
 
-        // Validar formato de fecha (YYYY-MM-DD)
-        if (!fechaPublicacion.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            System.out.println("La fecha de publicación debe tener el formato 'YYYY-MM-DD'.");
-            return false;
-        }
-
-        try (Connection conn = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
-             PreparedStatement pstmt = conn.prepareStatement(
-                     "UPDATE libros SET titulo = ?, genero = ?, disponibilidad = ?, fecha_publicacion = ? WHERE id = ?")) {
-
-            pstmt.setString(1, titulo);
-            pstmt.setString(2, genero);
-            pstmt.setString(3, disponibilidad);
-            pstmt.setString(4, fechaPublicacion); // Incluir la fecha en el parámetro
-            pstmt.setInt(5, id);
-
-            return pstmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Libros libro = session.get(Libros.class, id);
+            if (libro != null) {
+                libro.setTitulo(titulo);
+                libro.setGenero(genero);
+                libro.setDisponibilidad(Boolean.parseBoolean(disponibilidad));
+                libro.setFechaPublicacion(fechaPublicacion);
+                session.update(libro);
+                transaction.commit();
+                return true;
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
-    
-
-    
+    public static boolean subirLibro(String titulo, String autor, String genero, boolean disponibilidad, Date fechaPublicacion) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            Libros libro = new Libros();
+            libro.setTitulo(titulo);
+            libro.setAutor(autor);
+            libro.setGenero(genero);
+            libro.setDisponibilidad(disponibilidad);
+            libro.setFechaPublicacion(fechaPublicacion);
+            session.save(libro);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
