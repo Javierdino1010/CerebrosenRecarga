@@ -22,16 +22,7 @@ public class InsertarLibro extends JFrame {
     private JTextField dia;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                InsertarLibro frame = new InsertarLibro();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
+    
 
     public InsertarLibro() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
