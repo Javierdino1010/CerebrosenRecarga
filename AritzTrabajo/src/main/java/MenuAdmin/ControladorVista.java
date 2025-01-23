@@ -3,22 +3,30 @@ package MenuAdmin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Libro.LibrosScreen;
+import usuarios.ControladorUsuarios;
+import usuarios.VistaGestionUsuarios;
+import usuarios.VistaModificarUsuario;
+import usuarios.VistaPerfil;
 
 public class ControladorVista {
     
     private Vista vista;
 
     public ControladorVista(Vista vista) {
+    	
         this.vista = vista;
-        this.vista.agregarListenerUsuarios(new UsuariosListener());
-        this.vista.agregarListenerLibros(new LibrosListener());
-        this.vista.agregarListenerReporte(new ReporteListener());
+        
+        vista.agregarListenerUsuarios(new UsuariosListener());
+        vista.agregarListenerLibros(new LibrosListener());
+        vista.agregarListenerReporte(new ReporteListener());
     }
 
     class UsuariosListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Acción para gestionar usuarios (Pendiente implementación)
-            System.out.println("Ir a Gestión de Usuarios");
+        	  vista.dispose(); // Cierra el menú principal
+              VistaGestionUsuarios gestionUsuarios = new VistaGestionUsuarios();
+              new ControladorUsuarios(gestionUsuarios, new VistaModificarUsuario(), new VistaPerfil());
+              gestionUsuarios.setVisible(true);
         }
     }
 

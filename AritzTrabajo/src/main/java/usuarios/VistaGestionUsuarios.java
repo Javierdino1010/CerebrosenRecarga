@@ -11,6 +11,8 @@ import javax.swing.JTable;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+
 import javax.swing.table.DefaultTableModel;
 
 public class VistaGestionUsuarios extends JFrame {
@@ -18,6 +20,9 @@ public class VistaGestionUsuarios extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private JButton btnModUser;
+	private JButton btnVolver;
+	private JButton btnDeleteUser;
 
 	/**
 	 * Launch the application.
@@ -54,21 +59,21 @@ public class VistaGestionUsuarios extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		GridBagConstraints gbc_btnVolver = new GridBagConstraints();
 		gbc_btnVolver.insets = new Insets(0, 0, 5, 5);
 		gbc_btnVolver.gridx = 1;
 		gbc_btnVolver.gridy = 1;
 		contentPane.add(btnVolver, gbc_btnVolver);
 		
-		JButton btnModUser = new JButton("Modificar usuario");
+		btnModUser = new JButton("Modificar usuario");
 		GridBagConstraints gbc_btnModUser = new GridBagConstraints();
 		gbc_btnModUser.insets = new Insets(0, 0, 5, 5);
 		gbc_btnModUser.gridx = 5;
 		gbc_btnModUser.gridy = 1;
 		contentPane.add(btnModUser, gbc_btnModUser);
 		
-		JButton btnDeleteUser = new JButton("Eliminar usuario");
+		btnDeleteUser = new JButton("Eliminar usuario");
 		GridBagConstraints gbc_btnDeleteUser = new GridBagConstraints();
 		gbc_btnDeleteUser.insets = new Insets(0, 0, 5, 5);
 		gbc_btnDeleteUser.gridx = 5;
@@ -92,4 +97,20 @@ public class VistaGestionUsuarios extends JFrame {
 		contentPane.add(table, gbc_table);
 	}
 
+	
+	//Agregar actionListener a los botones
+			public void ModificarUsuarios(ActionListener listenForModUsuario) {
+				btnModUser.addActionListener(listenForModUsuario);
+				
+			}
+			
+			public void EliminarUsuarios(ActionListener listenForDelUsuario) {
+				btnModUser.addActionListener(listenForDelUsuario);
+				
+			}
+			
+			public void Volver(ActionListener listenForVolver) {
+				btnModUser.addActionListener(listenForVolver);
+				
+			}
 }
