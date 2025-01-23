@@ -118,35 +118,42 @@ public class LibrosScreenUsuario extends JFrame {
     }
 	
     
+//    private void cargarCategorias() {
+////        String url = "jdbc:mysql://localhost:3306/biblioteca";
+////        String usuario = "root";
+////        String contrasena = "root";
+////
+////        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+////             Statement stmt = conn.createStatement()) {
+////
+////            String query = "SELECT DISTINCT genero FROM libros";
+////            ResultSet rs = stmt.executeQuery(query);
+////
+////            while (rs.next()) {
+////                comboBoxCategorias.addItem(rs.getString("genero"));
+////            }
+////
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//    	
+//		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+//		Session session = factory.openSession();
+//		
+//		session.beginTransaction();
+//		
+//		List<Libros> libro = session.createQuery("FROM Libros", Libros.class).list();
+//		
+//		for (Libros libros : libro) {
+//			comboBoxCategorias.addItem(libros.getGenero());
+//		}
+//    }
+	
     private void cargarCategorias() {
-//        String url = "jdbc:mysql://localhost:3306/biblioteca";
-//        String usuario = "root";
-//        String contrasena = "root";
-//
-//        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-//             Statement stmt = conn.createStatement()) {
-//
-//            String query = "SELECT DISTINCT genero FROM libros";
-//            ResultSet rs = stmt.executeQuery(query);
-//
-//            while (rs.next()) {
-//                comboBoxCategorias.addItem(rs.getString("genero"));
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    	
-		SessionFactory factory = new Configuration().configure().buildSessionFactory();
-		Session session = factory.openSession();
-		
-		session.beginTransaction();
-		
-		List<Libros> libro = session.createQuery("FROM Libros", Libros.class).list();
-		
-		for (Libros libros : libro) {
-			comboBoxCategorias.addItem(libros.getGenero());
-		}
+        List<String> categorias = MostrarLibros.obtenerCategorias();
+        for (String categoria : categorias) {
+            comboBoxCategorias.addItem(categoria);
+        }
     }
     
     private void filtrarPorCategoria() {
@@ -154,37 +161,54 @@ public class LibrosScreenUsuario extends JFrame {
         cargarLibros(categoriaSeleccionada);
     }
     
-    private void cargarLibros(String categoria) {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String usuario = "root";
-        String contrasena = "root";
-
+//    private void cargarLibros(String categoria) {
+//        String url = "jdbc:mysql://localhost:3306/biblioteca";
+//        String usuario = "root";
+//        String contrasena = "root";
+//
+//        DefaultTableModel model = (DefaultTableModel) table.getModel();
+//        model.setRowCount(0);
+//
+//        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
+//             Statement stmt = conn.createStatement()) {
+//
+//            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
+//            if (categoria != null && !categoria.equals("Todas las categorías")) {
+//                query += " WHERE genero = '" + categoria + "'";
+//            }
+//
+//            ResultSet rs = stmt.executeQuery(query);
+//
+//            while (rs.next()) {
+//                Object[] row = {
+//                    rs.getInt("id"),
+//                    rs.getString("titulo"),
+//                    rs.getString("genero"),
+//                    rs.getString("disponibilidad"),
+//                    rs.getDate("fecha_publicacion")
+//                };
+//                model.addRow(row);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+    
+    public void cargarLibros(String categoria) {
+        List<Object[]> libros = MostrarLibros.obtenerLibros(categoria);
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
 
-        try (Connection conn = DriverManager.getConnection(url, usuario, contrasena);
-             Statement stmt = conn.createStatement()) {
-
-            String query = "SELECT id, titulo, genero, disponibilidad, fecha_publicacion FROM libros";
-            if (categoria != null && !categoria.equals("Todas las categorías")) {
-                query += " WHERE genero = '" + categoria + "'";
-            }
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                Object[] row = {
-                    rs.getInt("id"),
-                    rs.getString("titulo"),
-                    rs.getString("genero"),
-                    rs.getString("disponibilidad"),
-                    rs.getDate("fecha_publicacion")
-                };
-                model.addRow(row);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (Object[] libro : libros) {
+            Object[] fila = {
+                libro[0],                    // ID
+                libro[1],                    // Título
+                libro[2],                    // Género
+                libro[3],                    // Disponibilidad
+                libro[4] != null ? libro[4].toString() : "" // Fecha publicación (aseguramos que sea String)
+            };
+            model.addRow(fila);
         }
     }
     

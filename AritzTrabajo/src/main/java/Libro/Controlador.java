@@ -30,6 +30,7 @@ public class Controlador {
 			}else {
 				Libros libro = new Libros();
 				libro.Reservar(idLibro);
+				librosScreenUsuario.cargarLibros(null);
 			}
 			
 			
