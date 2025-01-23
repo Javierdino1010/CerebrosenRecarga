@@ -60,7 +60,7 @@ public class LoginMetodos {
 					vista.setVisible(true);
             		login.dispose();
             		
-            	}else if(rol.equals("Usuario estándar")) {
+            	}else if(rol.equals("Usuario")) {
             		
           		LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
            	    new Controlador(librosScreenUsuario);
