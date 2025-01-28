@@ -88,25 +88,43 @@ public class Libros {
         this.fechaPublicacion = fechaPublicacion;
     }
 
-    
-	public void Reservar(int idLibro) {
-		
-		SessionFactory factory = new Configuration().configure().buildSessionFactory();
-		Session session = factory.openSession();
-		
-		session.beginTransaction();
-			
-		Libros libro = session.get(Libros.class, idLibro);
-		
-		if(libro.isDisponibilidad() == false) {
-			JOptionPane.showMessageDialog(null, "No quedan libros disponibles");
-		}else {
-			libro.setDisponibilidad(false);
-			session.update(libro);
-			session.getTransaction().commit();
-		}
-		
-		
-	}
+    // Método para reservar un libro
+    public void Reservar(int idLibro) {
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        session.beginTransaction();
 
+        Libros libro = session.get(Libros.class, idLibro);
+        if (libro.isDisponibilidad() == false) {
+            JOptionPane.showMessageDialog(null, "No quedan libros disponibles");
+        } else {
+            libro.setDisponibilidad(false);
+            session.update(libro);
+            session.getTransaction().commit();
+            JOptionPane.showMessageDialog(null, "Libro reservado con éxito.");
+        }
+
+        session.close();
+        factory.close();
+    }
+
+    // Método para devolver un libro
+    public void devolverLibro(int idLibro) {
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Libros libro = session.get(Libros.class, idLibro);
+        if (libro.isDisponibilidad() == true) {
+            JOptionPane.showMessageDialog(null, "El libro ya está disponible.");
+        } else {
+            libro.setDisponibilidad(true);
+            session.update(libro);
+            session.getTransaction().commit();
+            JOptionPane.showMessageDialog(null, "Libro devuelto con éxito.");
+        }
+
+        session.close();
+        factory.close();
+    }
 }

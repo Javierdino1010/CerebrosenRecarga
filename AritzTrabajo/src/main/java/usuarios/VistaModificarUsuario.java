@@ -19,7 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import Libro.LibrosScreen;
 import LoginRegister.VistaRegister.BordeRedondo;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class VistaModificarUsuario extends JFrame {
 	
@@ -46,18 +49,18 @@ public class VistaModificarUsuario extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaModificarUsuario frame = new VistaModificarUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					VistaModificarUsuario frame = new VistaModificarUsuario();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -183,6 +186,17 @@ public class VistaModificarUsuario extends JFrame {
 		contentPane.add(textPass, gbc_textPass);
 		
 		btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        dispose(); // Cierra la ventana actual
+		        // Llama al controlador o inicializa la vista de gestión de usuarios
+		        VistaGestionUsuarios vistaGestionUsuarios = new VistaGestionUsuarios();
+		        new ControladorUsuarios(vistaGestionUsuarios, new VistaModificarUsuario(), new VistaPerfil());
+		        vistaGestionUsuarios.setVisible(true);
+		    }
+		});
+
 		btnVolver.setPreferredSize(new Dimension(150, 30));
 		btnVolver.setBackground(Color.lightGray);
 		btnVolver.setBorder(border);

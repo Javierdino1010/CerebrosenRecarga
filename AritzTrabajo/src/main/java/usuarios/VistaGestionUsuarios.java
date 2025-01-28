@@ -147,7 +147,7 @@ public class VistaGestionUsuarios extends JFrame {
             transaction = session.beginTransaction();
 
             // Buscar usuario con el DNI
-            Query<Usuario> query = session.createQuery("FROM Usuario WHERE dni = :dni", Usuario.class);
+            Query<Usuario> query = session.createQuery("FROM Usuario WHERE DNI = :dni", Usuario.class);
             query.setParameter("dni", dni);
             Usuario usuario = query.uniqueResult();
 
