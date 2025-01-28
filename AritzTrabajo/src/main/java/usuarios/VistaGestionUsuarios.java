@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import Libro.Libros;
 import modelo.Usuario;
 
 public class VistaGestionUsuarios extends JFrame {
@@ -31,10 +32,11 @@ public class VistaGestionUsuarios extends JFrame {
     private static SessionFactory sessionFactory;
 
     static {
+    	 Configuration configuration = new Configuration().configure().addAnnotatedClass(Usuario.class);
         sessionFactory = new Configuration().configure().addAnnotatedClass(Usuario.class).buildSessionFactory();
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
                 VistaGestionUsuarios frame = new VistaGestionUsuarios();
@@ -43,7 +45,7 @@ public class VistaGestionUsuarios extends JFrame {
                 e.printStackTrace();
             }
         });
-    }
+    }*/
 
     public VistaGestionUsuarios() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -119,9 +121,7 @@ public class VistaGestionUsuarios extends JFrame {
         }
     }
 
-    private void eliminarUsuarioSeleccionado() {
-    	DefaultTableModel model = (DefaultTableModel) table.getModel();
-    	
+    public void eliminarUsuarioSeleccionado() {
         int filaSeleccionada = table.getSelectedRow();
         if (filaSeleccionada == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione un usuario para eliminar", "Error", JOptionPane.WARNING_MESSAGE);
@@ -134,8 +134,7 @@ public class VistaGestionUsuarios extends JFrame {
         if (confirm == JOptionPane.YES_OPTION) {
             if (eliminarUsuario(dni)) {
                 JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                //cargarUsuarios(); // Refrescar la tabla
-                model.setRowCount(0);
+                cargarUsuarios(); // Refrescar la tabla
             } else {
                 JOptionPane.showMessageDialog(this, "Error al eliminar usuario", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -161,7 +160,7 @@ public class VistaGestionUsuarios extends JFrame {
             }
         } catch (Exception e) {
             if (transaction != null) {
-                transaction.rollback();
+                transaction.rollback(); // Asegúrate de hacer rollback si hay un error
             }
             e.printStackTrace();
         }

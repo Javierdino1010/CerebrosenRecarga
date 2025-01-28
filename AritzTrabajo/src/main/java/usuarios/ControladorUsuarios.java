@@ -33,7 +33,8 @@ public class ControladorUsuarios {
 	
 	class EliminarUsuariosListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            
+        	gestionUsuarios.eliminarUsuarioSeleccionado();
+        	
         }
     }
 	
