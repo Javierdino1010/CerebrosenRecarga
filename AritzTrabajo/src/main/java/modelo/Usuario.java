@@ -21,11 +21,13 @@ public class Usuario {
 	private String pass;
 	private String telefono;
 	private String rol;
+	private boolean estaLogeado;
+	private int numTotalReservados;
 	
 	
 
 	
-	public Usuario(String DNI, String nombre, String apellidos, String email, String pass, String telefono, String rol) {
+	public Usuario(String DNI, String nombre, String apellidos, String email, String pass, String telefono, String rol, boolean estaLogeado, int numTotalReservados) {
 		this.DNI = DNI;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -33,6 +35,8 @@ public class Usuario {
 		this.pass = pass;
 		this.telefono = telefono;
 		this.rol = rol;
+		this.estaLogeado = estaLogeado;
+        this.numTotalReservados = numTotalReservados;
 	}
 
 
@@ -120,4 +124,25 @@ public class Usuario {
 		this.rol = rol;
 	}
 
+
+	public boolean isLogin() {
+		return estaLogeado;
+	}
+
+
+	public void setLogin(boolean login) {
+		this.estaLogeado = login;
+	}
+
+
+	public int getNumTotalReservados() {
+		return numTotalReservados;
+	}
+
+
+	public void setNumTotalReservados(int numTotalReservados) {
+		this.numTotalReservados = numTotalReservados;
+	}
+
+	
 }

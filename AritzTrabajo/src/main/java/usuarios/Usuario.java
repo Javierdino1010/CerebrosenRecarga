@@ -35,6 +35,8 @@ public class Usuario {
 
     @Column(nullable = false)
     private String pass;
+    
+    
 
     // Constructor vacío (requerido por Hibernate)
     public Usuario() {}
@@ -74,6 +76,7 @@ public class Usuario {
 
     public String getPass() { return pass; }
     public void setPass(String pass) { this.pass = pass; }
+    
 
     @Override
     public String toString() {

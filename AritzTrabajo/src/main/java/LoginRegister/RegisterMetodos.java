@@ -74,7 +74,7 @@ public class RegisterMetodos {
 		
 		session.beginTransaction();
 		
-		Usuario usuario = new Usuario(dni, nombre, apellidos,  email, pass, telefono, "Usuario");
+		Usuario usuario = new Usuario(dni, nombre, apellidos,  email, pass, telefono, "Usuario", false, 0);
 		session.save(usuario);
 		
 		session.getTransaction().commit();

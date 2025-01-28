@@ -51,6 +51,8 @@ public class LoginMetodos {
 		for (Usuario usu : usuario) {
 			if(usu.getNombre().equals(nombre) && usu.getPass().equals(pass)) {
 				String rol = usu.getRol();
+				int id = usu.getID();
+				System.out.println("este es el id: " + id);
 				if(rol.equals("Administrador")) {
             		/*Libro.LibrosScreen catalogoVista = new LibrosScreen();
             		catalogoVista.setVisible(true);*/
@@ -64,6 +66,13 @@ public class LoginMetodos {
             		
           		LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
            	    new Controlador(librosScreenUsuario);
+           	    
+           	    usu.setLogin(true);
+           	    session.update(usu);
+           	    
+           	    session.getTransaction().commit();
+           	    session.close();
+
             	
            		librosScreenUsuario.setVisible(true);
             		login.dispose();

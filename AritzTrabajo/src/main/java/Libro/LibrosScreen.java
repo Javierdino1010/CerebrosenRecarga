@@ -246,7 +246,7 @@ public class LibrosScreen extends JFrame {
 
     		 HTMLRenderOption options = new HTMLRenderOption();
     		 options.setOutputFileName(outputFilePath);
-    		 options.setOutputFormat("html");
+    		 options.setOutputFormat("pdf");
 
     		 task.setRenderOption(options);
     		 // Ejecutar para crear el archivo HTML

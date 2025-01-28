@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import modelo.Usuario;
+
 import java.util.Date;
 
 import javax.swing.JOptionPane;
@@ -102,6 +104,7 @@ public class Libros {
             session.update(libro);
             session.getTransaction().commit();
             JOptionPane.showMessageDialog(null, "Libro reservado con éxito.");
+            
         }
 
         session.close();
