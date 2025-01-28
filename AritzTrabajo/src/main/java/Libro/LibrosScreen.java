@@ -2,9 +2,20 @@ package Libro;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import org.eclipse.birt.core.framework.Platform;
+import org.eclipse.birt.report.engine.api.EngineConfig;
+import org.eclipse.birt.report.engine.api.HTMLRenderOption;
+import org.eclipse.birt.report.engine.api.IReportEngine;
+import org.eclipse.birt.report.engine.api.IReportEngineFactory;
+import org.eclipse.birt.report.engine.api.IReportRunnable;
+import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
+
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +55,9 @@ public class LibrosScreen extends JFrame {
 
         JButton btnModificar = crearBoton("Modificar", new Color(255, 140, 0), e -> modificarLibro());
         panelSuperior.add(btnModificar);
+        
+        JButton btnGenerarInforme = crearBoton("Exportar", new Color(255, 140, 0), e -> exportarLibro());
+        panelSuperior.add(btnGenerarInforme);
 
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
@@ -206,6 +220,53 @@ public class LibrosScreen extends JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un libro para modificar.");
         }
+    }
+    
+    public void exportarLibro() {
+    	
+    	IReportEngine engine = null;
+    	 
+    	 try {
+    		 // Configuración del motor BIRT
+    		 EngineConfig config = new EngineConfig();
+    		 Platform.startup(config);
+    		 IReportEngineFactory factory = (IReportEngineFactory)Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
+    	
+    		 engine = factory.createReportEngine(config);
+
+    		 String reportPath = "C:\\Users\\ikasle\\git\\CerebrosenRecargaMaven\\AritzTrabajo\\src\\main\\java\\reportes\\ListaLibros.rptdesign";
+    		 
+    		// Abre el informe
+    		 IReportRunnable report = engine.openReportDesign(reportPath);
+    		 // Crear tarea para ejecutar y renderizar
+    		 IRunAndRenderTask task = engine.createRunAndRenderTask(report);
+    		 
+    		 String userHome = System.getProperty("user.home");
+    		 String outputFilePath = userHome + "\\Desktop\\ListaLibros.pdf";
+
+    		 HTMLRenderOption options = new HTMLRenderOption();
+    		 options.setOutputFileName(outputFilePath);
+    		 options.setOutputFormat("html");
+
+    		 task.setRenderOption(options);
+    		 // Ejecutar para crear el archivo HTML
+    		 task.run();
+    		 // Ahora finalizamos la tarea
+    		 task.close();
+    		 
+    		 File htmlFile = new File(outputFilePath);
+    		 } catch (Exception e) {
+    		 e.printStackTrace();
+    		 }finally {
+    			  if (engine != null) {
+    				  engine.destroy();
+    			  }
+    			  	  Platform.shutdown();
+    			  }
+    			  
+    	 
+
+
     }
 
     public static void main(String[] args) {
