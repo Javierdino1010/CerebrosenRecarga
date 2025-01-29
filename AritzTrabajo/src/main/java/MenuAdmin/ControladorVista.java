@@ -39,8 +39,9 @@ public class ControladorVista {
 
     class ReporteListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // Acción para generar reporte (Pendiente implementación)
-            System.out.println("Generar Reporte");
+            String informeSeleccionado = vista.getComboBox();
+            GenerarInformes generarInformes = new GenerarInformes();
+            generarInformes.exportarLibro(informeSeleccionado);
         }
     }
 

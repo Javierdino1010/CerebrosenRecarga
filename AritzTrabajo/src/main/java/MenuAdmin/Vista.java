@@ -32,7 +32,7 @@ public class Vista extends JFrame {
     private JButton btnLibros;
     private JButton btnReporte;
     private JLabel lblNewLabel;
-    private JComboBox comboBox;
+    private static JComboBox comboBox;
     private JButton btnNewButton;
 
     /**
@@ -178,5 +178,11 @@ public class Vista extends JFrame {
 
     public void agregarListenerReporte(ActionListener listenForReporteButton) {
         btnReporte.addActionListener(listenForReporteButton);
+    }
+    
+    public String getComboBox() {
+    	String seleccionado = (String) comboBox.getSelectedItem();
+		return seleccionado;
+    	
     }
 }
