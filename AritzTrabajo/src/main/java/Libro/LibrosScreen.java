@@ -16,6 +16,8 @@ import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 
+import MenuAdmin.Vista;
+
 import java.util.List;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,6 +57,9 @@ public class LibrosScreen extends JFrame {
 
         JButton btnModificar = crearBoton("Modificar", new Color(255, 140, 0), e -> modificarLibro());
         panelSuperior.add(btnModificar);
+        
+        JButton btnVolver = crearBoton("Volver", new Color(100, 100, 100), e -> volver());
+        panelSuperior.add(btnVolver);
         
         JButton btnGenerarInforme = crearBoton("Exportar", new Color(255, 140, 0), e -> exportarLibro());
         panelSuperior.add(btnGenerarInforme);
@@ -267,6 +272,10 @@ public class LibrosScreen extends JFrame {
     	 
 
 
+    }
+    private void volver() {
+        new Vista().setVisible(true);  // Muestra la ventana principal de la aplicación
+        dispose();  // Cierra la ventana actual
     }
 
     public static void main(String[] args) {
