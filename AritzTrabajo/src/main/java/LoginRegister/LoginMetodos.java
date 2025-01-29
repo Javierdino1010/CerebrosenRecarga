@@ -57,6 +57,12 @@ public class LoginMetodos {
             		/*Libro.LibrosScreen catalogoVista = new LibrosScreen();
             		catalogoVista.setVisible(true);*/
 					
+	           	    usu.setLogin(true);
+	           	    session.update(usu);
+	           	    
+	           	    session.getTransaction().commit();
+	           	    session.close();
+					
 					Vista vista = new Vista();
 					new ControladorVista(vista);
 					vista.setVisible(true);

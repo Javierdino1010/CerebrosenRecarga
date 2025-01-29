@@ -17,6 +17,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import modelo.Usuario;
+
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -56,12 +62,12 @@ public class LibrosScreenUsuario extends JFrame {
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
         comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
-        comboBoxCategorias.setFont(new Font("Tw Cen MT", Font.PLAIN, 14));
+        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
         panelSuperior.add(comboBoxCategorias);
 
         // Etiqueta para el título
         JLabel lblTitulo = new JLabel("Gestión de Libros");
-        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 27));
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setForeground(new Color(70, 130, 180));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblTitulo, BorderLayout.CENTER);
@@ -90,7 +96,7 @@ public class LibrosScreenUsuario extends JFrame {
                 libro.Reservar(idLibro);
                 cargarLibros((String) comboBoxCategorias.getSelectedItem()); // Recargar la tabla
             } else {
-                JOptionPane.showMessageDialog(null, "Seleccione un libro para reservar.");
+                
             }
         });
 
@@ -104,6 +110,40 @@ public class LibrosScreenUsuario extends JFrame {
                 JOptionPane.showMessageDialog(null, "Seleccione un libro para devolver.");
             }
         });
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que quieres salir?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+            		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            		Session session = factory.openSession();
+            		
+            		session.beginTransaction();
+            		
+            		List<Usuario> usuario = session.createQuery("FROM Usuario WHERE estaLogeado = true", Usuario.class).list();
+            		for (Usuario usu : usuario) {
+						usu.setLogin(false);
+						session.update(usu);
+					}
+               	    session.getTransaction().commit();
+               	    session.close();
+
+                    System.exit(0); 
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre
+                }
+            }
+        });
+
+
     }
 
     public void agregarListenerReservar(ActionListener listenForReservarButton) {
@@ -161,4 +201,6 @@ public class LibrosScreenUsuario extends JFrame {
             return -1;
         }
     }
+    
+    
 }

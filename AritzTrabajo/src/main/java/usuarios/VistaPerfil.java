@@ -5,14 +5,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import modelo.Usuario;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextArea;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 public class VistaPerfil extends JFrame {
@@ -108,6 +119,38 @@ public class VistaPerfil extends JFrame {
 		gbc_list.gridx = 0;
 		gbc_list.gridy = 4;
 		contentPane.add(list, gbc_list);
+		
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que quieres salir?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+            		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            		Session session = factory.openSession();
+            		
+            		session.beginTransaction();
+            		
+            		List<Usuario> usuario = session.createQuery("FROM Usuario WHERE estaLogeado = true", Usuario.class).list();
+            		for (Usuario usu : usuario) {
+						usu.setLogin(false);
+						session.update(usu);
+					}
+               	    session.getTransaction().commit();
+               	    session.close();
+
+                    System.exit(0); 
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre
+                }
+            }
+        });
 	}
 
 }

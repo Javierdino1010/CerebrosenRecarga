@@ -53,22 +53,6 @@ public class RegisterMetodos {
 
 	private static void insertarUsuario(String nombre, String apellidos, String dni, String email, String telefono, String pass) throws SQLException {
 		
-//        conexion db = new conexion();
-//        Connection conn = db.connectToDB();
-//        
-//        String sql = "INSERT INTO usuarios (DNI, nombre, apellidos, email, pass, telefono, rol) VALUES (?,?,?,?,?,?,?)";
-//        
-//        PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//        preparedStatement.setString(1, dni);
-//        preparedStatement.setString(2, nombre);
-//        preparedStatement.setString(3, apellidos);
-//        preparedStatement.setString(4, email);
-//        preparedStatement.setString(5, pass);
-//        preparedStatement.setString(6, telefono);
-//        preparedStatement.setString(7, "Usuario estándar");
-//        
-//        preparedStatement.executeUpdate();
-		
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
 		

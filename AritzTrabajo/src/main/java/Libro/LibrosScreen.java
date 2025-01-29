@@ -15,8 +15,12 @@ import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import MenuAdmin.Vista;
+import modelo.Usuario;
 
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -270,7 +274,37 @@ public class LibrosScreen extends JFrame {
     			  }
     			  
     	 
+         addWindowListener(new java.awt.event.WindowAdapter() {
+             @Override
+             public void windowClosing(java.awt.event.WindowEvent e) {
+                 int confirm = JOptionPane.showConfirmDialog(
+                     null,
+                     "¿Seguro que quieres salir?",
+                     "Confirmar salida",
+                     JOptionPane.YES_NO_OPTION,
+                     JOptionPane.WARNING_MESSAGE
+                 );
 
+                 if (confirm == JOptionPane.YES_OPTION) {
+             		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+             		Session session = factory.openSession();
+             		
+             		session.beginTransaction();
+             		
+             		List<Usuario> usuario = session.createQuery("FROM Usuario WHERE estaLogeado = true", Usuario.class).list();
+             		for (Usuario usu : usuario) {
+ 						usu.setLogin(false);
+ 						session.update(usu);
+ 					}
+                	    session.getTransaction().commit();
+                	    session.close();
+
+                     System.exit(0); 
+                 } else {
+                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre
+                 }
+             }
+         });
 
     }
     private void volver() {

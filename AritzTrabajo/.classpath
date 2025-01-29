@@ -38,6 +38,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/ikasle/Desktop/mysql-connector-java-8.0.25.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/BIRT"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Birt"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

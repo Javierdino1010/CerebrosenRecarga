@@ -13,16 +13,24 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import Libro.LibrosScreen;
 import LoginRegister.VistaRegister.BordeRedondo;
+import modelo.Usuario;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.awt.Font;
 
 public class VistaModificarUsuario extends JFrame {
@@ -243,6 +251,38 @@ public class VistaModificarUsuario extends JFrame {
 		gbc_btnConfirmar.gridx = 3;
 		gbc_btnConfirmar.gridy = 12;
 		contentPane.add(btnConfirmar, gbc_btnConfirmar);
+		
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que quieres salir?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+            		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            		Session session = factory.openSession();
+            		
+            		session.beginTransaction();
+            		
+            		List<Usuario> usuario = session.createQuery("FROM Usuario WHERE estaLogeado = true", Usuario.class).list();
+            		for (Usuario usu : usuario) {
+						usu.setLogin(false);
+						session.update(usu);
+					}
+               	    session.getTransaction().commit();
+               	    session.close();
+
+                    System.exit(0); 
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre
+                }
+            }
+        });
 	}
 	
 	//Agregar actionListener a los botones

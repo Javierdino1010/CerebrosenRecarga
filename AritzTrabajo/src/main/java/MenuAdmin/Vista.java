@@ -6,13 +6,22 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import modelo.Usuario;
+
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 
 public class Vista extends JFrame {
@@ -92,8 +101,8 @@ public class Vista extends JFrame {
         gbc_btnLibros.weighty = 0.0;  // No permite que se expanda verticalmente
         contentPane.add(btnLibros, gbc_btnLibros);
         
-        btnNewButton = new JButton("GENERAR REPORTE");
-        btnNewButton.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
+        btnReporte = new JButton("GENERAR REPORTE");
+        btnReporte.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
         btnLibros.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
         GridBagConstraints gbc_generarReporte = new GridBagConstraints();
         gbc_generarReporte.fill = GridBagConstraints.BOTH;
@@ -104,7 +113,7 @@ public class Vista extends JFrame {
         gbc_btnLibros.fill = GridBagConstraints.BOTH;
         gbc_btnLibros.weightx = 1.0;  // Hace que el botón se expanda horizontalmente
         gbc_btnLibros.weighty = 0.0;  // No permite que se expanda verticalmente
-        contentPane.add(btnNewButton, gbc_generarReporte);
+        contentPane.add(btnReporte, gbc_generarReporte);
         
       
         
@@ -122,6 +131,38 @@ public class Vista extends JFrame {
         comboBox.addItem("Usuarios con mas libros");
         comboBox.addItem("Libros mas populares");
         comboBox.addItem("Tendencias por genero");
+        
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que quieres salir?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+            		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+            		Session session = factory.openSession();
+            		
+            		session.beginTransaction();
+            		
+            		List<Usuario> usuario = session.createQuery("FROM Usuario WHERE estaLogeado = true", Usuario.class).list();
+            		for (Usuario usu : usuario) {
+						usu.setLogin(false);
+						session.update(usu);
+					}
+               	    session.getTransaction().commit();
+               	    session.close();
+
+                    System.exit(0); 
+                } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // Evita el cierre
+                }
+            }
+        });
         
        
     }
