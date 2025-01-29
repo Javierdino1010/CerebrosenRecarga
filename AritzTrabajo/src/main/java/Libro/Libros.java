@@ -8,11 +8,13 @@ import jakarta.persistence.Table;
 import modelo.Usuario;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 @Entity
@@ -27,15 +29,17 @@ public class Libros {
     private String genero;
     private boolean disponibilidad;
     private Date fechaPublicacion;
+    private int numCantReservado;
 
     // Constructor con parámetros
-    public Libros(int id, String titulo, String autor, String genero, boolean disponibilidad, Date fechaPublicacion) {
+    public Libros(int id, String titulo, String autor, String genero, boolean disponibilidad, Date fechaPublicacion, int numCantReservado) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
         this.genero = genero;
         this.disponibilidad = disponibilidad;
         this.fechaPublicacion = fechaPublicacion;
+        this.numCantReservado = numCantReservado;
     }
 
     public Libros() {
@@ -90,26 +94,58 @@ public class Libros {
         this.fechaPublicacion = fechaPublicacion;
     }
 
-    // Método para reservar un libro
+    public int getNumCantReservado() {
+		return numCantReservado;
+	}
+
+	public void setNumCantReservado(int numCantReservado) {
+		this.numCantReservado = numCantReservado;
+	}
+
+	// Método para reservar un libro
     public void Reservar(int idLibro) {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
-        session.beginTransaction();
+        Transaction transaction = null;
 
-        Libros libro = session.get(Libros.class, idLibro);
-        if (libro.isDisponibilidad() == false) {
-            JOptionPane.showMessageDialog(null, "No quedan libros disponibles");
-        } else {
-            libro.setDisponibilidad(false);
-            session.update(libro);
-            session.getTransaction().commit();
-            JOptionPane.showMessageDialog(null, "Libro reservado con éxito.");
-            
+        try {
+            transaction = session.beginTransaction();
+
+            Libros libro = session.get(Libros.class, idLibro);
+            if (libro == null || !libro.isDisponibilidad()) {
+                JOptionPane.showMessageDialog(null, "No quedan libros disponibles");
+            } else {
+                libro.setDisponibilidad(false);
+                session.update(libro);
+
+                // Obtener usuarios logueados
+                List<Usuario> usuarios = session.createQuery("FROM Usuario u WHERE u.estaLogeado = true", Usuario.class).list();
+                for (Usuario usu : usuarios) {
+                    usu.setNumTotalReservados(usu.getNumTotalReservados() + 1);
+                    session.update(usu);
+                }
+                
+                libro.setNumCantReservado(libro.getNumCantReservado() + 1);
+                session.update(libro);
+
+                // Commit de la transacción después de todos los cambios
+                transaction.commit();
+                JOptionPane.showMessageDialog(null, "Libro reservado con éxito.");
+            }
+
+        } catch (Exception e) {
+            // Si algo falla, hacer rollback para evitar cambios parciales
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Hubo un error al procesar la reserva.");
+        } finally {
+            session.close();
+            factory.close();
         }
-
-        session.close();
-        factory.close();
     }
+
 
     // Método para devolver un libro
     public void devolverLibro(int idLibro) {

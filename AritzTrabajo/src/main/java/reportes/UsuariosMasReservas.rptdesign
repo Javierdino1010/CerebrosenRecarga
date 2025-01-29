@@ -6,7 +6,7 @@
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">120</property>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="ListarLibros" id="4">
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4">
             <list-property name="privateDriverProperties">
                 <ex-property>
                     <name>contentBidiFormatStr</name>
@@ -30,125 +30,57 @@
         </oda-data-source>
     </data-sources>
     <data-sets>
-        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="ListarLibros" id="5">
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="MasReservas" id="5">
             <list-property name="columnHints">
                 <structure>
-                    <property name="columnName">ID</property>
+                    <property name="columnName">nombre_completo</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">nombre_completo</text-property>
+                    <text-property name="heading">nombre_completo</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">numTotalReservados</property>
                     <property name="analysis">measure</property>
-                    <text-property name="displayName">ID</text-property>
-                    <text-property name="heading">ID</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">titulo</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">titulo</text-property>
-                    <text-property name="heading">titulo</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">autor</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">autor</text-property>
-                    <text-property name="heading">autor</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">genero</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">genero</text-property>
-                    <text-property name="heading">genero</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">disponibilidad</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">disponibilidad</text-property>
-                    <text-property name="heading">disponibilidad</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">fechaPublicacion</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">fechaPublicacion</text-property>
-                    <text-property name="heading">fechaPublicacion</text-property>
+                    <text-property name="displayName">numTotalReservados</text-property>
+                    <text-property name="heading">numTotalReservados</text-property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
                     <structure>
                         <property name="position">1</property>
-                        <property name="name">ID</property>
-                        <property name="dataType">integer</property>
+                        <property name="name">nombre_completo</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">titulo</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">3</property>
-                        <property name="name">autor</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">4</property>
-                        <property name="name">genero</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">5</property>
-                        <property name="name">disponibilidad</property>
+                        <property name="name">numTotalReservados</property>
                         <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">6</property>
-                        <property name="name">fechaPublicacion</property>
-                        <property name="dataType">date-time</property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">ListarLibros</property>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
-                    <property name="name">ID</property>
-                    <property name="nativeName">ID</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
+                    <property name="name">nombre_completo</property>
+                    <property name="nativeName">nombre_completo</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">2</property>
-                    <property name="name">titulo</property>
-                    <property name="nativeName">titulo</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">3</property>
-                    <property name="name">autor</property>
-                    <property name="nativeName">autor</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">4</property>
-                    <property name="name">genero</property>
-                    <property name="nativeName">genero</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">5</property>
-                    <property name="name">disponibilidad</property>
-                    <property name="nativeName">disponibilidad</property>
+                    <property name="name">numTotalReservados</property>
+                    <property name="nativeName">numTotalReservados</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">-7</property>
-                </structure>
-                <structure>
-                    <property name="position">6</property>
-                    <property name="name">fechaPublicacion</property>
-                    <property name="nativeName">fechaPublicacion</property>
-                    <property name="dataType">date-time</property>
-                    <property name="nativeDataType">93</property>
+                    <property name="nativeDataType">4</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT * FROM libros]]></xml-property>
+            <xml-property name="queryText"><![CDATA[SELECT CONCAT(nombre, ' ', apellidos) AS nombre_completo, numTotalReservados
+FROM usuarios
+ORDER BY numTotalReservados DESC
+LIMIT 5;
+]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -158,126 +90,42 @@
         <design:resultColumnDefinitions>
           <design:attributes>
             <design:identifier>
-              <design:name>ID</design:name>
+              <design:name>nombre_completo</design:name>
               <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>511</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Nullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>nombre_completo</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>nombre_completo</design:label>
+            <design:formattingHints>
+              <design:displaySize>511</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>numTotalReservados</design:name>
+              <design:position>2</design:position>
             </design:identifier>
             <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
             <design:precision>10</design:precision>
             <design:scale>0</design:scale>
-            <design:nullability>NotNullable</design:nullability>
+            <design:nullability>Nullable</design:nullability>
             <design:uiHints>
-              <design:displayName>ID</design:displayName>
+              <design:displayName>numTotalReservados</design:displayName>
             </design:uiHints>
           </design:attributes>
           <design:usageHints>
-            <design:label>ID</design:label>
+            <design:label>numTotalReservados</design:label>
             <design:formattingHints>
               <design:displaySize>10</design:displaySize>
-            </design:formattingHints>
-          </design:usageHints>
-        </design:resultColumnDefinitions>
-        <design:resultColumnDefinitions>
-          <design:attributes>
-            <design:identifier>
-              <design:name>titulo</design:name>
-              <design:position>2</design:position>
-            </design:identifier>
-            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
-            <design:precision>255</design:precision>
-            <design:scale>0</design:scale>
-            <design:nullability>NotNullable</design:nullability>
-            <design:uiHints>
-              <design:displayName>titulo</design:displayName>
-            </design:uiHints>
-          </design:attributes>
-          <design:usageHints>
-            <design:label>titulo</design:label>
-            <design:formattingHints>
-              <design:displaySize>255</design:displaySize>
-            </design:formattingHints>
-          </design:usageHints>
-        </design:resultColumnDefinitions>
-        <design:resultColumnDefinitions>
-          <design:attributes>
-            <design:identifier>
-              <design:name>autor</design:name>
-              <design:position>3</design:position>
-            </design:identifier>
-            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
-            <design:precision>255</design:precision>
-            <design:scale>0</design:scale>
-            <design:nullability>NotNullable</design:nullability>
-            <design:uiHints>
-              <design:displayName>autor</design:displayName>
-            </design:uiHints>
-          </design:attributes>
-          <design:usageHints>
-            <design:label>autor</design:label>
-            <design:formattingHints>
-              <design:displaySize>255</design:displaySize>
-            </design:formattingHints>
-          </design:usageHints>
-        </design:resultColumnDefinitions>
-        <design:resultColumnDefinitions>
-          <design:attributes>
-            <design:identifier>
-              <design:name>genero</design:name>
-              <design:position>4</design:position>
-            </design:identifier>
-            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
-            <design:precision>255</design:precision>
-            <design:scale>0</design:scale>
-            <design:nullability>Nullable</design:nullability>
-            <design:uiHints>
-              <design:displayName>genero</design:displayName>
-            </design:uiHints>
-          </design:attributes>
-          <design:usageHints>
-            <design:label>genero</design:label>
-            <design:formattingHints>
-              <design:displaySize>255</design:displaySize>
-            </design:formattingHints>
-          </design:usageHints>
-        </design:resultColumnDefinitions>
-        <design:resultColumnDefinitions>
-          <design:attributes>
-            <design:identifier>
-              <design:name>disponibilidad</design:name>
-              <design:position>5</design:position>
-            </design:identifier>
-            <design:nativeDataTypeCode>-7</design:nativeDataTypeCode>
-            <design:precision>1</design:precision>
-            <design:scale>0</design:scale>
-            <design:nullability>Nullable</design:nullability>
-            <design:uiHints>
-              <design:displayName>disponibilidad</design:displayName>
-            </design:uiHints>
-          </design:attributes>
-          <design:usageHints>
-            <design:label>disponibilidad</design:label>
-            <design:formattingHints>
-              <design:displaySize>1</design:displaySize>
-            </design:formattingHints>
-          </design:usageHints>
-        </design:resultColumnDefinitions>
-        <design:resultColumnDefinitions>
-          <design:attributes>
-            <design:identifier>
-              <design:name>fechaPublicacion</design:name>
-              <design:position>6</design:position>
-            </design:identifier>
-            <design:nativeDataTypeCode>93</design:nativeDataTypeCode>
-            <design:precision>19</design:precision>
-            <design:scale>0</design:scale>
-            <design:nullability>Nullable</design:nullability>
-            <design:uiHints>
-              <design:displayName>fechaPublicacion</design:displayName>
-            </design:uiHints>
-          </design:attributes>
-          <design:usageHints>
-            <design:label>fechaPublicacion</design:label>
-            <design:formattingHints>
-              <design:displaySize>19</design:displaySize>
             </design:formattingHints>
           </design:usageHints>
         </design:resultColumnDefinitions>
@@ -300,131 +148,59 @@
     </page-setup>
     <body>
         <table id="6">
-            <property name="dataSet">ListarLibros</property>
+            <property name="dataSet">MasReservas</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">ID</property>
-                    <text-property name="displayName">ID</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["ID"]</expression>
+                    <property name="name">nombre_completo</property>
+                    <text-property name="displayName">nombre_completo</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["nombre_completo"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">numTotalReservados</property>
+                    <text-property name="displayName">numTotalReservados</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["numTotalReservados"]</expression>
                     <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">titulo</property>
-                    <text-property name="displayName">titulo</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["titulo"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">autor</property>
-                    <text-property name="displayName">autor</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["autor"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">genero</property>
-                    <text-property name="displayName">genero</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["genero"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">disponibilidad</property>
-                    <text-property name="displayName">disponibilidad</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["disponibilidad"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">fechaPublicacion</property>
-                    <text-property name="displayName">fechaPublicacion</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["fechaPublicacion"]</expression>
-                    <property name="dataType">date-time</property>
                 </structure>
             </list-property>
-            <column id="40"/>
-            <column id="41"/>
-            <column id="42"/>
-            <column id="43"/>
-            <column id="44"/>
-            <column id="45"/>
+            <column id="20"/>
+            <column id="21"/>
             <header>
                 <row id="7">
                     <cell id="8">
                         <label id="9">
-                            <text-property name="text">ID</text-property>
+                            <text-property name="text">nombre_completo</text-property>
                         </label>
                     </cell>
                     <cell id="10">
                         <label id="11">
-                            <text-property name="text">titulo</text-property>
-                        </label>
-                    </cell>
-                    <cell id="12">
-                        <label id="13">
-                            <text-property name="text">autor</text-property>
-                        </label>
-                    </cell>
-                    <cell id="14">
-                        <label id="15">
-                            <text-property name="text">genero</text-property>
-                        </label>
-                    </cell>
-                    <cell id="16">
-                        <label id="17">
-                            <text-property name="text">disponibilidad</text-property>
-                        </label>
-                    </cell>
-                    <cell id="18">
-                        <label id="19">
-                            <text-property name="text">fechaPublicacion</text-property>
+                            <text-property name="text">numTotalReservados</text-property>
                         </label>
                     </cell>
                 </row>
             </header>
             <detail>
-                <row id="20">
-                    <cell id="21">
-                        <data id="22">
-                            <property name="resultSetColumn">ID</property>
+                <row id="12">
+                    <cell id="13">
+                        <data id="14">
+                            <property name="resultSetColumn">nombre_completo</property>
                         </data>
                     </cell>
-                    <cell id="23">
-                        <data id="24">
-                            <property name="resultSetColumn">titulo</property>
-                        </data>
-                    </cell>
-                    <cell id="25">
-                        <data id="26">
-                            <property name="resultSetColumn">autor</property>
-                        </data>
-                    </cell>
-                    <cell id="27">
-                        <data id="28">
-                            <property name="resultSetColumn">genero</property>
-                        </data>
-                    </cell>
-                    <cell id="29">
-                        <data id="30">
-                            <property name="resultSetColumn">disponibilidad</property>
-                        </data>
-                    </cell>
-                    <cell id="31">
-                        <data id="32">
-                            <property name="resultSetColumn">fechaPublicacion</property>
+                    <cell id="15">
+                        <data id="16">
+                            <property name="resultSetColumn">numTotalReservados</property>
                         </data>
                     </cell>
                 </row>
             </detail>
             <footer>
-                <row id="33">
-                    <cell id="34"/>
-                    <cell id="35"/>
-                    <cell id="36"/>
-                    <cell id="37"/>
-                    <cell id="38"/>
-                    <cell id="39"/>
+                <row id="17">
+                    <cell id="18"/>
+                    <cell id="19"/>
                 </row>
             </footer>
         </table>
-        <extended-item extensionName="Chart" id="48">
+        <extended-item extensionName="Chart" id="22">
             <xml-property name="xmlRepresentation"><![CDATA[<model:ChartWithAxes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attribute="http://www.birt.eclipse.org/ChartModelAttribute" xmlns:data="http://www.birt.eclipse.org/ChartModelData" xmlns:layout="http://www.birt.eclipse.org/ChartModelLayout" xmlns:model="http://www.birt.eclipse.org/ChartModel" xmlns:type="http://www.birt.eclipse.org/ChartModelType">
   <Version>2.6.1</Version>
   <Type>Bar Chart</Type>
@@ -1034,7 +810,7 @@
             <Visible>false</Visible>
           </Label>
           <DataDefinition>
-            <Definition>row[&quot;disponibilidad&quot;]</Definition>
+            <Definition>row[&quot;numTotalReservados&quot;]</Definition>
             <Grouping>
               <GroupType>Text</GroupType>
               <AggregateExpression>Sum</AggregateExpression>
@@ -1399,7 +1175,7 @@
           <Visible>false</Visible>
         </Label>
         <DataDefinition>
-          <Definition>row[&quot;autor&quot;]</Definition>
+          <Definition>row[&quot;nombre_completo&quot;]</Definition>
         </DataDefinition>
         <SeriesIdentifier></SeriesIdentifier>
         <DataPoint>
@@ -1540,43 +1316,19 @@
             <property name="inheritColumns">true</property>
             <property name="height">286.5pt</property>
             <property name="width">573pt</property>
-            <property name="dataSet">ListarLibros</property>
+            <property name="dataSet">MasReservas</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">ID</property>
-                    <text-property name="displayName">ID</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["ID"]</expression>
+                    <property name="name">nombre_completo</property>
+                    <text-property name="displayName">nombre_completo</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["nombre_completo"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">numTotalReservados</property>
+                    <text-property name="displayName">numTotalReservados</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["numTotalReservados"]</expression>
                     <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">titulo</property>
-                    <text-property name="displayName">titulo</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["titulo"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">autor</property>
-                    <text-property name="displayName">autor</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["autor"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">genero</property>
-                    <text-property name="displayName">genero</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["genero"]</expression>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="name">disponibilidad</property>
-                    <text-property name="displayName">disponibilidad</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["disponibilidad"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="name">fechaPublicacion</property>
-                    <text-property name="displayName">fechaPublicacion</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["fechaPublicacion"]</expression>
-                    <property name="dataType">date-time</property>
                 </structure>
             </list-property>
         </extended-item>
