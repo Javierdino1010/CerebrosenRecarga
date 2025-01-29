@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JList;
+import java.awt.Font;
 
 public class VistaPerfil extends JFrame {
 
@@ -55,14 +56,15 @@ public class VistaPerfil extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
-		gbc_lblNombre.gridwidth = 3;
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNombre.gridx = 1;
 		gbc_lblNombre.gridy = 1;
 		contentPane.add(lblNombre, gbc_lblNombre);
 		
 		JLabel lblNewLabel_2 = new JLabel("Multa acumulada");
+		lblNewLabel_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 1;
@@ -70,6 +72,7 @@ public class VistaPerfil extends JFrame {
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		JLabel lblMulta = new JLabel("Multa");
+		lblMulta.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		lblMulta.setForeground(new Color(255, 0, 0));
 		GridBagConstraints gbc_lblMulta = new GridBagConstraints();
 		gbc_lblMulta.fill = GridBagConstraints.VERTICAL;
@@ -79,15 +82,17 @@ public class VistaPerfil extends JFrame {
 		contentPane.add(lblMulta, gbc_lblMulta);
 		
 		JLabel lblNewLabel = new JLabel("Libros prestados");
+		lblNewLabel.setFont(new Font("Tw Cen MT", Font.PLAIN, 20));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 4;
+		gbc_lblNewLabel.gridwidth = 3;
 		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridx = 5;
 		gbc_lblNewLabel.gridy = 3;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		JButton btnDevolver = new JButton("Devolver Libro");
+		btnDevolver.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_btnDevolver = new GridBagConstraints();
 		gbc_btnDevolver.insets = new Insets(0, 0, 5, 5);
 		gbc_btnDevolver.gridx = 8;

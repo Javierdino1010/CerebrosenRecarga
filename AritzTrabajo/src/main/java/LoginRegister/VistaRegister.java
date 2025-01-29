@@ -4,244 +4,282 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
 import LoginRegister.VistaLogin.BordeRedondo;
-
-import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.GridBagLayout;
+import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 
 public class VistaRegister extends JFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JLabel lblNewLabel;
-	private JTextField textNombre;
-	private JLabel lblNewLabel_1;
-	private JTextField textApellidos;
-	private JLabel lblNewLabel_2;
-	private JTextField textDni;
-	private JLabel lblNewLabel_3;
-	private JTextField textEmail;
-	private JLabel lblNewLabel_4;
-	private JLabel lblNewLabel_5;
-	private JTextField textTelefono;
-	private JButton btnRegistrarse;
-	private JLabel lblNewLabel_6;
-	private JPasswordField textPass;
-	private JButton btnLogin;
-	
-	BordeRedondo border = new BordeRedondo(10);
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JLabel lblTitulo;
+    private JTextField textNombre;
+    private JLabel lblNombre;
+    private JTextField textApellidos;
+    private JLabel lblApellidos;
+    private JTextField textDni;
+    private JLabel lblDni;
+    private JTextField textEmail;
+    private JLabel lblEmail;
+    private JLabel lblTelefono;
+    private JTextField textTelefono;
+    private JButton btnRegistrarse;
+    private JLabel lblPass;
+    private JPasswordField textPass;
+    private JButton btnLogin;
 
-	public VistaRegister() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 869, 564);
-		contentPane = new JPanel();
-		contentPane.setToolTipText("");
-		contentPane.setBackground(new Color(240, 255, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setLocationRelativeTo(null);
+    BordeRedondo border = new BordeRedondo(20);
 
-		setContentPane(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 293, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{55, 0, 41, 0, 45, 0, 47, 0, 44, 0, 48, 0, 115, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
-		
-		lblNewLabel_6 = new JLabel("Registro");
-		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
-		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_6.gridx = 1;
-		gbc_lblNewLabel_6.gridy = 0;
-		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
-		
-		lblNewLabel = new JLabel("Nombre:");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 1;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		
-		textNombre = new JTextField();
-		GridBagConstraints gbc_textNombre = new GridBagConstraints();
-		gbc_textNombre.insets = new Insets(0, 0, 5, 5);
-		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textNombre.gridx = 3;
-		gbc_textNombre.gridy = 1;
-		contentPane.add(textNombre, gbc_textNombre);
-		textNombre.setColumns(10);
-		
-		lblNewLabel_1 = new JLabel("Apellidos:");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 3;
-		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		textApellidos = new JTextField();
-		GridBagConstraints gbc_textApellidos = new GridBagConstraints();
-		gbc_textApellidos.insets = new Insets(0, 0, 5, 5);
-		gbc_textApellidos.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textApellidos.gridx = 3;
-		gbc_textApellidos.gridy = 3;
-		contentPane.add(textApellidos, gbc_textApellidos);
-		textApellidos.setColumns(10);
-		
-		lblNewLabel_2 = new JLabel("DNI:");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 5;
-		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		textDni = new JTextField();
-		GridBagConstraints gbc_textDni = new GridBagConstraints();
-		gbc_textDni.insets = new Insets(0, 0, 5, 5);
-		gbc_textDni.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textDni.gridx = 3;
-		gbc_textDni.gridy = 5;
-		contentPane.add(textDni, gbc_textDni);
-		textDni.setColumns(10);
-		
-		lblNewLabel_3 = new JLabel("Email:");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 7;
-		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		textEmail = new JTextField();
-		GridBagConstraints gbc_textEmail = new GridBagConstraints();
-		gbc_textEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textEmail.gridx = 3;
-		gbc_textEmail.gridy = 7;
-		contentPane.add(textEmail, gbc_textEmail);
-		textEmail.setColumns(10);
-		
-		lblNewLabel_5 = new JLabel("Teléfono");
-		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_5.gridx = 1;
-		gbc_lblNewLabel_5.gridy = 9;
-		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
-		
-		textTelefono = new JTextField();
-		GridBagConstraints gbc_textTelefono = new GridBagConstraints();
-		gbc_textTelefono.insets = new Insets(0, 0, 5, 5);
-		gbc_textTelefono.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textTelefono.gridx = 3;
-		gbc_textTelefono.gridy = 9;
-		contentPane.add(textTelefono, gbc_textTelefono);
-		textTelefono.setColumns(10);
-		
-		lblNewLabel_4 = new JLabel("Contraseña:");
-		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
-		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 1;
-		gbc_lblNewLabel_4.gridy = 11;
-		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
-		
-		textPass = new JPasswordField();
-		GridBagConstraints gbc_textPass = new GridBagConstraints();
-		gbc_textPass.insets = new Insets(0, 0, 5, 5);
-		gbc_textPass.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textPass.gridx = 3;
-		gbc_textPass.gridy = 11;
-		contentPane.add(textPass, gbc_textPass);
-		
-		btnLogin = new JButton("Iniciar sesión");
-		btnLogin.setPreferredSize(new Dimension(150, 30));
-		btnLogin.setBackground(Color.lightGray);
-		btnLogin.setBorder(border);
-		GridBagConstraints gbc_btnLogin = new GridBagConstraints();
-		gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
-		gbc_btnLogin.gridx = 2;
-		gbc_btnLogin.gridy = 12;
-		contentPane.add(btnLogin, gbc_btnLogin);
-		
-		btnRegistrarse = new JButton("Registrarse");
-		btnRegistrarse.setPreferredSize(new Dimension(150, 30));
-		btnRegistrarse.setBackground(Color.lightGray);
-		btnRegistrarse.setBorder(border);
-		GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
-		gbc_btnRegistrarse.insets = new Insets(0, 0, 0, 5);
-		gbc_btnRegistrarse.gridx = 3;
-		gbc_btnRegistrarse.gridy = 12;
-		contentPane.add(btnRegistrarse, gbc_btnRegistrarse);
-	}
-	
-	//Agregar actionListener a los botones
-	
-	public void agregarListenerRegister(ActionListener listenForRegisterButton) {
-		btnRegistrarse.addActionListener(listenForRegisterButton);
-	}
-	
-	public void agregarListenerIrInicio(ActionListener listenForIrInicioButton) {
-		btnLogin.addActionListener(listenForIrInicioButton);
-	}
-	
-	//Getters de los campos de texto
-	
-	public String getNombre() {
-		return textNombre.getText();
-	}
-	
-	public String getApellidos() {
-		return textApellidos.getText();
-	}
-	
-	public String getDni() {
-		return textDni.getText();
-	}
-	
-	public String getEmail() {
-		return textEmail.getText();
-	}
+    public VistaRegister() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 600, 650);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(235, 245, 255)); // Color suave para el fondo
+        contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
+        setLocationRelativeTo(null);
 
-	public String getTelefono() {
-		return textTelefono.getText();
-	}
-	
-	public String getPass() {
-		return new String(textPass.getPassword());
-	}
-	
-	public class BordeRedondo implements Border {
+        setContentPane(contentPane);
+        GridBagLayout gbl_contentPane = new GridBagLayout();
+        gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0};
+        gbl_contentPane.rowHeights = new int[]{0, 30, 30, 30, 30, 30, 30, 40, 40, 0, 0, 0};
+        gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        contentPane.setLayout(gbl_contentPane);
 
-	    private int radio;  
+        lblTitulo = new JLabel("Registro de Usuario");
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblTitulo.setForeground(new Color(60, 90, 180)); // Color para el título
+        GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
+        gbc_lblTitulo.gridwidth = 4;
+        gbc_lblTitulo.insets = new Insets(0, 0, 20, 0);
+        gbc_lblTitulo.anchor = GridBagConstraints.CENTER;
+        gbc_lblTitulo.gridx = 0;
+        gbc_lblTitulo.gridy = 0;
+        contentPane.add(lblTitulo, gbc_lblTitulo);
+        
+                lblNombre = new JLabel("Nombre:");
+                lblNombre.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+                gbc_lblNombre.anchor = GridBagConstraints.WEST;
+                gbc_lblNombre.insets = new Insets(0, 0, 10, 5);
+                gbc_lblNombre.gridx = 0;
+                gbc_lblNombre.gridy = 1;
+                contentPane.add(lblNombre, gbc_lblNombre);
 
-	    BordeRedondo(int radius) {
-	        this.radio = radius;
-	    }  
+        textNombre = new JTextField();
+        textNombre.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textNombre.setBackground(Color.WHITE);
+        textNombre.setBorder(border);
+        GridBagConstraints gbc_textNombre = new GridBagConstraints();
+        gbc_textNombre.gridwidth = 3;
+        gbc_textNombre.insets = new Insets(0, 0, 10, 0);
+        gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textNombre.gridx = 1;
+        gbc_textNombre.gridy = 1;
+        contentPane.add(textNombre, gbc_textNombre);
+        textNombre.setColumns(10);
+        
+                lblApellidos = new JLabel("Apellidos:");
+                lblApellidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
+                gbc_lblApellidos.anchor = GridBagConstraints.WEST;
+                gbc_lblApellidos.insets = new Insets(0, 0, 10, 5);
+                gbc_lblApellidos.gridx = 0;
+                gbc_lblApellidos.gridy = 2;
+                contentPane.add(lblApellidos, gbc_lblApellidos);
 
-	    public Insets getBorderInsets(Component c) {
-	        return new Insets(this.radio+1, this.radio+1, this.radio+2, this.radio);
-	    }  
+        textApellidos = new JTextField();
+        textApellidos.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textApellidos.setBackground(Color.WHITE);
+        textApellidos.setBorder(border);
+        GridBagConstraints gbc_textApellidos = new GridBagConstraints();
+        gbc_textApellidos.gridwidth = 3;
+        gbc_textApellidos.insets = new Insets(0, 0, 10, 0);
+        gbc_textApellidos.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textApellidos.gridx = 1;
+        gbc_textApellidos.gridy = 2;
+        contentPane.add(textApellidos, gbc_textApellidos);
+        textApellidos.setColumns(10);
+        
+                lblDni = new JLabel("DNI:");
+                lblDni.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblDni = new GridBagConstraints();
+                gbc_lblDni.anchor = GridBagConstraints.WEST;
+                gbc_lblDni.insets = new Insets(0, 0, 10, 5);
+                gbc_lblDni.gridx = 0;
+                gbc_lblDni.gridy = 3;
+                contentPane.add(lblDni, gbc_lblDni);
 
-	    public boolean isBorderOpaque() {
-	        return true;
-	    }  
+        textDni = new JTextField();
+        textDni.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textDni.setBackground(Color.WHITE);
+        textDni.setBorder(border);
+        GridBagConstraints gbc_textDni = new GridBagConstraints();
+        gbc_textDni.gridwidth = 3;
+        gbc_textDni.insets = new Insets(0, 0, 10, 0);
+        gbc_textDni.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textDni.gridx = 1;
+        gbc_textDni.gridy = 3;
+        contentPane.add(textDni, gbc_textDni);
+        textDni.setColumns(10);
+        
+                lblEmail = new JLabel("Email:");
+                lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+                gbc_lblEmail.anchor = GridBagConstraints.WEST;
+                gbc_lblEmail.insets = new Insets(0, 0, 10, 5);
+                gbc_lblEmail.gridx = 0;
+                gbc_lblEmail.gridy = 4;
+                contentPane.add(lblEmail, gbc_lblEmail);
 
-	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-	        g.drawRoundRect(x, y, width-1, height-1, radio, radio);
-	    }
+        textEmail = new JTextField();
+        textEmail.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textEmail.setBackground(Color.WHITE);
+        textEmail.setBorder(border);
+        GridBagConstraints gbc_textEmail = new GridBagConstraints();
+        gbc_textEmail.gridwidth = 3;
+        gbc_textEmail.insets = new Insets(0, 0, 10, 0);
+        gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textEmail.gridx = 1;
+        gbc_textEmail.gridy = 4;
+        contentPane.add(textEmail, gbc_textEmail);
+        textEmail.setColumns(10);
+        
+                lblTelefono = new JLabel("Teléfono:");
+                lblTelefono.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblTelefono = new GridBagConstraints();
+                gbc_lblTelefono.anchor = GridBagConstraints.WEST;
+                gbc_lblTelefono.insets = new Insets(0, 0, 10, 5);
+                gbc_lblTelefono.gridx = 0;
+                gbc_lblTelefono.gridy = 5;
+                contentPane.add(lblTelefono, gbc_lblTelefono);
 
-	  }
+        textTelefono = new JTextField();
+        textTelefono.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textTelefono.setBackground(Color.WHITE);
+        textTelefono.setBorder(border);
+        GridBagConstraints gbc_textTelefono = new GridBagConstraints();
+        gbc_textTelefono.gridwidth = 3;
+        gbc_textTelefono.insets = new Insets(0, 0, 10, 0);
+        gbc_textTelefono.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textTelefono.gridx = 1;
+        gbc_textTelefono.gridy = 5;
+        contentPane.add(textTelefono, gbc_textTelefono);
+        textTelefono.setColumns(10);
+        
+                lblPass = new JLabel("Contraseña:");
+                lblPass.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                GridBagConstraints gbc_lblPass = new GridBagConstraints();
+                gbc_lblPass.anchor = GridBagConstraints.WEST;
+                gbc_lblPass.insets = new Insets(0, 0, 10, 5);
+                gbc_lblPass.gridx = 0;
+                gbc_lblPass.gridy = 6;
+                contentPane.add(lblPass, gbc_lblPass);
+
+        textPass = new JPasswordField();
+        textPass.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        textPass.setBackground(Color.WHITE);
+        textPass.setBorder(border);
+        GridBagConstraints gbc_textPass = new GridBagConstraints();
+        gbc_textPass.gridwidth = 3;
+        gbc_textPass.insets = new Insets(0, 0, 10, 0);
+        gbc_textPass.fill = GridBagConstraints.HORIZONTAL;
+        gbc_textPass.gridx = 1;
+        gbc_textPass.gridy = 6;
+        contentPane.add(textPass, gbc_textPass);
+        
+                btnLogin = new JButton("Iniciar sesión");
+                btnLogin.addActionListener(new ActionListener() {
+                	public void actionPerformed(ActionEvent e) {
+                	}
+                });
+                btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                btnLogin.setBackground(new Color(60, 90, 180));
+                btnLogin.setForeground(Color.WHITE);
+                btnLogin.setBorder(border);
+                GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+                gbc_btnLogin.insets = new Insets(0, 0, 10, 5);
+                gbc_btnLogin.gridx = 0;
+                gbc_btnLogin.gridy = 10;
+                contentPane.add(btnLogin, gbc_btnLogin);
+                
+                        btnRegistrarse = new JButton("Registrarse");
+                        btnRegistrarse.addActionListener(new ActionListener() {
+                        	public void actionPerformed(ActionEvent e) {
+                        	}
+                        });
+                        btnRegistrarse.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+                        btnRegistrarse.setBackground(new Color(60, 90, 180));
+                        btnRegistrarse.setForeground(Color.WHITE);
+                        btnRegistrarse.setBorder(border);
+                        GridBagConstraints gbc_btnRegistrarse = new GridBagConstraints();
+                        gbc_btnRegistrarse.insets = new Insets(0, 0, 10, 5);
+                        gbc_btnRegistrarse.gridx = 2;
+                        gbc_btnRegistrarse.gridy = 10;
+                        contentPane.add(btnRegistrarse, gbc_btnRegistrarse);
+    }
+
+    // Métodos para agregar listeners a los botones y obtener los datos
+    public void agregarListenerRegister(ActionListener listenForRegisterButton) {
+        btnRegistrarse.addActionListener(listenForRegisterButton);
+    }
+
+    public void agregarListenerIrInicio(ActionListener listenForIrInicioButton) {
+        btnLogin.addActionListener(listenForIrInicioButton);
+    }
+
+    // Getters de los campos de texto
+    public String getNombre() {
+        return textNombre.getText();
+    }
+
+    public String getApellidos() {
+        return textApellidos.getText();
+    }
+
+    public String getDni() {
+        return textDni.getText();
+    }
+
+    public String getEmail() {
+        return textEmail.getText();
+    }
+
+    public String getTelefono() {
+        return textTelefono.getText();
+    }
+
+    public String getPass() {
+        return new String(textPass.getPassword());
+    }
+
+    // Borde redondeado para los campos de texto y botones
+    public class BordeRedondo implements Border {
+        private int radio;
+        BordeRedondo(int radius) {
+            this.radio = radius;
+        }
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radio + 1, this.radio + 1, this.radio + 2, this.radio);
+        }
+        public boolean isBorderOpaque() {
+            return true;
+        }
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width - 1, height - 1, radio, radio);
+        }
+    }
 }

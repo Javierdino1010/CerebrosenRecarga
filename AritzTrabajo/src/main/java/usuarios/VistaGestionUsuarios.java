@@ -19,6 +19,7 @@ import org.hibernate.query.Query;
 
 import Libro.Libros;
 import modelo.Usuario;
+import java.awt.Font;
 
 public class VistaGestionUsuarios extends JFrame {
 
@@ -56,28 +57,35 @@ public class VistaGestionUsuarios extends JFrame {
         setContentPane(contentPane);
         contentPane.setBackground(new Color(240, 248, 255));
         GridBagLayout gbl_contentPane = new GridBagLayout();
+        gbl_contentPane.columnWeights = new double[]{1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0};
         contentPane.setLayout(gbl_contentPane);
 
         btnVolver = new JButton("Volver");
+        btnVolver.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
         GridBagConstraints gbc_btnVolver = new GridBagConstraints();
         gbc_btnVolver.insets = new Insets(0, 0, 5, 5);
         gbc_btnVolver.gridx = 1;
         gbc_btnVolver.gridy = 1;
         contentPane.add(btnVolver, gbc_btnVolver);
-
-        btnModUser  = new JButton("Modificar usuario");
-        GridBagConstraints gbc_btnModUser  = new GridBagConstraints();
-        gbc_btnModUser .insets = new Insets(0, 0, 5, 5);
-        gbc_btnModUser .gridx = 5;
-        gbc_btnModUser .gridy = 1;
-        contentPane.add(btnModUser , gbc_btnModUser );
-
-        btnDeleteUser  = new JButton("Eliminar usuario");
-        GridBagConstraints gbc_btnDeleteUser  = new GridBagConstraints();
-        gbc_btnDeleteUser .insets = new Insets(0, 0, 5, 5);
-        gbc_btnDeleteUser .gridx = 5;
-        gbc_btnDeleteUser .gridy = 2;
-        contentPane.add(btnDeleteUser , gbc_btnDeleteUser );
+                
+                        btnModUser  = new JButton("Modificar usuario");
+                        btnModUser.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+                        GridBagConstraints gbc_btnModUser  = new GridBagConstraints();
+                        gbc_btnModUser .insets = new Insets(0, 0, 5, 5);
+                        gbc_btnModUser .gridx = 4;
+                        gbc_btnModUser .gridy = 1;
+                        contentPane.add(btnModUser , gbc_btnModUser );
+        
+                btnDeleteUser  = new JButton("Eliminar usuario");
+                btnDeleteUser.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
+                GridBagConstraints gbc_btnDeleteUser  = new GridBagConstraints();
+                gbc_btnDeleteUser .insets = new Insets(0, 0, 5, 5);
+                gbc_btnDeleteUser .gridx = 6;
+                gbc_btnDeleteUser .gridy = 1;
+                contentPane.add(btnDeleteUser , gbc_btnDeleteUser );
+                
+                        // Evento para eliminar usuario
+                        btnDeleteUser .addActionListener(e -> eliminarUsuarioSeleccionado());
 
         table = new JTable();
         table.setModel(new DefaultTableModel(
@@ -86,16 +94,13 @@ public class VistaGestionUsuarios extends JFrame {
         ));
         GridBagConstraints gbc_table = new GridBagConstraints();
         gbc_table.gridheight = 3;
-        gbc_table.gridwidth = 7;
+        gbc_table.gridwidth = 8;
         gbc_table.fill = GridBagConstraints.BOTH;
         gbc_table.gridx = 0;
         gbc_table.gridy = 3;
         contentPane.add(new JScrollPane(table), gbc_table);
 
         cargarUsuarios(); // Carga los datos al iniciar
-
-        // Evento para eliminar usuario
-        btnDeleteUser .addActionListener(e -> eliminarUsuarioSeleccionado());
     }
 
     public void cargarUsuarios() {

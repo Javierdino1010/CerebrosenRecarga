@@ -23,6 +23,7 @@ import Libro.LibrosScreen;
 import LoginRegister.VistaRegister.BordeRedondo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class VistaModificarUsuario extends JFrame {
 	
@@ -83,6 +84,7 @@ public class VistaModificarUsuario extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		lblNewLabel_6 = new JLabel("Gestion de usuarios");
+		lblNewLabel_6.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.gridwidth = 3;
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
@@ -91,101 +93,126 @@ public class VistaModificarUsuario extends JFrame {
 		contentPane.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
 		lblNewLabel = new JLabel("Nombre:");
+		lblNewLabel.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 		
 		textNombre = new JTextField();
+		textNombre.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textNombre = new GridBagConstraints();
+		gbc_textNombre.gridwidth = 2;
 		gbc_textNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textNombre.gridx = 3;
+		gbc_textNombre.gridx = 2;
 		gbc_textNombre.gridy = 1;
 		contentPane.add(textNombre, gbc_textNombre);
 		textNombre.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Apellidos:");
+		lblNewLabel_1.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 3;
 		contentPane.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textApellidos = new JTextField();
+		textApellidos.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textApellidos = new GridBagConstraints();
+		gbc_textApellidos.gridwidth = 2;
 		gbc_textApellidos.insets = new Insets(0, 0, 5, 5);
 		gbc_textApellidos.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textApellidos.gridx = 3;
+		gbc_textApellidos.gridx = 2;
 		gbc_textApellidos.gridy = 3;
 		contentPane.add(textApellidos, gbc_textApellidos);
 		textApellidos.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("DNI:");
+		lblNewLabel_2.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 5;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		textDni = new JTextField();
+		textDni.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textDni = new GridBagConstraints();
+		gbc_textDni.gridwidth = 2;
 		gbc_textDni.insets = new Insets(0, 0, 5, 5);
 		gbc_textDni.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textDni.gridx = 3;
+		gbc_textDni.gridx = 2;
 		gbc_textDni.gridy = 5;
 		contentPane.add(textDni, gbc_textDni);
 		textDni.setColumns(10);
 		
 		lblNewLabel_3 = new JLabel("Email:");
+		lblNewLabel_3.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.gridx = 1;
 		gbc_lblNewLabel_3.gridy = 7;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		textEmail = new JTextField();
+		textEmail.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textEmail = new GridBagConstraints();
+		gbc_textEmail.gridwidth = 2;
 		gbc_textEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textEmail.gridx = 3;
+		gbc_textEmail.gridx = 2;
 		gbc_textEmail.gridy = 7;
 		contentPane.add(textEmail, gbc_textEmail);
 		textEmail.setColumns(10);
 		
 		lblNewLabel_5 = new JLabel("Teléfono");
+		lblNewLabel_5.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+		gbc_lblNewLabel_5.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_5.gridx = 1;
 		gbc_lblNewLabel_5.gridy = 9;
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		textTelefono = new JTextField();
+		textTelefono.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textTelefono = new GridBagConstraints();
+		gbc_textTelefono.gridwidth = 2;
 		gbc_textTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_textTelefono.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textTelefono.gridx = 3;
+		gbc_textTelefono.gridx = 2;
 		gbc_textTelefono.gridy = 9;
 		contentPane.add(textTelefono, gbc_textTelefono);
 		textTelefono.setColumns(10);
 		
 		lblNewLabel_4 = new JLabel("Contraseña:");
+		lblNewLabel_4.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4.gridx = 1;
 		gbc_lblNewLabel_4.gridy = 11;
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		textPass = new JPasswordField();
+		textPass.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		GridBagConstraints gbc_textPass = new GridBagConstraints();
+		gbc_textPass.gridwidth = 2;
 		gbc_textPass.insets = new Insets(0, 0, 5, 5);
 		gbc_textPass.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textPass.gridx = 3;
+		gbc_textPass.gridx = 2;
 		gbc_textPass.gridy = 11;
 		contentPane.add(textPass, gbc_textPass);
 		
 		btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		btnVolver.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
@@ -207,6 +234,7 @@ public class VistaModificarUsuario extends JFrame {
 		contentPane.add(btnVolver, gbc_btnVolver);
 		
 		btnConfirmar = new JButton("Confirmar cambios");
+		btnConfirmar.setFont(new Font("Tw Cen MT", Font.PLAIN, 15));
 		btnConfirmar.setPreferredSize(new Dimension(150, 30));
 		btnConfirmar.setBackground(Color.lightGray);
 		btnConfirmar.setBorder(border);

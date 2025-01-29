@@ -56,12 +56,12 @@ public class LibrosScreenUsuario extends JFrame {
         comboBoxCategorias = new JComboBox<>();
         comboBoxCategorias.addItem("Todas las categorías");
         comboBoxCategorias.addActionListener(e -> filtrarPorCategoria());
-        comboBoxCategorias.setFont(new Font("Arial", Font.PLAIN, 14));
+        comboBoxCategorias.setFont(new Font("Tw Cen MT", Font.PLAIN, 14));
         panelSuperior.add(comboBoxCategorias);
 
         // Etiqueta para el título
         JLabel lblTitulo = new JLabel("Gestión de Libros");
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 27));
         lblTitulo.setForeground(new Color(70, 130, 180));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblTitulo, BorderLayout.CENTER);
