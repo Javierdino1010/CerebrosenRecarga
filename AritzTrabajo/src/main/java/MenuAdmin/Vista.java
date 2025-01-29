@@ -69,7 +69,7 @@ public class Vista extends JFrame {
         contentPane.add(lblNewLabel, gbc_lblNewLabel);
         
         btnUsuarios = new JButton("GESTIONAR USUARIOS");
-        btnUsuarios.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
+        btnUsuarios.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
         GridBagConstraints gbc_btnUsuarios = new GridBagConstraints();
         gbc_btnUsuarios.insets = new Insets(0, 0, 5, 5);
         gbc_btnUsuarios.gridx = 1;
@@ -81,7 +81,7 @@ public class Vista extends JFrame {
         contentPane.add(btnUsuarios, gbc_btnUsuarios);
         
         btnLibros = new JButton("GESTIONAR LIBROS");
-        btnLibros.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
+        btnLibros.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
         GridBagConstraints gbc_btnLibros = new GridBagConstraints();
         gbc_btnLibros.insets = new Insets(0, 0, 5, 5);
         gbc_btnLibros.gridx = 1;
@@ -93,8 +93,10 @@ public class Vista extends JFrame {
         contentPane.add(btnLibros, gbc_btnLibros);
         
         btnNewButton = new JButton("GENERAR REPORTE");
+        btnNewButton.setFont(new Font("Segoe UI", Font.BOLD | Font.ITALIC, 20));
         btnLibros.setFont(new Font("Tw Cen MT", Font.BOLD | Font.ITALIC, 20));
         GridBagConstraints gbc_generarReporte = new GridBagConstraints();
+        gbc_generarReporte.fill = GridBagConstraints.BOTH;
         gbc_generarReporte.gridwidth = 4;
         gbc_generarReporte.insets = new Insets(0, 0, 5, 5);
         gbc_generarReporte.gridx = 1;
