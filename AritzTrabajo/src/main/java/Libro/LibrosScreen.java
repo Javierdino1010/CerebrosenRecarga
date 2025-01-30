@@ -19,6 +19,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import MenuAdmin.ControladorVista;
 import MenuAdmin.Vista;
 import modelo.Usuario;
 
@@ -32,6 +33,7 @@ public class LibrosScreen extends JFrame {
     private JPanel contentPane;
     private JComboBox<String> comboBoxCategorias;
     private JTable table;
+    private JButton btnVolver;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public LibrosScreen() {
@@ -44,6 +46,7 @@ public class LibrosScreen extends JFrame {
         contentPane.setBackground(new Color(240, 248, 255));
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(10, 10));
+        setLocationRelativeTo(null);
 
         JPanel panelSuperior = new JPanel();
         panelSuperior.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -62,7 +65,7 @@ public class LibrosScreen extends JFrame {
         JButton btnModificar = crearBoton("Modificar", new Color(255, 140, 0), e -> modificarLibro());
         panelSuperior.add(btnModificar);
         
-        JButton btnVolver = crearBoton("Volver", new Color(100, 100, 100), e -> volver());
+        btnVolver = crearBoton("Volver", new Color(100, 100, 100), e -> volver());
         panelSuperior.add(btnVolver);
         
         JButton btnGenerarInforme = crearBoton("Exportar", new Color(255, 140, 0), e -> exportarLibro());
@@ -308,18 +311,13 @@ public class LibrosScreen extends JFrame {
 
     }
     private void volver() {
-        new Vista().setVisible(true);  // Muestra la ventana principal de la aplicación
-        dispose();  // Cierra la ventana actual
+//        Vista menuPrincipal = new Vista();
+//        new ControladorVista(menuPrincipal);
+//        menuPrincipal.setVisible(true);
+    }
+    
+    public void agregarListenerVolver(ActionListener listenForVolverButton) {
+        btnVolver.addActionListener(listenForVolverButton);
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                LibrosScreen frame = new LibrosScreen();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 }

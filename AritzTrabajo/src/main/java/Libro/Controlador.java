@@ -10,14 +10,20 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import MenuAdmin.ControladorVista;
+import MenuAdmin.Vista;
+
 public class Controlador {
 	
 	private LibrosScreenUsuario librosScreenUsuario;
+	private LibrosScreen librosScreen;
 
-	public Controlador(LibrosScreenUsuario librosScreenUsuario) {
+	public Controlador(LibrosScreenUsuario librosScreenUsuario, LibrosScreen librosScreen) {
 		this.librosScreenUsuario = librosScreenUsuario;
+		this.librosScreen = librosScreen;
 		
 		librosScreenUsuario.agregarListenerReservar(new aniadirListenerReserva());
+		librosScreen.agregarListenerVolver(new aniadirListenerVolver());
 	}
 	
 	class aniadirListenerReserva implements ActionListener {
@@ -36,6 +42,15 @@ public class Controlador {
 			
 		}
 	}
+	
+	class aniadirListenerVolver implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+	        Vista menuPrincipal = new Vista();
+	        new ControladorVista(menuPrincipal);
+	        menuPrincipal.setVisible(true);
+	        librosScreen.dispose();
+			}
+		}
 	
 	
 

@@ -2,7 +2,10 @@ package MenuAdmin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Libro.Controlador;
 import Libro.LibrosScreen;
+import Libro.LibrosScreenUsuario;
 import usuarios.ControladorUsuarios;
 import usuarios.VistaGestionUsuarios;
 import usuarios.VistaModificarUsuario;
@@ -33,7 +36,10 @@ public class ControladorVista {
     class LibrosListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             vista.dispose(); // Cierra la ventana actual
-            new LibrosScreen().setVisible(true); // Abre la pantalla de libros
+            LibrosScreen librosScreen = new LibrosScreen();
+            LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
+            new Controlador(librosScreenUsuario, librosScreen);
+            librosScreen.setVisible(true); // Abre la pantalla de libros
         }
     }
 

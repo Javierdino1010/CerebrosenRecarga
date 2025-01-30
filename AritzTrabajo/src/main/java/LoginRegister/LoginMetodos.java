@@ -71,7 +71,8 @@ public class LoginMetodos {
             	}else if(rol.equals("Usuario")) {
             		
           		LibrosScreenUsuario librosScreenUsuario = new LibrosScreenUsuario();
-           	    new Controlador(librosScreenUsuario);
+          		LibrosScreen librosScreen = new LibrosScreen();
+           	    new Controlador(librosScreenUsuario, librosScreen);
            	    
            	    usu.setLogin(true);
            	    session.update(usu);

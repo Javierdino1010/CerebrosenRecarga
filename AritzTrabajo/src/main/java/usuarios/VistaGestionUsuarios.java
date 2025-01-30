@@ -53,6 +53,7 @@ public class VistaGestionUsuarios extends JFrame {
         setBounds(100, 100, 600, 400);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setLocationRelativeTo(null);
 
         setContentPane(contentPane);
         contentPane.setBackground(new Color(240, 248, 255));

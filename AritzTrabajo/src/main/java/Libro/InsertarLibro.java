@@ -55,13 +55,7 @@ public class InsertarLibro extends JFrame {
         gbc.gridwidth = 3;
         contentPane.add(volver, gbc);
 
-        volver.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LibrosScreen.main(null);
-            }
-        });
+
 
         JLabel lblLibro = new JLabel("Título del libro:");
         lblLibro.setFont(new Font("Arial", Font.BOLD, 16));

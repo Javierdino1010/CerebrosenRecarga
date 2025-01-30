@@ -45,7 +45,7 @@ public class VistaRegister extends JFrame {
 
     public VistaRegister() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 650);
+        setBounds(100, 100, 673, 763);
         contentPane = new JPanel();
         contentPane.setBackground(new Color(235, 245, 255)); // Color suave para el fondo
         contentPane.setBorder(new EmptyBorder(20, 20, 20, 20));
