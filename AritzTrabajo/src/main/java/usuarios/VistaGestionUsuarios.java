@@ -86,21 +86,28 @@ public class VistaGestionUsuarios extends JFrame {
                 
                         // Evento para eliminar usuario
                         btnDeleteUser .addActionListener(e -> eliminarUsuarioSeleccionado());
+                        table = new JTable();
+                        table.setModel(new DefaultTableModel(
+                            new Object[][] {},
+                            new String[] {"DNI", "Nombre", "Apellidos", "Email", "Teléfono", "Rol"}
+                        ));
 
-        table = new JTable();
-        table.setModel(new DefaultTableModel(
-            new Object[][] {},
-            new String[] {"DNI", "Nombre", "Apellidos", "Email", "Teléfono", "Rol"}
-        ));
-        GridBagConstraints gbc_table = new GridBagConstraints();
-        gbc_table.gridheight = 3;
-        gbc_table.gridwidth = 8;
-        gbc_table.fill = GridBagConstraints.BOTH;
-        gbc_table.gridx = 0;
-        gbc_table.gridy = 3;
-        contentPane.add(new JScrollPane(table), gbc_table);
+                        JScrollPane scrollPane = new JScrollPane(table);
 
-        cargarUsuarios(); // Carga los datos al iniciar
+                        // Ajustar las restricciones para que ocupe más espacio
+                        GridBagConstraints gbc_table = new GridBagConstraints();
+                        gbc_table.gridheight = 3;
+                        gbc_table.gridwidth = 8;
+                        gbc_table.fill = GridBagConstraints.BOTH;
+                        gbc_table.weightx = 1.0;  // Hace que se expanda horizontalmente
+                        gbc_table.weighty = 1.0;  // Hace que se expanda verticalmente
+                        gbc_table.gridx = 0;
+                        gbc_table.gridy = 3;
+
+                        contentPane.add(scrollPane, gbc_table);
+
+                        cargarUsuarios(); // Carga los datos al iniciar
+
         
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
